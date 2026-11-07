@@ -93,6 +93,8 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
     </nav>
   </header>
 
+  <!-- Welkomstdeel: alleen op de startpagina, niet bij verdiepende artikelen -->
+  <sc-if value="{{noSel}}" hint-placeholder-val="{{ true }}">
   <!-- ===== Intro ===== -->
   <section style="padding: 44px 40px 0; display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: flex-start">
     <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
@@ -154,6 +156,7 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
       Leiderschap en cultuur
     </button>
   </nav>
+  </sc-if>
 </div>
 
 <sc-if value="{{noSel}}" hint-placeholder-val="{{ true }}">
