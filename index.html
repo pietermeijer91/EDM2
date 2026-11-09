@@ -814,6 +814,84 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
                     </sc-for>
                   </div>
                 </section>
+                <section id="kenmerken" style="display: flex; flex-direction: column; gap: 14px">
+                  <span style="align-self: flex-start; padding: 3px 12px; border-radius: 12px; background: #FFF1DA; color: #7A4A00; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase">Concept · ter bespreking</span>
+                  <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Wanneer functioneert een T4K goed?</h2>
+                  <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3E4A63">Een goed T4K is meer dan vier sterke rollen naast elkaar. Het is één leiderschapsteam dat samen verantwoordelijk is voor het ART-resultaat, van idee tot operatie. Deze zes kenmerken maken het verschil.</p>
+                  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+                    <sc-for list="{{t4kh.traits}}" as="tr" hint-placeholder-count="6">
+                      <div style="padding: 18px; border-radius: 14px; border: 1.5px solid #D5DBE5; display: flex; gap: 14px; align-items: flex-start">
+                        <span style="{{tr.iconBox}}"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="{{tr.icon}}" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        <span style="display: flex; flex-direction: column; gap: 4px">
+                          <span style="font-size: 16px; font-weight: 700; color: #1B2A5C">{{tr.title}}</span>
+                          <span style="font-size: 14px; line-height: 1.55; color: #3E4A63">{{tr.text}}</span>
+                        </span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </section>
+
+                <section id="signalen" style="display: flex; flex-direction: column; gap: 14px">
+                  <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Signalen: zo zie je het</h2>
+                  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+                    <div style="padding: 20px 22px; border-radius: 14px; background: #E8F4DA; display: flex; flex-direction: column; gap: 10px">
+                      <span style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; color: #2F4A0B"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#5E8A12"/><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="#FFFFFF" stroke-width="2.2"/></svg>Het werkt als…</span>
+                      <sc-for list="{{t4kh.good}}" as="g" hint-placeholder-count="6"><span style="display: flex; gap: 8px; font-size: 14px; line-height: 1.5; color: #1E3307"><span style="flex-shrink: 0; margin-top: 7px; width: 6px; height: 6px; border-radius: 50%; background: #5E8A12"></span>{{g.text}}</span></sc-for>
+                    </div>
+                    <div style="padding: 20px 22px; border-radius: 14px; background: #FCEBEE; display: flex; flex-direction: column; gap: 10px">
+                      <span style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; color: #8A0F23"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z" fill="#C8102E"/><path d="M12 10v5M12 18h.01" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/></svg>Let op als…</span>
+                      <sc-for list="{{t4kh.warn}}" as="w" hint-placeholder-count="6"><span style="display: flex; gap: 8px; font-size: 14px; line-height: 1.5; color: #4A1019"><span style="flex-shrink: 0; margin-top: 7px; width: 6px; height: 6px; border-radius: 50%; background: #C8102E"></span>{{w.text}}</span></sc-for>
+                    </div>
+                  </div>
+                </section>
+
+                <section id="ritme" style="display: flex; flex-direction: column; gap: 14px">
+                  <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Het ritme van het T4K</h2>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+                    <sc-for list="{{t4kh.rhythm}}" as="r" hint-placeholder-count="4">
+                      <div style="padding: 16px; border-radius: 14px; background: #F4F6FA; display: flex; flex-direction: column; gap: 6px">
+                        <span style="{{r.tag}}">{{r.when}}</span>
+                        <span style="font-size: 15px; font-weight: 700; color: #1B2A5C">{{r.title}}</span>
+                        <span style="font-size: 13px; line-height: 1.5; color: #3E4A63">{{r.text}}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </section>
+
+                <section id="zelfscan" style="display: flex; flex-direction: column; gap: 14px">
+                  <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Zelfscan: hoe staat ons T4K ervoor?</h2>
+                  <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3E4A63">Geef per stelling aan in hoeverre die klopt (1 = helemaal niet, 5 = helemaal wel). Doe het eerst ieder voor zich en vergelijk daarna: juist de verschillen geven het beste gesprek. De scan wordt niet opgeslagen.</p>
+                  <div style="display: flex; flex-direction: column; gap: 8px">
+                    <sc-for list="{{t4kh.scan}}" as="q" hint-placeholder-count="8">
+                      <div style="display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 12px 16px; border-radius: 12px; border: 1.5px solid #D5DBE5">
+                        <span style="{{q.tag}}">{{q.dim}}</span>
+                        <span style="font-size: 14px; line-height: 1.5; color: #1B2A5C">{{q.text}}</span>
+                        <span style="display: flex; gap: 4px" role="group" aria-label="Score">
+                          <sc-for list="{{q.opts}}" as="o" hint-placeholder-count="5"><button style="{{o.style}}" onClick="{{o.pick}}" aria-pressed="{{o.on}}" aria-label="Score {{o.v}}">{{o.v}}</button></sc-for>
+                        </span>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="padding: 22px; border-radius: 16px; background: #F4F6FA; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 24px; align-items: center">
+                    <div style="display: flex; flex-direction: column; gap: 10px">
+                      <sc-for list="{{t4kh.dims}}" as="d" hint-placeholder-count="5">
+                        <div style="display: grid; grid-template-columns: 110px minmax(0, 1fr) 40px; gap: 12px; align-items: center">
+                          <span style="font-size: 13px; font-weight: 700; color: #1B2A5C">{{d.name}}</span>
+                          <span style="display: block; height: 14px; border-radius: 7px; background: #E1E6EE; overflow: hidden"><span style="{{d.bar}}"></span></span>
+                          <span style="font-size: 13px; font-weight: 700; color: #1B2A5C; text-align: right">{{d.label}}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <div style="{{t4kh.verdictBox}}">
+                      <span style="font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; opacity: .85">Uitkomst</span>
+                      <span style="font-size: 34px; font-weight: 800; line-height: 1">{{t4kh.avg}}</span>
+                      <span style="font-size: 16px; font-weight: 700">{{t4kh.verdict}}</span>
+                      <span style="font-size: 13px; line-height: 1.5; opacity: .92">{{t4kh.advice}}</span>
+                      <button style="align-self: flex-start; margin-top: 4px; min-height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: rgba(255,255,255,.9); color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700" onClick="{{t4kh.reset}}">Opnieuw beginnen</button>
+                    </div>
+                  </div>
+                </section>
+
                 <section id="samen" style="padding: 24px 28px; border-radius: 14px; background: {{navy}}; color: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
                   <h2 style="margin: 0; font-size: 24px; font-weight: 700">Samen verantwoordelijk voor de hele CDP</h2>
                   <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #E6ECF5">Van idee tot operatie: het T4K draagt samen het ART-resultaat over de hele Continuous Delivery Pipeline. Werkvoorstel: bestaande formele mandaten blijven bij de bevoegde rollen en governance.</p>
@@ -1811,7 +1889,7 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { mode: null, sel: null, vptStep: 0, pfOpen: true, scale: 1, lace: false };
+    this.state = { mode: null, sel: null, vptStep: 0, pfOpen: true, scale: 1, lace: false, scan: {} };
   }
   componentDidMount() {
     this._fit = () => {
@@ -2576,6 +2654,45 @@ class Component extends DCLogic {
       gov: [['Risicobereidheid vastleggen', 'Business Owners maken de afgesproken risicotolerantie en bijbehorende policies duidelijk, niet alleen technisch, maar ook commercieel, financieel en qua investeringen.', 'M12 3v18M5 7h14M7 7l-3 6h6zM17 7l-3 6h6z', orange], ['Governance in de platformen', 'Geautomatiseerde evaluaties, policychecks, monitoring en traceerbaarheid in de gedeelde platformen en de AIIP: vroeg signaleren in plaats van een eindcontrole.', 'M3 6h6l3 6h9M3 18h6l3-6M18 9l3 3-3 3', blue], ['Standaarden voor consistentie', 'Gedeelde standaarden tegen hallucinaties, model drift, prompt injection en datalekken, zodat risico’s niet overslaan naar andere teams.', 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6zM8.5 12l2.5 2.5 4.5-5', navy], ['Menselijke verantwoording', 'Drempels voor goedkeuring en escalatie, met een benoemde goedkeurder en vastgelegd bewijs voor besluiten met een hoog risico.', 'M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21v-1a6 6 0 0 1 6-6h2M16 15l2 2 4-4', '#C8102E']]
         .map(([title, text, icon, color]) => ({ title, text, icon, color }))
     };
+    // ---- T4K: wanneer functioneert het goed (concept) ----
+    const DIMC = { Waarde: '#0E5F96', Techniek: '#00807E', Flow: '#3B7898', Mensen: '#7E8F10', Samen: navy };
+    const scanQ = [['Waarde', 'We sturen samen op ART- en PI-outcomes, niet alleen op opgeleverde features.'],
+      ['Techniek', 'Architectuur, technische schuld en enablers krijgen een vaste plek in onze afwegingen.'],
+      ['Flow', 'We hebben zicht op flow, afhankelijkheden en risico’s en sturen tijdig bij.'],
+      ['Mensen', 'People-onderwerpen (groei, capaciteit, kenniscontinuïteit) krijgen structureel tijd en capaciteit.'],
+      ['Samen', 'We weten wie waarover beslist; mandaatgrenzen zijn helder en worden gerespecteerd.'],
+      ['Samen', 'We spreken met één stem richting teams en Business Owners.'],
+      ['Samen', 'We bereiden PI Planning en Inspect & Adapt samen voor, in een vast ritme.'],
+      ['Samen', 'We evalueren regelmatig hoe we als T4K samenwerken en verbeteren dat.']];
+    const sc = this.state.scan || {};
+    const dimNames = ['Waarde', 'Techniek', 'Flow', 'Mensen', 'Samen'];
+    const answered = Object.keys(sc).length;
+    const allVals = Object.values(sc);
+    const avgN = answered ? allVals.reduce((a, b) => a + b, 0) / answered : 0;
+    const t4kh = {
+      traits: [['Eén gezamenlijk ART-resultaat', 'Het T4K stuurt samen op de uitkomsten van de ART over de hele CDP, niet ieder op zijn eigen deel.', 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2z', navy],
+        ['Vier hoekpunten in balans', 'Waarde, techniek, flow en mensen wegen alle vier mee. Geen rol domineert en geen perspectief valt structureel weg.', 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z', '#0E5F96'],
+        ['Heldere mandaten', 'Iedereen weet wie waarover beslist. Formele mandaten blijven bij de bevoegde rollen; het T4K adviseert en verbindt.', 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6zM8.5 12l2.5 2.5 4.5-5', '#00807E'],
+        ['Eén stem naar buiten', 'Teams en Business Owners krijgen consistente richting. Meningsverschillen worden binnen het T4K beslecht.', 'M3 11l18-8-8 18-2-8z', '#3B7898'],
+        ['Transparant en datagedreven', 'Besluiten zijn gebaseerd op zichtbare data over outcomes, flow, kwaliteit en mensen, en worden gedeeld.', 'M4 20V10M10 20V4M16 20v-8M22 20H2', '#7E8F10'],
+        ['Lerend en voorbeeldgedrag', 'Het T4K reflecteert op de eigen samenwerking, vraagt feedback en laat het gewenste gedrag zelf zien.', 'M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4', orange]]
+        .map(([title, text, icon, c]) => ({ title, text, icon, iconBox: 'flex-shrink:0;display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:' + c })),
+      good: ['Het T4K bereidt PI Planning samen voor en komt met één gedeeld beeld van prioriteiten, risico’s en capaciteit', 'Run, change, enablers en people-onderwerpen worden in één afweging gemaakt', 'Afhankelijkheden en risico’s komen vroeg op tafel, niet pas bij de Go-Live', 'Teams ervaren duidelijke en consistente richting', 'Lastige keuzes worden expliciet gemaakt en vastgelegd, inclusief het waarom', 'Business Owners hebben vertrouwen in de voorspelbaarheid van de ART'].map((text) => ({ text })),
+      warn: ['Eén rol neemt de meeste besluiten, of het T4K is eigenlijk een triade zonder de People Developer', 'People- of technische onderwerpen verliezen het steeds van features', 'Teams krijgen van verschillende T4K-leden tegenstrijdige signalen', 'Het gesprek gaat vooral over output en planning, nauwelijks over outcomes', 'Besluiten worden onnodig opgeschaald of blijven liggen', 'Het T4K overlegt alleen als er een probleem is'].map((text) => ({ text })),
+      rhythm: [['Wekelijks', 'T4K-sync', 'Voortgang op outcomes, risico’s, afhankelijkheden, capaciteit en mensen. Besluiten vastleggen.', blue], ['Per iteratie', 'Sense and Respond', 'Bewijs uit demo’s en metrics vertalen naar bijsturing over de hele ART.', cyan], ['Vóór elke PI', 'PI-voorbereiding', 'Samen visie, prioriteiten, capaciteitsverdeling en readiness voorbereiden.', orange], ['Na elke PI', 'T4K-retrospective', 'Na Inspect & Adapt: hoe hebben we als T4K samengewerkt en wat verbeteren we?', green]]
+        .map(([when, title, text, c]) => ({ when, title, text, tag: 'align-self:flex-start;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:800;background:' + c + ';color:' + (c === orange || c === green ? '#1F1A00' : '#FFFFFF') })),
+      scan: scanQ.map(([dim, text], i) => ({ dim, text,
+        tag: 'justify-self:start;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:800;color:#FFFFFF;background:' + DIMC[dim],
+        opts: [1, 2, 3, 4, 5].map((v) => { const on = sc[i] === v; return { v, on, pick: () => this.setState({ scan: Object.assign({}, this.state.scan, { [i]: v }) }),
+          style: 'width:36px;height:36px;border-radius:50%;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;' + (on ? 'border:0;background:' + DIMC[dim] + ';color:#FFFFFF' : 'border:1.5px solid #C9D1DD;background:#FFFFFF;color:#1B2A5C') }; }) })),
+      dims: dimNames.map((name) => { const idx = scanQ.map((q, i) => q[0] === name ? i : -1).filter((i) => i >= 0 && sc[i]); const v = idx.length ? idx.reduce((a, i) => a + sc[i], 0) / idx.length : 0;
+        return { name, label: v ? v.toFixed(1) : '–', bar: 'display:block;height:100%;width:' + (v / 5 * 100) + '%;border-radius:7px;background:' + DIMC[name] }; }),
+      avg: answered ? avgN.toFixed(1) + ' / 5' : '– / 5',
+      verdict: !answered ? 'Vul de stellingen in' : (answered < scanQ.length ? 'Nog ' + (scanQ.length - answered) + ' stelling(en) te gaan' : (avgN >= 4 ? 'Sterk T4K' : (avgN >= 3 ? 'Goed op weg' : 'Aandacht nodig'))),
+      advice: !answered ? 'Je ziet hier direct de uitkomst per hoekpunt en voor de samenwerking.' : (avgN >= 4 ? 'Houd het ritme vast en deel wat werkt met andere T4K’s.' : (avgN >= 3 ? 'Kies samen de laagst scorende dimensie en maak er één concrete verbeterafspraak over.' : 'Plan een T4K-sessie, eventueel met het LACE, om rollen, mandaten en ritme opnieuw scherp te krijgen.')),
+      verdictBox: 'padding:20px;border-radius:14px;color:#FFFFFF;display:flex;flex-direction:column;gap:6px;background:' + (!answered || answered < scanQ.length ? '#5A6478' : (avgN >= 4 ? '#5E8A12' : (avgN >= 3 ? '#0E5F96' : '#C8102E'))),
+      reset: () => this.setState({ scan: {} })
+    };
     const t4kOrder = ['pm', 'sa', 'rte', 'peopledev'];
     I.t4k = ['Tactisch vierkant (T4K)', 'Het tactisch vierkant is het leiderschapsteam van de ART: Product Manager, System Architect, Release Train Engineer en People Developer. Vier rollen – waarde, techniek, flow en mensen – met één gezamenlijk ART-resultaat, van idee tot operatie.', null];
     open.t4k = () => this.setState({ sel: 't4k' });
@@ -2656,7 +2773,7 @@ class Component extends DCLogic {
           return { abbr: R[k].abbr, full: R[k].full, theme, color, bijdrage: R[k].bijdrage, afst: R[k].t4kAfst, pick: () => this.setState({ sel: k }),
             tile: 'min-height:150px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:8px;border:0;cursor:pointer;font-family:inherit;text-align:left;border-radius:' + radius + ';background:' + bg + ';color:' + fg };
         });
-        page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }, { id: 'vier-rollen', h: 'Vier rollen, één resultaat' }, { id: 'samen', h: 'Samen verantwoordelijk' }];
+        page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }, { id: 'vier-rollen', h: 'Vier rollen, één resultaat' }, { id: 'kenmerken', h: 'Wanneer werkt een T4K goed?' }, { id: 'signalen', h: 'Signalen' }, { id: 'ritme', h: 'Het ritme' }, { id: 'zelfscan', h: 'Zelfscan' }, { id: 'samen', h: 'Samen verantwoordelijk' }]; page.minutes = 6;
       }
       if (cur === 'art' && ai) { page.isAIART = true; page.toc.push({ id: 'zes-kenmerken', h: 'Zes kenmerken' }, { id: 'k1', h: '1. Rond producten' }, { id: 'k2', h: '2. Outcome-gedreven' }, { id: 'k3', h: '3. Menselijk oordeel' }, { id: 'k4', h: '4. Innovatie en cadans' }, { id: 'k5', h: '5. Gedeelde AI-workflows' }, { id: 'k6', h: '6. AI-governance' }); page.minutes = 12; }
       if (cur === 'value') { page.isBV = true; page.toc.push({ id: 'waardedraad', h: 'Waarde verbindt beslissingen' }, { id: 'hefboom', h: 'Hefboompunten' }, { id: 'valkuil', h: 'Waardefocus' }, { id: 'waarde-in-safe', h: 'Waarde in het model' }, { id: 'meten', h: 'Meten op resultaat' }); page.minutes = 6; }
@@ -2673,7 +2790,7 @@ class Component extends DCLogic {
     const off = 'display:flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:30px;border:0;cursor:pointer;font-family:inherit;font-size:18px;font-weight:500;background:transparent;color:#1B2A5C';
 
     return {
-      navy, blue, cyan, orange, green, play, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart,
+      navy, blue, cyan, orange, green, play, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh,
       pfOpen: !!this.state.pfOpen, pfClosed: !this.state.pfOpen,
       togglePf: () => this.setState({ pfOpen: !this.state.pfOpen }),
       shiftY: this.state.pfOpen ? 0 : -240,
