@@ -91,10 +91,10 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
         Concepten
         <span style="display: flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 11px; background: {{orange}}; color: #2B1A00; font-size: 12px; font-weight: 800">{{wow.open}}</span>
       </button>
-      <a href="{{artieUrl}}" target="_blank" rel="noopener" style="margin-left: 12px; min-height: 44px; padding: 0 20px; display: flex; align-items: center; gap: 10px; border-radius: 22px; background: #F39200; color: #2B1A00; font-size: 15px; font-weight: 700; text-decoration: none">
+      <button onClick="{{openArtie}}" style="margin-left: 12px; border: 0; cursor: pointer; font-family: inherit; min-height: 44px; padding: 0 20px; display: flex; align-items: center; gap: 10px; border-radius: 22px; background: #F39200; color: #2B1A00; font-size: 15px; font-weight: 700; text-decoration: none">
         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="#2B1A00" stroke-width="2" stroke-linejoin="round"/><circle cx="9" cy="10.5" r="1.3" fill="#2B1A00"/><circle cx="15" cy="10.5" r="1.3" fill="#2B1A00"/></svg>
         Vraag het ARTie
-      </a>
+      </button>
       <button style="margin-left: 10px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1.5px solid #D5DBE5; background: #FFFFFF; cursor: pointer; padding: 0" onClick="{{toggleDark}}" aria-pressed="{{isDark}}" aria-label="{{darkLabel}}" title="{{darkLabel}}">
         <sc-if value="{{notDark}}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="#1B2A5C"/></svg></sc-if>
         <sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="#F39200"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="#F39200" stroke-width="2" stroke-linecap="round"/></svg></sc-if>
@@ -109,7 +109,18 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
     <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
       <h1 style="margin: 0; font-size: 52px; line-height: 1.1; font-weight: 700; letter-spacing: -1px; color: #1B2A5C">Welkom bij het EDSN Delivery Model</h1>
       <p style="margin: 0; font-size: 19px; line-height: 1.65; color: #2E3A55">Hoe leveren we bij EDSN samen waarde voor de energieketen? Het Delivery Model laat het zien: van strategie en portfolio tot de teams die elke dag bouwen aan betrouwbare ketenvoorzieningen. <strong>Basis EDSN</strong> is onze Lean-Agile manier van werken, gebaseerd op SAFe. <strong>AI-Native EDSN</strong> bouwt daarop voort en laat zien hoe mensen en AI samen sneller, slimmer en verantwoord meer waarde creëren.</p>
-      <p style="margin: 0; font-size: 17px; font-weight: 600; color: #0062A3">Klik op een onderdeel in de Big Picture voor uitleg, rollen en verantwoordelijkheden.</p>
+      <div style="position: relative; max-width: 820px; margin-top: 6px">
+        <form onSubmit="{{ask.submit}}" role="search" style="display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 20px; border: 2px solid #1B2A5C; border-radius: 32px; background: #FFFFFF">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex-shrink: 0"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="#1B2A5C" stroke-width="2.4"/><path d="M15.5 15.5L21 21" stroke="#1B2A5C" stroke-width="2.4" stroke-linecap="round"/></svg>
+          <input id="edm-ask" type="text" autocomplete="off" spellcheck="false" aria-label="Stel je vraag over het Delivery Model" aria-controls="edm-ask-res" placeholder="Stel je vraag, bijv. ‘Wat doet een RTE?’" onInput="{{ask.input}}" onFocus="{{ask.input}}" onKeyDown="{{ask.key}}" style="flex: 1; min-width: 0; min-height: 46px; border: 0; outline: none; background: transparent; font-family: inherit; font-size: 17px; color: #1B2A5C">
+          <button type="submit" style="flex-shrink: 0; min-height: 46px; padding: 0 20px; display: flex; align-items: center; gap: 8px; border: 0; border-radius: 24px; background: #F39200; color: #2B1A00; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 700">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="#2B1A00" stroke-width="2" stroke-linejoin="round"/></svg>
+            Vraag het ARTie
+          </button>
+        </form>
+        <div id="edm-ask-res" role="listbox" aria-label="Antwoorden uit het Delivery Model" onClick="{{ask.pick}}" style="display: none; position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 60; max-height: 460px; overflow: auto; padding: 8px; border-radius: 18px; border: 1.5px solid #D5DBE5; background: #FFFFFF; box-shadow: 0 14px 36px rgba(27, 42, 92, 0.18)"></div>
+      </div>
+      <p style="margin: 0; font-size: 15px; font-weight: 600; color: #0062A3">Of klik op een onderdeel in de Big Picture voor uitleg, rollen en verantwoordelijkheden.</p>
     </div>
     <div style="width: 340px; flex-shrink: 0; padding: 24px 26px; border-radius: 14px; background: #1B2A5C; color: #FFFFFF; display: flex; flex-direction: column; gap: 12px">
       <span style="display: flex; align-items: center; gap: 12px">
@@ -119,10 +130,10 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
         <span style="font-size: 20px; font-weight: 700">Vraag het ARTie</span>
       </span>
       <span style="font-size: 15px; line-height: 1.55; color: #DCE3EF">Vragen over rollen, events of de werkwijze? ARTie, onze chatbot, helpt je direct op weg.</span>
-      <a href="{{artieUrl}}" target="_blank" rel="noopener" style="align-self: flex-start; min-height: 44px; padding: 0 20px; display: flex; align-items: center; gap: 8px; border-radius: 22px; background: #FFFFFF; color: #1B2A5C; font-size: 15px; font-weight: 700; text-decoration: none">
+      <button style="align-self: flex-start; min-height: 44px; padding: 0 20px; display: flex; align-items: center; gap: 8px; border: 0; border-radius: 22px; background: #FFFFFF; color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 700" onClick="{{openArtie}}">
         Start een gesprek
         <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="#1B2A5C" stroke-width="2" stroke-linecap="round"/></svg>
-      </a>
+      </button>
     </div>
   </section>
 
@@ -1903,6 +1914,33 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
       </div>
     </div>
   </sc-if>
+
+  <!-- ===== ARTie-paneel (Copilot Studio) ===== -->
+  <sc-if value="{{artie.open}}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 900; background: rgba(14, 26, 63, 0.35)" onClick="{{artie.close}}"></div>
+    <aside role="dialog" aria-modal="true" aria-label="ARTie" style="position: fixed; top: 0; right: 0; bottom: 0; z-index: 901; width: min(460px, 100vw); display: flex; flex-direction: column; background: #FFFFFF; box-shadow: -12px 0 40px rgba(14, 26, 63, 0.25); font-family: Poppins, 'Segoe UI', sans-serif">
+      <div style="padding: 16px 18px; display: flex; align-items: center; gap: 12px; background: #1B2A5C; color: #FFFFFF">
+        <span style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: #F39200; flex-shrink: 0">
+          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="3" y="6" width="16" height="12" rx="3" fill="#2B1A00"/><circle cx="8" cy="12" r="1.8" fill="#F39200"/><circle cx="14" cy="12" r="1.8" fill="#F39200"/><path d="M11 6V2" stroke="#2B1A00" stroke-width="2"/><circle cx="11" cy="2" r="1.5" fill="#2B1A00"/></svg>
+        </span>
+        <span style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 17px; font-weight: 700">ARTie</span><span style="font-size: 12px; color: #C9D3E6">Jouw WoW-assistent · antwoorden op basis van het Delivery Model</span></span>
+        <button aria-label="Sluit ARTie" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.12); cursor: pointer" onClick="{{artie.close}}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+      </div>
+      <sc-if value="{{artie.hasQ}}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 10px 18px; background: #FFF8EC; border-bottom: 1px solid #F3DDB5; font-size: 13px; line-height: 1.5; color: #5A3A00">Je vraag <strong>‘{{artie.q}}’</strong> staat op je klembord. Plak hem in het gesprek (Ctrl+V).</div>
+      </sc-if>
+      <sc-if value="{{artie.hasEmbed}}" hint-placeholder-val="{{ false }}">
+        <iframe title="ARTie chat" src="{{artie.embed}}" style="flex: 1; width: 100%; border: 0"></iframe>
+      </sc-if>
+      <sc-if value="{{artie.noEmbed}}" hint-placeholder-val="{{ true }}">
+        <div style="flex: 1; padding: 24px 22px; display: flex; flex-direction: column; gap: 14px; overflow: auto">
+          <span style="font-size: 18px; font-weight: 700; color: #1B2A5C">ARTie wordt hier gekoppeld</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #3E4A63">Zodra de Copilot Studio-link van ARTie is ingesteld, voer je het gesprek hier direct naast de Big Picture. Tot die tijd vind je via de zoekbalk bovenaan snel het juiste onderdeel.</span>
+          <a href="{{artieUrl}}" target="_blank" rel="noopener" style="align-self: flex-start; min-height: 44px; padding: 0 20px; display: flex; align-items: center; border-radius: 22px; background: #F39200; color: #2B1A00; font-size: 14px; font-weight: 700; text-decoration: none">Open ARTie in een nieuw venster</a>
+        </div>
+      </sc-if>
+    </aside>
+  </sc-if>
 </div>
 </template>
 <script>
@@ -1973,7 +2011,7 @@ class Component extends DCLogic {
     try { dark = window.localStorage.getItem('edm-dark') === '1'; } catch (e) {}
     let unlocked = false;
     try { unlocked = window.sessionStorage.getItem('edm-concepts') === '1'; } catch (e) {}
-    this.state = { mode: null, sel: null, vptStep: 0, pfOpen: true, scale: 1, lace: false, scan: {}, dark, cview: 'current', unlocked, pwErr: false };
+    this.state = { mode: null, sel: null, vptStep: 0, pfOpen: true, scale: 1, lace: false, scan: {}, dark, cview: 'current', unlocked, pwErr: false, artie: false, artieQ: '' };
   }
   _theme() {
     // Nachtmodus: zet lichte vlakken om naar donker en donkere tekst naar licht; merkkleuren blijven gelijk.
@@ -2033,13 +2071,22 @@ class Component extends DCLogic {
     };
     this._fit();
     try { window.addEventListener('resize', this._fit); } catch (e) {}
+    // Deeplinks: #rte, #t4k ... en terug-knop van de browser
+    this._fromHash = () => { let h = ''; try { h = decodeURIComponent((window.location.hash || '').slice(1)); } catch (e) {} const k = h && h !== 'start' ? h : null; if (k !== this.state.sel) this.setState({ sel: k }); };
+    try { this._fromHash(); window.addEventListener('popstate', this._fromHash); } catch (e) {}
+    this._docClick = (e) => { try { const r = document.getElementById('edm-ask-res'); const inp = document.getElementById('edm-ask'); if (r && !r.contains(e.target) && e.target !== inp) r.style.display = 'none'; } catch (er) {} };
+    try { document.addEventListener('click', this._docClick); } catch (e) {}
+    try { window.__edm = { go: (k, m) => this.setState({ sel: k, mode: m || this.state.mode }), keys: () => (this._order || []).slice() }; } catch (e) {}
     this._theme();
   }
   componentWillUnmount() {
     try { window.removeEventListener('resize', this._fit); } catch (e) {}
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevState && prevState.sel !== this.state.sel) { try { window.scrollTo(0, 0); } catch (e) {} }
+    if (prevState && prevState.sel !== this.state.sel) {
+      try { window.scrollTo(0, 0); } catch (e) {}
+      try { const want = this.state.sel ? '#' + this.state.sel : ''; if ((window.location.hash || '') !== want) window.history.pushState(null, '', want || (window.location.pathname + window.location.search)); } catch (e) {}
+    }
     this._theme();
   }
   renderVals() {
@@ -2878,6 +2925,92 @@ class Component extends DCLogic {
     ['ee', 'ade', 'itf'].forEach((k) => order.splice(order.indexOf(k), 1));
     order.splice(order.indexOf('vpt') + 1, 0, 'ade', 'ee', 'itf');
     order.splice(order.indexOf('teams') + 1, 0, 'sp');
+    this._order = order;
+    // ---- Vraagbalk: snel antwoord uit de inhoud van het Delivery Model ----
+    const norm = (x) => String(x || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const STOP = new Set('de het een en of in op aan van voor met bij naar over door om te tot uit als dat die dit deze wat wie hoe waar waarom wanneer welke welk is zijn was wordt worden word kan kun kunnen moet moeten mag doet doen je jij jullie ik we wij ons onze mijn er niet geen wel ook nog dan maar zo heel veel meer edsn'.split(' '));
+    const esc = (x) => String(x).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+    const idx = order.filter((k) => I[k] && C[k] && k !== 'concepts').map((k) => {
+      const c = C[k];
+      const body = [].concat((c.x || []).map((x) => x[0] + '. ' + x[1]), c.k || [], c.e ? [c.e] : []).join(' ');
+      const ALIAS = { t4k: 't4k tactisch vierkant', vpt: 'vpt feature kanban', sp: 'story points sp', itf: 'itf it foundation', ee: 'engineering enablement', ade: 'art development enablement run beheer', pi: 'pi planning' };
+      const rr = typeof R !== 'undefined' && R[k] ? R[k] : null;
+      const alias = (rr ? rr.abbr + ' ' + rr.full + ' ' : '') + (ALIAS[k] || '');
+      const body2 = body + (rr ? ' ' + rr.kern + ' ' + (rr.intro || '') : '');
+      return { k, title: I[k][0], group: c.g || '', summary: I[k][1] || '', body: body2, nt: norm(I[k][0] + ' ' + alias), ng: norm(c.g), ns: norm(I[k][1]), nb: norm(body2) };
+    });
+    const doSearch = (q) => {
+      const terms = norm(q).split(/[^a-z0-9]+/).filter((w) => w.length > 1 && !STOP.has(w));
+      if (!terms.length) return { terms, hits: [] };
+      const hits = idx.map((d) => {
+        let sc = 0, all = true;
+        terms.forEach((w) => {
+          const re = new RegExp('(^|[^a-z0-9])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+          let s1 = 0;
+          if (d.nt === w) s1 += 20; if (re.test(d.nt)) s1 += 10; else if (d.nt.includes(w)) s1 += 6;
+          if (d.ng.includes(w)) s1 += 2;
+          if (re.test(d.ns)) s1 += 4; else if (d.ns.includes(w)) s1 += 2;
+          const m = (d.nb.match(new RegExp('(^|[^a-z0-9])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length; s1 += Math.min(m, 4);
+          if (!s1) all = false; sc += s1;
+        });
+        return { d, sc: sc + (all ? 5 : 0) };
+      }).filter((h) => h.sc > 0).sort((a, b) => b.sc - a.sc).slice(0, 5);
+      return { terms, hits };
+    };
+    const snippet = (d, terms, first) => {
+      const sents = (d.summary + ' ' + d.body).split(/(?<=[.!?])\s+/);
+      const hasW = (x, w) => new RegExp('(^|[^a-z0-9])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).test(norm(x));
+      const best = sents.filter((x) => x.length > 40 && !/\?$/.test(x)).map((x) => ({ x, n: terms.filter((w) => hasW(x, w)).length })).sort((a, b) => b.n - a.n)[0];
+      let txt = first ? d.summary : (best && best.n ? best.x : d.summary);
+      if (txt.length > 260) txt = txt.slice(0, 257) + '…';
+      let h = esc(txt);
+      terms.forEach((w) => { h = h.replace(new RegExp('(?<![A-Za-z0-9À-ÿ])(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[a-z]*)', 'gi'), '<mark style="background:#FFE3B3;color:inherit;border-radius:3px;padding:0 2px">$1</mark>'); });
+      return h;
+    };
+    const askArtie = (q) => {
+      const qq = String(q || '').trim();
+      if (qq) { try { navigator.clipboard && navigator.clipboard.writeText(qq).catch(() => {}); } catch (e) {} }
+      const r = document.getElementById('edm-ask-res'); if (r) r.style.display = 'none';
+      this.setState({ artie: true, artieQ: qq });
+    };
+    const ask = {
+      input: () => {
+        const inp = document.getElementById('edm-ask'); const r = document.getElementById('edm-ask-res'); if (!inp || !r) return;
+        const q = inp.value.trim(); if (q.length < 2) { r.style.display = 'none'; r.innerHTML = ''; return; }
+        const dk = !!this.state.dark; const fg = dk ? '#E8EDF6' : '#1B2A5C', sub = dk ? '#AEB8CC' : '#3E4A63', bg = dk ? '#1A2440' : '#FFFFFF', hv = dk ? '#24305A' : '#F4F6FA', bd = dk ? '#2E3B63' : '#D5DBE5';
+        r.style.background = bg; r.style.borderColor = bd;
+        const { terms, hits } = doSearch(q);
+        let html = '';
+        if (!hits.length) html += '<div style="padding:14px 16px;font-size:14px;color:' + sub + '">Geen onderdeel gevonden voor <strong style="color:' + fg + '">' + esc(q) + '</strong>.</div>';
+        hits.forEach((h, i) => {
+          const d = h.d;
+          if (i === 0) {
+            html += '<button type="button" role="option" data-k="' + d.k + '" style="display:flex;flex-direction:column;gap:6px;width:100%;text-align:left;padding:16px 18px;margin-bottom:6px;border:0;border-radius:14px;background:' + hv + ';cursor:pointer;font-family:inherit">'
+              + '<span style="font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#C26F00">Beste antwoord · ' + esc(d.group) + '</span>'
+              + '<span style="font-size:18px;font-weight:700;color:' + fg + '">' + esc(d.title) + '</span>'
+              + '<span style="font-size:14px;line-height:1.6;color:' + sub + '">' + snippet(d, terms, true) + '</span>'
+              + '<span style="font-size:13px;font-weight:700;color:#0072BC">Lees het hele onderdeel →</span></button>';
+          } else {
+            html += '<button type="button" role="option" data-k="' + d.k + '" style="display:flex;flex-direction:column;gap:2px;width:100%;text-align:left;padding:10px 18px;border:0;border-radius:10px;background:transparent;cursor:pointer;font-family:inherit">'
+              + '<span style="font-size:15px;font-weight:700;color:' + fg + '">' + esc(d.title) + ' <span style="font-size:12px;font-weight:600;color:' + sub + '">· ' + esc(d.group) + '</span></span>'
+              + '<span style="font-size:13px;line-height:1.5;color:' + sub + '">' + snippet(d, terms) + '</span></button>';
+          }
+        });
+        html += '<button type="button" data-artie="1" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;margin-top:6px;padding:12px 18px;border:0;border-top:1px solid ' + bd + ';border-radius:0 0 10px 10px;background:transparent;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:' + fg + '">'
+          + '<span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#F39200;color:#2B1A00;font-size:13px">AI</span>Vraag het ARTie: ‘' + esc(q) + '’</button>';
+        r.innerHTML = html; r.style.display = 'block';
+      },
+      key: (e) => { if (e.key === 'Escape') { const r = document.getElementById('edm-ask-res'); if (r) r.style.display = 'none'; } },
+      pick: (e) => {
+        const b = e.target && e.target.closest ? e.target.closest('[data-k],[data-artie]') : null; if (!b) return;
+        const r = document.getElementById('edm-ask-res'); if (r) r.style.display = 'none';
+        if (b.getAttribute('data-artie')) { const inp = document.getElementById('edm-ask'); askArtie(inp ? inp.value : ''); return; }
+        this.setState({ sel: b.getAttribute('data-k') });
+      },
+      submit: (e) => { if (e && e.preventDefault) e.preventDefault(); const inp = document.getElementById('edm-ask'); askArtie(inp ? inp.value : ''); }
+    };
+    const embed = String(p.artieEmbed || '').trim();
+    const artie = { open: !!this.state.artie, close: () => this.setState({ artie: false }), q: this.state.artieQ || '', hasQ: !!this.state.artieQ, embed, hasEmbed: /^https:\/\//.test(embed), noEmbed: !/^https:\/\//.test(embed) };
     const cur = this.state.sel && C[this.state.sel] ? this.state.sel : null;
     const emptyRole = { abbr: '', full: '', fullBr: '', color: '#1B2A5C', tint: '#EEF2F7', theme: '', kern: '', intro: '', wheel: [], doelen: [], ai: [], resp: [], meet: [], afst: '', top: { h: '', t: '' }, left: { h: '', t: '' }, right: { h: '', t: '' }, bottom: { h: '', t: '' }, mandaat: '', kpi: [], relatie: [], ontw: [], strat: '' };
     let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false };
@@ -2964,7 +3097,8 @@ class Component extends DCLogic {
     const off = 'display:flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:30px;border:0;cursor:pointer;font-family:inherit;font-size:18px;font-weight:500;background:transparent;color:#1B2A5C';
 
     return {
-      navy, blue, cyan, orange, green, play, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock,
+      navy, blue, cyan, orange, green, play, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie,
+      openArtie: () => this.setState({ artie: true, artieQ: '' }),
       openConcepts: () => this.setState({ sel: 'concepts' }),
       pfOpen: !!this.state.pfOpen, pfClosed: !this.state.pfOpen,
       togglePf: () => this.setState({ pfOpen: !this.state.pfOpen }),
@@ -2994,7 +3128,7 @@ class Component extends DCLogic {
   }
 }
 
-mountDC(Component, {"navy": "#1B2A5C", "blue": "#0072BC", "cyan": "#00A6D6", "orange": "#F39200", "green": "#95C11F", "aiDeep": "#3A1D6E", "aiPrimary": "#6E44B8", "aiSecondary": "#A47FE0", "artieUrl": "#", "compact": 0.86, "animate": true, "startMode": "core"}, document.getElementById('tpl').content, document.getElementById('app'));
+mountDC(Component, {"navy": "#1B2A5C", "blue": "#0072BC", "cyan": "#00A6D6", "orange": "#F39200", "green": "#95C11F", "aiDeep": "#3A1D6E", "aiPrimary": "#6E44B8", "aiSecondary": "#A47FE0", "artieUrl": "#", "artieEmbed": "", "compact": 0.86, "animate": true, "startMode": "core"}, document.getElementById('tpl').content, document.getElementById('app'));
 </script>
 </body>
 </html>
