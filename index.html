@@ -105,7 +105,7 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
   <!-- Welkomstdeel: alleen op de startpagina, niet bij verdiepende artikelen -->
   <sc-if value="{{noSel}}" hint-placeholder-val="{{ true }}">
   <!-- ===== Intro ===== -->
-  <section style="padding: 44px 40px 0; display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: flex-start">
+  <section style="padding: 44px 40px 32px; display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: flex-start">
     <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
       <h1 style="margin: 0; font-size: 52px; line-height: 1.1; font-weight: 700; letter-spacing: -1px; color: #1B2A5C">Welkom bij het EDSN Delivery Model</h1>
       <p style="margin: 0; font-size: 19px; line-height: 1.65; color: #2E3A55">Hoe leveren we bij EDSN samen waarde voor de energieketen? Het Delivery Model laat het zien: van strategie en portfolio tot de teams die elke dag bouwen aan betrouwbare ketenvoorzieningen. <strong>Basis EDSN</strong> is onze Lean-Agile manier van werken, gebaseerd op SAFe. <strong>AI-Native EDSN</strong> bouwt daarop voort en laat zien hoe mensen en AI samen sneller, slimmer en verantwoord meer waarde creëren.</p>
@@ -126,45 +126,6 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
     </div>
   </section>
 
-  <!-- ===== Tegels ===== -->
-  <nav style="padding: 36px 40px 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px" aria-label="Onderwerpen">
-    <button style="min-height: 150px; padding: 22px 20px; display: flex; align-items: center; gap: 16px; border: 0; border-top: 5px solid #F39200; background: #1B2A5C; color: #FFFFFF; cursor: pointer; font-family: inherit; font-size: 17px; font-weight: 500; text-align: left" onClick="{{close}}">
-      <span style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: #FFFFFF">
-        <svg width="34" height="30" viewBox="0 0 34 30" aria-hidden="true"><rect x="2" y="2" width="30" height="7" rx="3.5" fill="#1B2A5C"/><rect x="2" y="11.5" width="30" height="7" rx="3.5" fill="#F39200"/><rect x="2" y="21" width="30" height="7" rx="3.5" fill="#00A6D6"/></svg>
-      </span>
-      Big Picture
-    </button>
-    <button style="min-height: 150px; padding: 22px 20px; display: flex; align-items: center; gap: 16px; border: 0; border-top: 5px solid #1B2A5C; background: #F1F4F8; color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 17px; font-weight: 500; text-align: left" onClick="{{open.portfolio}}">
-      <span style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: #FFFFFF; border: 1.5px solid #D5DBE5">
-        <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><g fill="#1B2A5C"><circle cx="5" cy="5" r="3"/><circle cx="13" cy="5" r="3"/><circle cx="5" cy="13" r="3"/><circle cx="5" cy="21" r="3"/><circle cx="13" cy="21" r="3"/><circle cx="5" cy="27" r="2.5"/></g><g fill="#F39200"><circle cx="21" cy="5" r="3"/><circle cx="13" cy="13" r="3"/><circle cx="21" cy="13" r="3"/><circle cx="27" cy="13" r="2.5"/><circle cx="21" cy="21" r="3"/></g></svg>
-      </span>
-      Portfolio en strategie
-    </button>
-    <button style="min-height: 150px; padding: 22px 20px; display: flex; align-items: center; gap: 16px; border: 0; border-top: 5px solid #1B2A5C; background: #F1F4F8; color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 17px; font-weight: 500; text-align: left" onClick="{{open.t4k}}">
-      <span style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: #FFFFFF; border: 1.5px solid #D5DBE5">
-        <span style="display: grid; grid-template-columns: repeat(2, 13px); gap: 3px"><span style="height: 13px; border-radius: 4px 1px 1px 1px; background: #0E5F96"></span><span style="height: 13px; border-radius: 1px 4px 1px 1px; background: #00807E"></span><span style="height: 13px; border-radius: 1px 1px 1px 4px; background: #3B7898"></span><span style="height: 13px; border-radius: 1px 1px 4px 1px; background: #A9BC2B"></span></span>
-      </span>
-      Tactisch vierkant en rollen
-    </button>
-    <button style="min-height: 150px; padding: 22px 20px; display: flex; align-items: center; gap: 16px; border: 0; border-top: 5px solid #1B2A5C; background: #F1F4F8; color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 17px; font-weight: 500; text-align: left" onClick="{{open.teams}}">
-      <span style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: #FFFFFF; border: 1.5px solid #D5DBE5">
-        <svg width="34" height="28" viewBox="0 0 34 28" aria-hidden="true"><circle cx="9" cy="8" r="5" fill="#1B2A5C"/><path d="M1 27v-4a7 7 0 0 1 7-7h2a7 7 0 0 1 7 7v4z" fill="#1B2A5C"/><rect x="18" y="9" width="14" height="11" rx="3" fill="#00A6D6"/><circle cx="22.5" cy="14.5" r="1.6" fill="#FFFFFF"/><circle cx="27.5" cy="14.5" r="1.6" fill="#FFFFFF"/><path d="M25 9V5" stroke="#00A6D6" stroke-width="2"/></svg>
-      </span>
-      Teams, mens en AI
-    </button>
-    <button style="min-height: 150px; padding: 22px 20px; display: flex; align-items: center; gap: 16px; border: 0; border-top: 5px solid #1B2A5C; background: #F1F4F8; color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 17px; font-weight: 500; text-align: left" onClick="{{open.pipeline}}">
-      <span style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: #FFFFFF; border: 1.5px solid #D5DBE5">
-        <svg width="34" height="26" viewBox="0 0 34 26" aria-hidden="true"><path d="M2 8c6-6 10 4 16-2s10 4 14-2" fill="none" stroke="#0072BC" stroke-width="3.5" stroke-linecap="round"/><path d="M2 15c6-6 10 4 16-2s10 4 14-2" fill="none" stroke="#F39200" stroke-width="3.5" stroke-linecap="round"/><path d="M2 22c6-6 10 4 16-2s10 4 14-2" fill="none" stroke="#1B2A5C" stroke-width="3.5" stroke-linecap="round"/></svg>
-      </span>
-      Flow en levering
-    </button>
-    <button style="min-height: 150px; padding: 22px 20px; display: flex; align-items: center; gap: 16px; border: 0; border-top: 5px solid #1B2A5C; background: #F1F4F8; color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 17px; font-weight: 500; text-align: left" onClick="{{open.f1}}">
-      <span style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: #FFFFFF; border: 1.5px solid #D5DBE5">
-        <svg width="32" height="30" viewBox="0 0 32 30" aria-hidden="true"><path d="M4 3h7l7 12M12 3h7l7 12M20 3h7l3 5" fill="none" stroke="#1B2A5C" stroke-width="3" stroke-linejoin="round"/><path d="M2 19h28M5 24h22M8 29h16" stroke="#F39200" stroke-width="3"/></svg>
-      </span>
-      Leiderschap en cultuur
-    </button>
-  </nav>
   </sc-if>
 </div>
 
