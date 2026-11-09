@@ -798,7 +798,18 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
                 </section>
               </sc-if>
 
-              <sc-if value="{{page.isConcepts}}" hint-placeholder-val="{{ false }}">
+              <sc-if value="{{lock.showConceptsLock}}" hint-placeholder-val="{{ false }}">
+                <form onSubmit="{{lock.submit}}" style="padding: 24px 26px; border-radius: 16px; border: 2px solid #D5DBE5; background: #F4F6FA; display: flex; flex-direction: column; gap: 12px; max-width: 520px">
+                  <span style="display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: #1B2A5C"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" fill="none" stroke="#1B2A5C" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="#1B2A5C" stroke-width="2"/></svg>Alleen voor reviewers</span>
+                  <span style="font-size: 14px; line-height: 1.5; color: #3E4A63">Concepten zijn nog niet vastgesteld. Vul het wachtwoord in om ze te lezen.</span>
+                  <span style="display: flex; gap: 8px; flex-wrap: wrap">
+                    <input id="edm-pw" type="password" autocomplete="off" aria-label="Wachtwoord" placeholder="Wachtwoord" style="flex: 1; min-width: 180px; min-height: 44px; padding: 0 14px; border: 1.5px solid #C9D1DD; border-radius: 10px; font-family: inherit; font-size: 15px; color: #1B2A5C; background: #FFFFFF">
+                    <button type="submit" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: 22px; background: {{navy}}; color: #FFFFFF; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700">Ontgrendel</button>
+                  </span>
+                  <sc-if value="{{lock.err}}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size: 13px; font-weight: 700; color: #C8102E">Onjuist wachtwoord, probeer het opnieuw.</span></sc-if>
+                </form>
+              </sc-if>
+              <sc-if value="{{lock.showConcepts}}" hint-placeholder-val="{{ false }}">
                 <section id="proces" style="display: flex; flex-direction: column; gap: 14px">
                   <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Zo verloopt een wijziging</h2>
                   <div style="display: grid; grid-template-columns: minmax(0, 1fr) 26px minmax(0, 1fr) 26px minmax(0, 1fr); gap: 6px; align-items: stretch">
@@ -872,6 +883,17 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
                     <sc-for list="{{cv.tabs}}" as="tb" hint-placeholder-count="3"><button style="{{tb.style}}" onClick="{{tb.pick}}" aria-pressed="{{tb.on}}">{{tb.label}}</button></sc-for>
                   </span>
                 </div>
+                <sc-if value="{{lock.showT4KLock}}" hint-placeholder-val="{{ false }}">
+                <form onSubmit="{{lock.submit}}" style="padding: 24px 26px; border-radius: 16px; border: 2px solid #D5DBE5; background: #F4F6FA; display: flex; flex-direction: column; gap: 12px; max-width: 520px">
+                  <span style="display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: #1B2A5C"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" fill="none" stroke="#1B2A5C" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="#1B2A5C" stroke-width="2"/></svg>Alleen voor reviewers</span>
+                  <span style="font-size: 14px; line-height: 1.5; color: #3E4A63">Concepten zijn nog niet vastgesteld. Vul het wachtwoord in om ze te lezen.</span>
+                  <span style="display: flex; gap: 8px; flex-wrap: wrap">
+                    <input id="edm-pw" type="password" autocomplete="off" aria-label="Wachtwoord" placeholder="Wachtwoord" style="flex: 1; min-width: 180px; min-height: 44px; padding: 0 14px; border: 1.5px solid #C9D1DD; border-radius: 10px; font-family: inherit; font-size: 15px; color: #1B2A5C; background: #FFFFFF">
+                    <button type="submit" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: 22px; background: {{navy}}; color: #FFFFFF; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700">Ontgrendel</button>
+                  </span>
+                  <sc-if value="{{lock.err}}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size: 13px; font-weight: 700; color: #C8102E">Onjuist wachtwoord, probeer het opnieuw.</span></sc-if>
+                </form>
+                </sc-if>
                 <sc-if value="{{cv.isDelta}}" hint-placeholder-val="{{ false }}">
                   <section id="delta" style="padding: 20px 22px; border-radius: 14px; background: #F4F6FA; display: flex; flex-direction: column; gap: 10px">
                     <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: #1B2A5C">Wat verandert er?</h2>
@@ -1988,7 +2010,9 @@ class Component extends DCLogic {
     super(props);
     let dark = false;
     try { dark = window.localStorage.getItem('edm-dark') === '1'; } catch (e) {}
-    this.state = { mode: null, sel: null, vptStep: 0, pfOpen: true, scale: 1, lace: false, scan: {}, dark, cview: 'current' };
+    let unlocked = false;
+    try { unlocked = window.sessionStorage.getItem('edm-concepts') === '1'; } catch (e) {}
+    this.state = { mode: null, sel: null, vptStep: 0, pfOpen: true, scale: 1, lace: false, scan: {}, dark, cview: 'current', unlocked, pwErr: false };
   }
   _theme() {
     // Nachtmodus: zet lichte vlakken om naar donker en donkere tekst naar licht; merkkleuren blijven gelijk.
@@ -2861,7 +2885,13 @@ class Component extends DCLogic {
       log: [['v1.0', '6 november 2026', 'Eerste publicatie', 'Het EDSN Delivery Model staat live: Big Picture voor Basis EDSN en AI-Native EDSN, met verdiepende pagina’s per onderdeel.']]
         .map(([version, date, title, text]) => ({ version, date, title, text, dot: 'position:absolute;left:-9px;top:6px;width:15px;height:15px;border-radius:50%;background:' + navy + ';border:3px solid #FFFFFF' }))
     };
-    const cview = this.state.cview || 'current';
+    const unlocked = !!this.state.unlocked;
+    const wantView = this.state.cview || 'current';
+    const cview = unlocked ? wantView : 'current';
+    const pwHash = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h; };
+    const lock = { err: !!this.state.pwErr, showConcepts: this.state.sel === 'concepts' && unlocked, showConceptsLock: this.state.sel === 'concepts' && !unlocked, showT4KLock: !unlocked && wantView !== 'current',
+      submit: (e) => { if (e && e.preventDefault) e.preventDefault(); const el = document.getElementById('edm-pw'); const v = el ? el.value.trim() : '';
+        if (pwHash(v.toUpperCase()) === 2421986502) { try { window.sessionStorage.setItem('edm-concepts', '1'); } catch (er) {} this.setState({ unlocked: true, pwErr: false }); } else { this.setState({ pwErr: true }); } } };
     const cv = { isDelta: cview === 'delta', showConcept: cview !== 'current',
       wrap: cview === 'delta' ? 'display:flex;flex-direction:column;gap:30px;padding:20px;border-radius:16px;border:2px solid #5E8A12;background:#F5FBEF' : 'display:flex;flex-direction:column;gap:30px',
       tabs: [['current', 'Huidig'], ['concept', 'Concept'], ['delta', 'Wat verandert er?']].map(([k, label]) => ({ label, on: cview === k, pick: () => this.setState({ cview: k }),
@@ -2973,7 +3003,7 @@ class Component extends DCLogic {
     const off = 'display:flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:30px;border:0;cursor:pointer;font-family:inherit;font-size:18px;font-weight:500;background:transparent;color:#1B2A5C';
 
     return {
-      navy, blue, cyan, orange, green, play, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv,
+      navy, blue, cyan, orange, green, play, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock,
       openConcepts: () => this.setState({ sel: 'concepts' }),
       pfOpen: !!this.state.pfOpen, pfClosed: !this.state.pfOpen,
       togglePf: () => this.setState({ pfOpen: !this.state.pfOpen }),
