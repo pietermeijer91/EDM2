@@ -23,6 +23,10 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
 .rise{pointer-events:none;animation:rise 2.4s ease-in infinite}
 @keyframes vptFlow{0%{transform:translate(0px,0px);opacity:0}2%{opacity:1}2.5%{transform:translate(0px,0px)}8.5%{transform:translate(0px,0px)}12.5%{transform:translate(140px,0px)}21.0%{transform:translate(140px,0px)}25.0%{transform:translate(280px,0px)}33.5%{transform:translate(280px,0px)}37.5%{transform:translate(420px,0px)}46.0%{transform:translate(420px,0px)}50.0%{transform:translate(560px,0px)}58.5%{transform:translate(560px,0px)}62.5%{transform:translate(700px,0px)}71.0%{transform:translate(700px,0px)}75.0%{transform:translate(840px,0px)}83.5%{transform:translate(840px,0px)}87.5%{transform:translate(980px,0px)}96.0%{transform:translate(980px,0px)}96%{transform:translate(980px,0px);opacity:1}100%{transform:translate(980px,0px);opacity:0}}
 @keyframes vptDone{0%,87%{opacity:0;transform:scale(.3)}90%{opacity:1;transform:scale(1.2)}93%,100%{opacity:1;transform:scale(1)}}
+@keyframes tourMove{from{left:var(--x0);top:var(--y0)}}
+@keyframes tourPulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.04);opacity:1}}
+.tour-tok{animation:tourMove .9s cubic-bezier(.5,0,.3,1) both}
+.tour-ring{animation:tourPulse 1.6s ease-in-out infinite}
 @keyframes vptWip{0%,100%{opacity:.55}50%{opacity:1}}
 .vpt-card{position:absolute;animation:vptFlow 16s linear infinite}
 .vpt-done{animation:vptDone 16s linear infinite}
@@ -123,9 +127,53 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
   </sc-if>
 </div>
 
+<sc-if value="{{rv.show}}" hint-placeholder-val="{{ false }}">
+<section aria-label="Ik ben…" style="padding: 0 40px 20px; display: flex; flex-direction: column; gap: 12px; font-family: Poppins, 'Segoe UI', sans-serif; zoom: {{uiZoom}}">
+  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+    <span style="padding: 4px 10px; border-radius: 8px; background: {{orange}}; color: #2B1A00; font-size: 12px; font-weight: 800; letter-spacing: 1px">CONCEPT WP-003</span>
+    <span style="margin: 0 6px 0 4px; font-size: 20px; font-weight: 700; color: #1B2A5C">Ik ben…</span>
+    <sc-for list="{{rv.chips}}" as="rc" hint-placeholder-count="8"><button style="{{rc.style}}" onClick="{{rc.pick}}" aria-pressed="{{rc.on}}">{{rc.label}}</button></sc-for>
+    <button style="margin-left: auto; min-height: 40px; padding: 0 16px; border: 1.5px solid #D5DBE5; border-radius: 20px; background: #FFFFFF; color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700" onClick="{{rv.close}}">Sluit concept</button>
+  </div>
+  <div style="padding: 20px 22px; border-radius: 16px; border: 2px solid {{orange}}; background: #FFF8EC; display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); gap: 22px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 22px; font-weight: 700; color: #1B2A5C">Jij als {{rv.cur.label}}</span>
+      <span style="font-size: 14px; line-height: 1.6; color: #3E4A63">{{rv.cur.intro}}</span>
+      <button style="align-self: flex-start; margin-top: 4px; min-height: 40px; padding: 0 16px; border: 0; border-radius: 20px; background: {{navy}}; color: #FFFFFF; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700" onClick="{{rv.cur.open}}">Lees meer over jouw rol →</button>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span style="font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #7A4A00">Jouw plekken in de plaat</span>
+      <sc-for list="{{rv.cur.spots}}" as="sp2" hint-placeholder-count="6">
+        <button style="display: flex; align-items: center; gap: 8px; padding: 2px 0; border: 0; background: none; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; color: #1B2A5C; text-align: left" onClick="{{sp2.open}}"><span style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: {{orange}}; color: #2B1A00; font-size: 12px; font-weight: 800">{{sp2.n}}</span>{{sp2.name}}</button>
+      </sc-for>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span style="font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #7A4A00">Jouw events</span>
+      <sc-for list="{{rv.cur.events}}" as="ev" hint-placeholder-count="4"><span style="font-size: 14px; line-height: 1.5; color: #1B2A5C">• {{ev}}</span></sc-for>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span style="font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #7A4A00">Jouw artefacten</span>
+      <sc-for list="{{rv.cur.arts}}" as="ar" hint-placeholder-count="3"><span style="font-size: 14px; line-height: 1.5; color: #1B2A5C">• {{ar}}</span></sc-for>
+      <span style="margin-top: 8px; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #7A4A00">Jouw aanspreekpunt</span>
+      <span style="font-size: 14px; line-height: 1.5; color: #1B2A5C">{{rv.cur.contact}}</span>
+    </div>
+  </div>
+</section>
+</sc-if>
+
 <sc-if value="{{noSel}}" hint-placeholder-val="{{ true }}">
 <div style="position: relative; width: 100%; height: {{bpH}}px; overflow: hidden">
 <div style="position: absolute; left: 50%; top: 0; margin-left: -800px; width: 1600px; height: {{rootH}}px; transform: scale({{scale}}); transform-origin: 50% 0; background: #FFFFFF; font-family: Poppins, 'Segoe UI', sans-serif; color: #1B2A5C; overflow: hidden">
+  <!-- Concept WP-002 (tour) en WP-003 (Ik ben…): spotlight-overlay -->
+  <sc-if value="{{tourOv.on}}" hint-placeholder-val="{{ false }}">
+    <div style="{{tourOv.mask}}"></div>
+    <div id="tour-spot" class="tour-ring" style="{{tourOv.ring}}"></div>
+    <span class="tour-tok" style="{{tourOv.tok}}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="3" width="14" height="10" rx="2" fill="#2B1A00"/><path d="M4 6h8M4 9h5" stroke="#F39200" stroke-width="1.6"/></svg>Feature F-101</span>
+  </sc-if>
+  <sc-if value="{{rv.on}}" hint-placeholder-val="{{ false }}">
+    <div style="{{rv.mask}}"></div>
+    <sc-for list="{{rv.cur.spots}}" as="bd" hint-placeholder-count="6"><span style="{{bd.badge}}">{{bd.n}}</span></sc-for>
+  </sc-if>
 
   <!-- Toggle -->
   <div style="position: absolute; left: 40px; top: 26px; display: flex; gap: 4px; padding: 5px; background: #EEF2F7; border: 1px solid #D5DBE5; border-radius: 40px">
@@ -804,8 +852,7 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
                         </sc-for>
                       </div>
                       <div style="display: flex; flex-wrap: wrap; gap: 10px">
-                        <button style="min-height: 44px; padding: 0 18px; border: 0; border-radius: 22px; background: {{navy}}; color: #FFFFFF; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700" onClick="{{pp.openDelta}}">Bekijk wat verandert</button>
-                        <button style="min-height: 44px; padding: 0 18px; border: 1.5px solid #D5DBE5; border-radius: 22px; background: #FFFFFF; color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700" onClick="{{pp.openConcept}}">Lees het concept</button>
+                        <sc-for list="{{pp.actions}}" as="ac" hint-placeholder-count="2"><button style="{{ac.style}}" onClick="{{ac.run}}">{{ac.label}}</button></sc-for>
                         <a href="{{pp.mail}}" style="min-height: 44px; padding: 0 18px; display: inline-flex; align-items: center; gap: 8px; border-radius: 22px; background: {{orange}}; color: #2B1A00; font-size: 14px; font-weight: 700; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="#2B1A00" stroke-width="2" stroke-linejoin="round"/></svg>Geef feedback</a>
                       </div>
                     </div>
@@ -1898,6 +1945,30 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
     </div>
   </sc-if>
 
+  <!-- ===== Concept WP-002: Volg een Feature ===== -->
+  <sc-if value="{{tour.on}}" hint-placeholder-val="{{ false }}">
+    <div aria-hidden="true" style="height: 380px"></div>
+    <aside role="dialog" aria-label="Volg een Feature" style="position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 800; width: min(700px, calc(100vw - 32px)); box-sizing: border-box; padding: 18px 22px 18px; border-radius: 18px; border: 2px solid {{orange}}; background: #FFFFFF; box-shadow: 0 18px 50px rgba(14, 26, 63, 0.35); display: flex; flex-direction: column; gap: 10px; font-family: Poppins, 'Segoe UI', sans-serif">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span style="padding: 3px 9px; border-radius: 8px; background: {{orange}}; color: #2B1A00; font-size: 11px; font-weight: 800; letter-spacing: 1px">CONCEPT WP-002</span>
+        <span style="font-size: 13px; font-weight: 700; color: #5A6478">Volg een Feature · stap {{tour.n}} van {{tour.total}}</span>
+        <button aria-label="Stop de tour" style="margin-left: auto; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: #EEF2F7; cursor: pointer" onClick="{{tour.stop}}"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="#1B2A5C" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+      </div>
+      <div style="display: flex; gap: 5px">
+        <sc-for list="{{tour.dots}}" as="dt" hint-placeholder-count="9"><button aria-label="{{dt.label}}" style="{{dt.style}}" onClick="{{dt.go}}"></button></sc-for>
+      </div>
+      <span style="font-size: 22px; font-weight: 700; color: #1B2A5C">{{tour.cur.title}}</span>
+      <span style="font-size: 15px; line-height: 1.6; color: #3E4A63">{{tour.cur.text}}</span>
+      <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #3E4A63"><span style="padding: 3px 10px; border-radius: 10px; background: #EEF2F7; font-weight: 700; color: #1B2A5C">Aan zet</span>{{tour.cur.who}}</span>
+      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 4px">
+        <button style="min-height: 42px; padding: 0 16px; border: 0; border-radius: 21px; background: none; color: #0062A3; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700; text-decoration: underline" onClick="{{tour.read}}">Lees meer over {{tour.cur.name}}</button>
+        <span style="flex: 1"></span>
+        <sc-if value="{{tour.hasPrev}}" hint-placeholder-val="{{ false }}"><button style="min-height: 42px; padding: 0 18px; border: 1.5px solid #D5DBE5; border-radius: 21px; background: #FFFFFF; color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700" onClick="{{tour.prev}}">← Vorige</button></sc-if>
+        <button style="min-height: 42px; padding: 0 20px; border: 0; border-radius: 21px; background: {{navy}}; color: #FFFFFF; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700" onClick="{{tour.next}}">{{tour.nextLabel}}</button>
+      </div>
+    </aside>
+  </sc-if>
+
   <!-- ===== ARTie-paneel (Copilot Studio) ===== -->
   <sc-if value="{{artie.open}}" hint-placeholder-val="{{ false }}">
     <div style="position: fixed; inset: 0; z-index: 900; background: rgba(14, 26, 63, 0.35)" onClick="{{artie.close}}"></div>
@@ -2057,6 +2128,8 @@ class Component extends DCLogic {
     // Lopende band in de Big Picture stopt na 15 seconden
     this._bpStart = () => { try { clearTimeout(this._bpTimer); this._bpTimer = setTimeout(() => this.setState({ bpStopped: true }), 15000); } catch (e) {} };
     this._bpStart();
+    this._startTour = () => { this.setState({ sel: null, tour: 0, tourPrev: 0, roleView: false, pfOpen: true, bpStopped: false }); this._bpStart(); };
+    this._startRoles = () => { this.setState({ sel: null, roleView: true, tour: null, pfOpen: true }); };
     // Deeplinks: #rte, #t4k ... en terug-knop van de browser
     this._fromHash = () => { let h = ''; try { h = decodeURIComponent((window.location.hash || '').slice(1)); } catch (e) {} const k = h && h !== 'start' ? h : null; if (k !== this.state.sel) this.setState({ sel: k }); };
     try { this._fromHash(); window.addEventListener('popstate', this._fromHash); } catch (e) {}
@@ -2069,6 +2142,10 @@ class Component extends DCLogic {
     try { window.removeEventListener('resize', this._fit); clearTimeout(this._bpTimer); } catch (e) {}
   }
   componentDidUpdate(prevProps, prevState) {
+    if (prevState && (prevState.tour !== this.state.tour || (prevState.sel && !this.state.sel)) && typeof this.state.tour === 'number' && !this.state.sel) {
+      setTimeout(() => { try { const el = document.getElementById('tour-spot'); if (el) { const r = el.getBoundingClientRect(); const want = window.scrollY + r.top + r.height / 2 - window.innerHeight * 0.3; window.scrollTo({ top: Math.max(0, want), behavior: 'smooth' }); } } catch (e) {} }, 30);
+    }
+    if (prevState && prevState.roleView !== this.state.roleView && this.state.roleView) { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {} }
     if (prevState && prevState.sel !== this.state.sel) {
       try { window.scrollTo(0, 0); } catch (e) {}
       if (!this.state.sel) { this.setState({ bpStopped: false }); this._bpStart(); }
@@ -2867,7 +2944,16 @@ class Component extends DCLogic {
     const STEPS = ['Concept', 'In review', 'Vastgesteld'];
     const propDefs = [{ id: 'WP-001', page: 't4k', pageTitle: 'Tactisch vierkant (T4K)', title: 'Wanneer functioneert een T4K goed?', status: 1,
       summary: 'Voorstel om op de T4K-pagina vast te leggen wanneer een T4K goed functioneert: zes kenmerken, herkenbare signalen, een vast ritme en een zelfscan waarmee een T4K zichzelf kan toetsen.',
-      author: 'Pieter Meijer', reviewers: 'LACE', date: '9 november 2026', deadline: 'n.t.b.' }];
+      author: 'Pieter Meijer', reviewers: 'LACE', date: '9 november 2026', deadline: 'n.t.b.',
+      actions: [['Bekijk wat verandert', () => this.setState({ sel: 't4k', cview: 'delta' })], ['Lees het concept', () => this.setState({ sel: 't4k', cview: 'concept' })]] },
+    { id: 'WP-002', page: null, pageTitle: 'Big Picture · nieuwe functie', title: 'Volg een Feature: de WoW als verhaal', status: 0,
+      summary: 'Een interactieve tour waarin één Feature in negen stappen door de Big Picture reist: van strategisch thema via Epic, Feature Kanban, T4K en PI Planning naar de teams, de pipeline, de klant en terug naar Inspect and Adapt. Per stap zie je wat er gebeurt en wie aan zet is.',
+      author: 'Pieter Meijer', reviewers: 'LACE', date: '9 november 2026', deadline: 'n.t.b.',
+      actions: [['Start de tour', () => this._startTour()]] },
+    { id: 'WP-003', page: null, pageTitle: 'Big Picture · nieuwe functie', title: 'Ik ben…: de Big Picture vanuit jouw rol', status: 0,
+      summary: 'Kies je rol (bijv. teamlid, Product Owner, RTE of Business Owner) en de Big Picture licht op waar jij een rol speelt. Je ziet jouw plekken in de plaat, jouw events, jouw artefacten en je aanspreekpunt in het T4K.',
+      author: 'Pieter Meijer', reviewers: 'LACE', date: '9 november 2026', deadline: 'n.t.b.',
+      actions: [['Probeer Ik ben…', () => this._startRoles()]] }];
     const wow = {
       open: propDefs.filter((x) => x.status < 2).length,
       process: [['1', 'Concept', 'Een wijziging wordt uitgewerkt als voorstel. De vastgestelde WoW blijft ongewijzigd zichtbaar.', blue], ['2', 'In review', 'Reviewers lezen het concept en de delta en geven feedback.', orange], ['3', 'Vastgesteld', 'Na akkoord wordt het voorstel verwerkt in de WoW en vastgelegd in het wijzigingslog.', green]]
@@ -2876,7 +2962,7 @@ class Component extends DCLogic {
         statusPill: 'padding:6px 14px;border-radius:14px;font-size:13px;font-weight:800;background:' + [blue, orange, green][x.status] + ';color:' + (x.status === 0 ? '#FFFFFF' : '#1F1A00'),
         steps: STEPS.map((label, i) => ({ label, style: 'flex:1;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:700;' + (i < x.status ? 'background:#DCEFC8;color:#2F4A0B' : i === x.status ? 'background:' + orange + ';color:#2B1A00' : 'background:#EEF2F7;color:#5A6478') })),
         meta: [['Indiener', x.author], ['Reviewers', x.reviewers], ['Ingediend', x.date], ['Reviewen vóór', x.deadline]].map(([k, v]) => ({ k, v })),
-        openDelta: () => this.setState({ sel: x.page, cview: 'delta' }), openConcept: () => this.setState({ sel: x.page, cview: 'concept' }),
+        actions: x.actions.map(([label, run], i) => ({ label, run, style: 'min-height:44px;padding:0 18px;border-radius:22px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;' + (i === 0 ? 'border:0;background:' + navy + ';color:#FFFFFF' : 'border:1.5px solid #D5DBE5;background:#FFFFFF;color:#1B2A5C') })),
         mail: 'mailto:?subject=' + encodeURIComponent('Feedback ' + x.id + ': ' + x.title) + '&body=' + encodeURIComponent('Mijn feedback op ' + x.id + ' (' + x.title + '):\n\n') })),
       log: [['v1.0', '6 november 2026', 'Eerste publicatie', 'Het EDSN Delivery Model staat live: Big Picture voor Basis EDSN en AI-Native EDSN, met verdiepende pagina’s per onderdeel.']]
         .map(([version, date, title, text]) => ({ version, date, title, text, dot: 'position:absolute;left:-9px;top:6px;width:15px;height:15px;border-radius:50%;background:' + navy + ';border:3px solid #FFFFFF' }))
@@ -2997,6 +3083,66 @@ class Component extends DCLogic {
     };
     const embed = String(p.artieEmbed || '').trim();
     const artie = { open: !!this.state.artie, close: () => this.setState({ artie: false }), q: this.state.artieQ || '', hasQ: !!this.state.artieQ, embed, hasEmbed: /^https:\/\//.test(embed), noEmbed: !/^https:\/\//.test(embed) };
+    const cur0 = this.state.sel && C[this.state.sel] ? this.state.sel : null;
+    // ---- Concepten WP-002 (Volg een Feature) en WP-003 (Ik ben…) ----
+    const SPOT = { outcomes: [425, 140, 140, 86], leadership: [250, 170, 140, 84], investment: [425, 268, 140, 96], backlog: [632, 196, 110, 151], epic: [752, 214, 100, 58], roi: [1420, 150, 130, 118],
+      owners: [260, 420, 120, 82], art: [580, 470, 760, 34], vpt: [488, 510, 196, 50], t4k: [680, 424, 240, 138], pioutcomes: [170, 540, 110, 110], vision: [66, 560, 100, 74], roadmap: [273, 668, 110, 76],
+      teams: [520, 566, 150, 60], teamoutcomes: [700, 566, 130, 92], sp: [850, 566, 130, 74], value: [1030, 510, 260, 30], customer: [1462, 536, 90, 95], pipeline: [476, 700, 1064, 92],
+      ee: [438, 648, 1102, 34], architects: [880, 830, 290, 61], ade: [568, 910, 972, 46], pi: [600, 958, 170, 54], sense: [860, 958, 250, 54], f5: [1047, 1160, 235, 76] };
+    const ell = ([x, y, w, h]) => ({ cx: x + w / 2, cy: y + h / 2, rx: Math.round(w * 0.62 + 22), ry: Math.round(h * 0.62 + 22) });
+    const maskOf = (keys) => {
+      const g = keys.filter((k) => SPOT[k]).map((k) => { const e = ell(SPOT[k]); return 'radial-gradient(ellipse ' + e.rx + 'px ' + e.ry + 'px at ' + Math.round(e.cx) + 'px ' + Math.round(e.cy) + 'px, transparent 0 90%, #000 100%)'; }).join(',');
+      return 'position:absolute;inset:0;z-index:45;pointer-events:none;background:rgba(14,26,63,.58);-webkit-mask-image:' + g + ';mask-image:' + g + ';-webkit-mask-composite:source-in;mask-composite:intersect';
+    };
+    const TOUR = [
+      ['outcomes', 'Het begint bij strategie', 'Elke Feature begint bij een strategisch thema. In dit voorbeeld: een betrouwbaar en toekomstbestendig energiesysteem, waarvoor netbeheerders sneller over meterdata moeten beschikken.', 'Portfolio Leadership'],
+      ['epic', 'Een idee wordt een Epic', 'Het idee ‘realtime meterdata’ is te groot voor één PI. Het komt als Epic op de Portfolio Backlog, met een lean business case en een hypothese: wat verwachten we dat het oplevert?', 'Epic Owner en Portfolio Leadership'],
+      ['vpt', 'Opgeknipt in Features', 'Na akkoord knipt de Product Manager de Epic op in Features. In de VPT / Feature Kanban gaat F-101 van Funnel via Analyse naar Ready: met acceptatiecriteria, een eerste schatting en een heldere Definition of Ready.', 'Product Manager en het VPT'],
+      ['t4k', 'Het tactisch vierkant weegt af', 'PM, System Architect, RTE en People Developer kijken samen: levert het waarde, past het in de architectuur, is er capaciteit en hebben we de juiste mensen? Zo komt F-101 hoog op de ART Backlog.', 'Tactisch vierkant (T4K)'],
+      ['pi', 'PI Planning: samen committen', 'Tijdens de PI Planning plannen alle teams de Feature in. Afhankelijkheden worden zichtbaar op het ART Planning Board en de teams committen op PI Objectives, met business value van de Business Owners.', 'De hele ART en de Business Owners'],
+      ['teams', 'Teams maken het concreet', 'Het team knipt F-101 in stories, schat ze in story points en pakt ze op in de iteraties. Product Owner en Scrum Master / Team Coach houden de flow op gang.', 'Agile Team, Product Owner en SM / TC'],
+      ['pipeline', 'Over de lopende band', 'Via de Continuous Delivery Pipeline gaat het werk van exploration via integratie naar deployment: kleine stappen, automatisch getest en steeds klaar om live te gaan.', 'De teams, ondersteund door Engineering Enablement'],
+      ['customer', 'Waarde bij de klant', 'Met Release on Demand gaat F-101 live op het moment dat het de klant het meest oplevert. Netbeheerders zien hun meterdata nu realtime: dáár ontstaat de waarde.', 'Product Manager en Business Owners'],
+      ['sense', 'Leren en verbeteren', 'In de System Demo en Inspect and Adapt kijkt de ART terug: is de beoogde waarde gehaald en wat leren we? De inzichten gaan mee naar de volgende PI. De cirkel is rond.', 'De hele ART']];
+    const tStep = typeof this.state.tour === 'number' ? Math.max(0, Math.min(TOUR.length - 1, this.state.tour)) : null;
+    const tourOn = tStep !== null && !cur0;
+    const tokAt = (k) => { const [x, y, w] = SPOT[k]; return { x: Math.round(Math.min(1440, Math.max(8, x + w / 2 - 70))), y: Math.round(Math.max(6, y - 44)) }; };
+    const tourOv = { on: tourOn, mask: '', ring: '', tok: '' };
+    if (tourOn) {
+      const k = TOUR[tStep][0]; const e = ell(SPOT[k]); const a = tokAt(k); const pk = TOUR[Math.max(0, Math.min(TOUR.length - 1, this.state.tourPrev ?? tStep))][0]; const b0 = tokAt(pk);
+      tourOv.mask = maskOf([k]);
+      tourOv.ring = 'position:absolute;z-index:46;pointer-events:none;box-sizing:border-box;left:' + Math.round(e.cx - e.rx * 0.9) + 'px;top:' + Math.round(e.cy - e.ry * 0.9) + 'px;width:' + Math.round(e.rx * 1.8) + 'px;height:' + Math.round(e.ry * 1.8) + 'px;border-radius:50%;border:3px dashed ' + orange;
+      tourOv.tok = 'position:absolute;z-index:47;pointer-events:none;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;background:' + orange + ';color:#2B1A00;font-size:13px;font-weight:800;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.3);left:' + a.x + 'px;top:' + a.y + 'px;--x0:' + b0.x + 'px;--y0:' + b0.y + 'px';
+    }
+    const tcur = tourOn ? TOUR[tStep] : TOUR[0];
+    const tour = { on: tourOn, n: (tStep ?? 0) + 1, total: TOUR.length, hasPrev: (tStep ?? 0) > 0,
+      cur: { title: tcur[1], text: tcur[2], who: tcur[3], name: I[tcur[0]] ? I[tcur[0]][0] : '' },
+      nextLabel: (tStep ?? 0) === TOUR.length - 1 ? 'Afronden ✓' : 'Volgende →',
+      next: () => { const n = (this.state.tour ?? 0) + 1; if (n >= TOUR.length) this.setState({ tour: null }); else this.setState({ tour: n, tourPrev: this.state.tour }); },
+      prev: () => { const n = Math.max(0, (this.state.tour ?? 0) - 1); this.setState({ tour: n, tourPrev: this.state.tour }); },
+      stop: () => this.setState({ tour: null }),
+      read: () => this.setState({ tour: null, sel: tcur[0] }),
+      dots: TOUR.map((t, i) => ({ label: 'Stap ' + (i + 1) + ': ' + t[1], go: () => this.setState({ tour: i, tourPrev: this.state.tour }),
+        style: 'flex:1;height:6px;padding:0;border:0;border-radius:3px;cursor:pointer;background:' + (tStep !== null && i <= tStep ? orange : '#E1E6EE') })) };
+    const ROLES = [
+      ['teamlid', 'Teamlid / engineer', ['teams', 'sp', 'teamoutcomes', 'pipeline', 'ee', 'pi', 'sense'], 'Jij bouwt de oplossing: je zet stories om in werkende software, samen met je team en in AI-Native EDSN ook met AI-agents.', ['PI Planning', 'Iteratieplanning', 'Daily stand-up', 'System Demo', 'Inspect and Adapt'], ['Stories en enablers', 'Team Objectives', 'Story points'], 'Je Product Owner en Scrum Master / Team Coach; voor techniek de System Architect in het T4K.', 'teams'],
+      ['po', 'Product Owner', ['teams', 'teamoutcomes', 'sp', 'vpt', 'pi', 'sense', 'value'], 'Jij bepaalt wat het team als eerste bouwt en vertaalt Features naar stories die waarde leveren.', ['PI Planning', 'Backlog refinement', 'Iteratieplanning', 'System Demo', 'Inspect and Adapt'], ['Team Backlog', 'Stories en acceptatiecriteria', 'Team Objectives'], 'De Product Manager in het T4K.', 'teams'],
+      ['sm', 'Scrum Master / Team Coach', ['architects', 'teams', 'pi', 'sense', 'pipeline'], 'Jij helpt het team beter te worden: flow, samenwerking en continu verbeteren.', ['PI Planning', 'Daily stand-up', 'Iteratie-retrospective', 'Coach sync', 'Inspect and Adapt'], ['Teambord en flow-metrics', 'Verbeteracties', 'Afhankelijkheden op het ART Planning Board'], 'De Release Train Engineer in het T4K.', 'architects'],
+      ['pm', 'Product Manager', ['t4k', 'vpt', 'epic', 'vision', 'roadmap', 'pi', 'value', 'customer'], 'Jij bepaalt wat de ART bouwt en waarom: van visie en roadmap tot de prioriteit van Features.', ['VPT-overleg', 'T4K-sync', 'PI Planning', 'System Demo', 'Inspect and Adapt'], ['Vision en Roadmap', 'ART Backlog en Features', 'PI Objectives'], 'Je collega’s in het T4K (SA, RTE en PD) en de Business Owners.', 'pm'],
+      ['rte', 'Release Train Engineer', ['t4k', 'art', 'pi', 'sense', 'pipeline', 'architects'], 'Jij zorgt dat de trein rijdt: flow, PI-uitvoering en het wegnemen van belemmeringen.', ['T4K-sync', 'ART Sync', 'PI Planning', 'System Demo', 'Inspect and Adapt'], ['ART Planning Board', 'PI Objectives en voortgang', 'Risico’s (ROAM)'], 'Je collega’s in het T4K (PM, SA en PD) en de Scrum Masters / Team Coaches.', 'rte'],
+      ['bo', 'Business Owner', ['owners', 'outcomes', 'pioutcomes', 'pi', 'sense', 'value'], 'Jij bent eindverantwoordelijk voor de waarde van de ART en kent business value toe aan de PI Objectives.', ['PI Planning (business value toekennen)', 'System Demo', 'Inspect and Adapt'], ['PI Objectives met business value', 'Strategische thema’s'], 'De Product Manager en de RTE.', 'owners'],
+      ['pd', 'People Developer', ['t4k', 'ade', 'teams', 'f5'], 'Jij ontwikkelt de mensen achter de ART: vakmanschap, groei en continuïteit via de People Runway.', ['T4K-sync', 'PI Planning', 'Inspect and Adapt', 'Ontwikkelgesprekken'], ['People Runway', 'Competentie- en ontwikkelplannen'], 'Je collega’s in het T4K (PM, SA en RTE).', 'peopledev'],
+      ['lead', 'Leidinggevende / portfolio', ['leadership', 'outcomes', 'investment', 'backlog', 'epic', 'roi', 'owners'], 'Jij zet de koers: strategie, investeringen en de randvoorwaarden waarin teams kunnen leveren.', ['Portfolio sync', 'Strategische portfolioreview', 'PI Planning (management review)'], ['Strategische thema’s', 'Portfolio Backlog en Epics', 'Lean budgetten'], 'De Business Owners en Epic Owners.', 'leadership']];
+    const rKey = this.state.role || 'teamlid';
+    const rDef = ROLES.find((r) => r[0] === rKey) || ROLES[0];
+    const rvOn = !!this.state.roleView && !cur0;
+    const rv = { on: rvOn, show: rvOn, mask: rvOn ? maskOf(rDef[2]) : '', close: () => this.setState({ roleView: false }),
+      chips: ROLES.map((r) => ({ label: r[1], on: r[0] === rKey, pick: () => this.setState({ role: r[0] }),
+        style: 'min-height:38px;padding:0 14px;border-radius:19px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;' + (r[0] === rKey ? 'border:0;background:' + navy + ';color:#FFFFFF' : 'border:1.5px solid #D5DBE5;background:#FFFFFF;color:#1B2A5C') })),
+      cur: { label: rDef[1], intro: rDef[3], events: rDef[4], arts: rDef[5], contact: rDef[6], open: () => this.setState({ sel: rDef[7] }),
+        spots: rDef[2].filter((k) => SPOT[k]).map((k, i) => { const [x, y, w] = SPOT[k]; const bx = Math.round(x + w / 2 + Math.min(w / 2, 90) - 6), by = Math.max(4, y - 16);
+          return { n: i + 1, name: I[k] ? I[k][0] : k, open: () => this.setState({ sel: k }),
+            badge: 'position:absolute;z-index:47;pointer-events:none;left:' + bx + 'px;top:' + by + 'px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:' + orange + ';color:#2B1A00;font-size:15px;font-weight:800;box-shadow:0 0 0 3px #FFFFFF,0 4px 10px rgba(0,0,0,.3)' }; }) } };
     const cur = this.state.sel && C[this.state.sel] ? this.state.sel : null;
     const emptyRole = { abbr: '', full: '', fullBr: '', color: '#1B2A5C', tint: '#EEF2F7', theme: '', kern: '', intro: '', wheel: [], doelen: [], ai: [], resp: [], meet: [], afst: '', top: { h: '', t: '' }, left: { h: '', t: '' }, right: { h: '', t: '' }, bottom: { h: '', t: '' }, mandaat: '', kpi: [], relatie: [], ontw: [], strat: '' };
     let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false };
@@ -3083,7 +3229,7 @@ class Component extends DCLogic {
     const off = 'display:flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:30px;border:0;cursor:pointer;font-family:inherit;font-size:18px;font-weight:500;background:transparent;color:#1B2A5C';
 
     return {
-      navy, blue, cyan, orange, green, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie,
+      navy, blue, cyan, orange, green, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie, tour, tourOv, rv,
       openArtie: () => this.setState({ artie: true, artieQ: '' }),
       openConcepts: () => this.setState({ sel: 'concepts' }),
       pfOpen: !!this.state.pfOpen, pfClosed: !this.state.pfOpen,
