@@ -1,0 +1,12 @@
+# Publiceert het EDSN Delivery Model via GitLab Pages
+pages:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - mkdir -p public
+    - cp index.html kennisbank.md public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
