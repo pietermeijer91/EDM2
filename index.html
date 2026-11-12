@@ -23,6 +23,13 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
 .rise{pointer-events:none;animation:rise 2.4s ease-in infinite}
 @keyframes vptFlow{0%{transform:translate(0px,0px);opacity:0}2%{opacity:1}2.5%{transform:translate(0px,0px)}8.5%{transform:translate(0px,0px)}12.5%{transform:translate(140px,0px)}21.0%{transform:translate(140px,0px)}25.0%{transform:translate(280px,0px)}33.5%{transform:translate(280px,0px)}37.5%{transform:translate(420px,0px)}46.0%{transform:translate(420px,0px)}50.0%{transform:translate(560px,0px)}58.5%{transform:translate(560px,0px)}62.5%{transform:translate(700px,0px)}71.0%{transform:translate(700px,0px)}75.0%{transform:translate(840px,0px)}83.5%{transform:translate(840px,0px)}87.5%{transform:translate(980px,0px)}96.0%{transform:translate(980px,0px)}96%{transform:translate(980px,0px);opacity:1}100%{transform:translate(980px,0px);opacity:0}}
 @keyframes vptDone{0%,87%{opacity:0;transform:scale(.3)}90%{opacity:1;transform:scale(1.2)}93%,100%{opacity:1;transform:scale(1)}}
+@keyframes cfOrbit{to{transform:rotate(360deg)}}
+@keyframes cfCounter{to{transform:translate(-50%,-50%) rotate(-360deg)}}
+@keyframes cfDash{to{stroke-dashoffset:-44}}
+.cf-orbit{animation:cfOrbit 28s linear infinite}
+.cf-counter{animation:cfCounter 28s linear infinite}
+.cf-dash{animation:cfDash 1.4s linear infinite}
+.cf-icon{transform-origin:23px 23px;animation:cfOrbit 6s linear infinite}
 @keyframes tourMove{from{left:var(--x0);top:var(--y0)}}
 @keyframes tourPulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.04);opacity:1}}
 .tour-tok{animation:tourMove .9s cubic-bezier(.5,0,.3,1) both}
@@ -87,7 +94,7 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
     <nav style="display: flex; align-items: center; gap: 4px" aria-label="Hoofdmenu">
       <button style="min-height: 44px; padding: 0 16px; background: none; border: 0; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 600; color: #1B2A5C" onClick="{{close}}">Big Picture</button>
       <button style="min-height: 44px; padding: 0 16px; background: none; border: 0; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 500; color: #3E4A63" onClick="{{open.t4k}}">Tactisch vierkant</button>
-      <button style="min-height: 44px; padding: 0 16px; background: none; border: 0; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 500; color: #3E4A63" onClick="{{open.vpt}}">Werkwijze</button>
+      <button style="min-height: 44px; padding: 0 16px; background: none; border: 0; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 500; color: #3E4A63" onClick="{{open.wow}}">Werkwijze</button>
       <button style="min-height: 44px; padding: 0 16px; background: none; border: 0; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 500; color: #3E4A63" onClick="{{open.governance}}">AI Governance</button>
       <button style="min-height: 44px; padding: 0 16px; background: none; border: 0; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 500; color: #3E4A63" onClick="{{open.f5}}">LACE</button>
       <button style="margin-left: 8px; min-height: 44px; padding: 0 14px; display: flex; align-items: center; gap: 8px; border: 1.5px solid #D5DBE5; border-radius: 22px; background: #FFFFFF; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 600; color: #1B2A5C" onClick="{{openConcepts}}">
@@ -335,11 +342,20 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
     <sc-if value="{{ai}}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="M8 2l1.6 4.4L14 8l-4.4 1.6L8 14l-1.6-4.4L2 8l4.4-1.6z" fill="#FFFFFF"></path></svg></sc-if>
     {{t.art}}
   </button>
-  <!-- VPT / Feature Kanban (onder de ART) -->
+  <!-- AI-Native: Continuous Flow in plaats van het VPT -->
+  <sc-if value="{{ai}}" hint-placeholder-val="{{ false }}">
+  <button class="hit" style="left: 488px; top: 510px; width: 196px; flex-direction: row; gap: 10px; text-align: left" onClick="{{open.cflow}}">
+    <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="21" fill="#FFFFFF" stroke="{{cflow.purple}}" stroke-width="2"/><g class="cf-icon" style="animation-play-state: {{bpPlay}}"><path d="M35 23a12 12 0 0 1-12 12M11 23a12 12 0 0 1 12-12" fill="none" stroke="{{cflow.purple}}" stroke-width="3" stroke-linecap="round"/><path d="M23 7l4 4-4 4M23 31l-4 4 4 4" fill="none" stroke="{{cflow.purple}}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g><circle cx="23" cy="23" r="4" fill="{{orange}}"/></svg>
+    <span style="display: flex; flex-direction: column; font-size: 14px; font-weight: 600; line-height: 1.25">Continuous<span>Flow</span></span>
+  </button>
+  </sc-if>
+  <!-- VPT / Feature Kanban (onder de ART), alleen Basis EDSN -->
+  <sc-if value="{{coreOn}}" hint-placeholder-val="{{ true }}">
   <button class="hit" style="left: 488px; top: 510px; width: 196px; flex-direction: row; gap: 10px; text-align: left" onClick="{{open.vpt}}">
     <svg width="46" height="38" viewBox="0 0 46 38" aria-hidden="true"><rect x="1" y="1" width="44" height="36" rx="5" fill="#FFFFFF" stroke="{{navy}}" stroke-width="2"/><path d="M12 6v26M23 6v26M34 6v26" stroke="#D5DBE5" stroke-width="1.5"/><rect x="4" y="7" width="6" height="5" rx="1" fill="{{navy}}"/><rect x="4" y="14" width="6" height="5" rx="1" fill="{{navy}}"/><rect x="14.5" y="7" width="6" height="5" rx="1" fill="{{blue}}"/><rect x="14.5" y="14" width="6" height="5" rx="1" fill="{{blue}}"/><rect x="14.5" y="21" width="6" height="5" rx="1" fill="{{blue}}"/><rect x="25.5" y="7" width="6" height="5" rx="1" fill="{{orange}}"/><rect x="36.5" y="7" width="6" height="5" rx="1" fill="{{green}}"/><rect x="36.5" y="14" width="6" height="5" rx="1" fill="{{green}}"/></svg>
     <span style="display: flex; flex-direction: column; font-size: 14px; font-weight: 600; line-height: 1.25">VPT /<span>Feature Kanban</span></span>
   </button>
+  </sc-if>
 
   <!-- Tactisch vierkant (T4K): PM · SA · RTE · PD samengevoegd -->
   <button class="hit" style="left: 680px; top: 424px; width: 240px" onClick="{{open.t4k}}" aria-label="Tactisch vierkant (T4K): Product Manager, System Architect, Release Train Engineer en People Developer">
@@ -606,6 +622,57 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
             <div style="height: 6px; width: 120px; border-radius: 3px; background: {{orange}}"></div>
           </div>
 
+          <sc-if value="{{page.isCFLOW}}" hint-placeholder-val="{{ false }}">
+                <section id="flow-loop" style="display: flex; flex-direction: column; gap: 14px">
+                  <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">De flow draait altijd</h2>
+                  <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3E4A63">Geen poortjes en fasen meer, maar een lus die niet stopt: signalen ophalen, een uitkomst vormgeven, bouwen met mensen en agents, en leren van het resultaat. Klik op een station voor het doel, de activiteiten en wie aan zet is.</p>
+                  <div style="padding: 24px; border-radius: 18px; background: #F4F2FA; display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: center">
+                    <div style="position: relative; width: 460px; height: 460px; flex-shrink: 0">
+                      <svg style="position: absolute; left: 0; top: 0" width="460" height="460" viewBox="0 0 460 460" aria-hidden="true">
+                        <circle cx="230" cy="230" r="170" fill="none" stroke="#DCD3F0" stroke-width="34"/>
+                        <circle cx="230" cy="230" r="170" fill="none" stroke="{{cflow.purple}}" stroke-width="4" stroke-dasharray="10 12" class="cf-dash" style="animation-play-state: {{play}}"/>
+                        <path d="M372 136 l18 -4 -4 18" fill="none" stroke="{{cflow.purple}}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M324 372 l4 18 -18 -4" fill="none" stroke="{{cflow.purple}}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M88 324 l-18 4 4 -18" fill="none" stroke="{{cflow.purple}}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M136 88 l-4 -18 18 4" fill="none" stroke="{{cflow.purple}}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <div class="cf-orbit" style="position: absolute; inset: 0; animation-play-state: {{play}}">
+                        <sc-for list="{{cflow.tokens}}" as="tkn" hint-placeholder-count="5"><span class="cf-counter" style="{{tkn.style}}">{{tkn.label}}</span></sc-for>
+                      </div>
+                      <div style="position: absolute; left: 50%; top: 50%; width: 170px; height: 170px; margin: -85px 0 0 -85px; border-radius: 50%; background: #FFFFFF; border: 2px solid #DCD3F0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center">
+                        <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4" fill="none" stroke="{{cflow.purple}}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span style="font-size: 18px; font-weight: 800; color: #2A1650">Continu</span>
+                        <span style="font-size: 12px; line-height: 1.35; color: #5A4A7A">waarde voor<br>de klant</span>
+                      </div>
+                      <sc-for list="{{cflow.stations}}" as="st2" hint-placeholder-count="4">
+                        <button style="{{st2.style}}" onClick="{{st2.pick}}" aria-pressed="{{st2.on}}">
+                          <span style="font-size: 11px; font-weight: 800; letter-spacing: 1px; opacity: 0.8">{{st2.n}}</span>
+                          <span style="font-size: 17px; font-weight: 800">{{st2.title}}</span>
+                          <span style="font-size: 11px; line-height: 1.3; opacity: 0.85">{{st2.sub}}</span>
+                        </button>
+                      </sc-for>
+                    </div>
+                    <div style="flex: 1 1 320px; max-width: 520px; padding: 22px; border-radius: 16px; background: #FFFFFF; border: 2px solid {{cflow.purple}}; display: flex; flex-direction: column; gap: 12px">
+                      <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap">
+                        <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: {{cflow.purple}}">{{cflow.cur.kicker}}</span>
+                        <span style="padding: 4px 12px; border-radius: 12px; background: #F4F2FA; font-size: 13px; font-weight: 700; color: #2A1650">Aan zet: {{cflow.cur.owner}}</span>
+                      </div>
+                      <span style="font-size: 26px; font-weight: 700; color: #1B2A5C">{{cflow.cur.title}}</span>
+                      <span style="font-size: 15px; line-height: 1.6; color: #2E3A55">{{cflow.cur.goal}}</span>
+                      <div style="display: flex; flex-direction: column; gap: 6px">
+                        <span style="font-size: 14px; font-weight: 700; color: #1B2A5C">Wat gebeurt er?</span>
+                        <sc-for list="{{cflow.cur.acts}}" as="ca" hint-placeholder-count="3"><span style="display: flex; gap: 8px; font-size: 14px; line-height: 1.5; color: #2E3A55"><span style="flex-shrink: 0; width: 7px; height: 7px; margin-top: 7px; border-radius: 50%; background: {{cflow.purple}}"></span>{{ca}}</span></sc-for>
+                      </div>
+                      <span style="padding: 10px 12px; border-radius: 10px; background: #F4F2FA; font-size: 13px; line-height: 1.5; color: #2A1650"><strong>Rol van AI:</strong> {{cflow.cur.ai}}</span>
+                      <div style="display: flex; gap: 8px">
+                        <button style="min-height: 42px; padding: 0 16px; border: 1.5px solid #D5DBE5; border-radius: 10px; background: #FFFFFF; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; color: #1B2A5C" onClick="{{cflow.prev}}">← Vorige</button>
+                        <button style="min-height: 42px; padding: 0 16px; border: 0; border-radius: 10px; background: {{cflow.purple}}; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; color: #FFFFFF" onClick="{{cflow.next}}">Volgende →</button>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+          </sc-if>
+
           <sc-if value="{{page.isVPT}}" hint-placeholder-val="{{ false }}">
                 <section id="bord" style="display: flex; flex-direction: column; gap: 14px">
                   <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Het Feature Kanban-bord in beweging</h2>
@@ -673,6 +740,60 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
                   <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #2E3A55">{{s.p}}</p>
                 </section>
               </sc-for>
+
+              <sc-if value="{{page.isCFLOW}}" hint-placeholder-val="{{ false }}">
+                <section id="flow-vs-vpt" style="display: flex; flex-direction: column; gap: 14px">
+                  <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Van poortjes naar flow</h2>
+                  <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #2E3A55">In Basis EDSN loopt een Feature via het VPT / Feature Kanban door vaste fasen met criteria per poort. In AI-Native EDSN gaan teams met agents zo snel, dat sturen per poort te traag wordt. De sturing verschuift naar een continue lus met een vast ritme om bij te sturen.</p>
+                  <div style="border-radius: 14px; border: 1.5px solid #D5DBE5; overflow: hidden">
+                    <div style="display: grid; grid-template-columns: 170px minmax(0, 1fr) minmax(0, 1fr); background: #1B2A5C; color: #FFFFFF; font-size: 13px; font-weight: 700">
+                      <span style="padding: 12px 14px"></span><span style="padding: 12px 14px">Basis EDSN · VPT / Feature Kanban</span><span style="padding: 12px 14px; background: {{cflow.purple}}">AI-Native EDSN · Continuous Flow</span>
+                    </div>
+                    <sc-for list="{{cflow.cmp}}" as="cm" hint-placeholder-count="5">
+                      <div style="display: grid; grid-template-columns: 170px minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid #E1E6EE; font-size: 14px; line-height: 1.5">
+                        <span style="padding: 12px 14px; font-weight: 700; color: #1B2A5C; background: #F4F6FA">{{cm.a}}</span><span style="padding: 12px 14px; color: #3E4A63">{{cm.b}}</span><span style="padding: 12px 14px; color: #2A1650; background: #FAF8FE">{{cm.c}}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </section>
+
+                <section id="flow-ritme" style="display: flex; flex-direction: column; gap: 14px">
+                  <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Continu, maar niet vrijblijvend: het ritme</h2>
+                  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+                    <sc-for list="{{cflow.ritme}}" as="rm" hint-placeholder-count="3">
+                      <div style="{{rm.box}}">
+                        <span style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; opacity: 0.85">{{rm.when}}</span>
+                        <span style="font-size: 18px; font-weight: 700">{{rm.title}}</span>
+                        <span style="font-size: 13px; line-height: 1.55; opacity: 0.92">{{rm.text}}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </section>
+
+                <section id="flow-rollen" style="display: flex; flex-direction: column; gap: 14px">
+                  <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Wie doet wat?</h2>
+                  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+                    <sc-for list="{{cflow.roles}}" as="cr2" hint-placeholder-count="6">
+                      <div style="padding: 16px; border-radius: 14px; background: #F4F6FA; border-top: 4px solid {{cflow.purple}}; display: flex; flex-direction: column; gap: 6px">
+                        <span style="font-size: 15px; font-weight: 700; color: #1B2A5C">{{cr2.title}}</span>
+                        <span style="font-size: 13px; line-height: 1.55; color: #3E4A63">{{cr2.text}}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </section>
+
+                <section id="flow-vangrails" style="padding: 22px 24px; border-radius: 16px; background: #2A1650; color: #FFFFFF; display: flex; flex-direction: column; gap: 12px">
+                  <h2 style="margin: 0; font-size: 24px; line-height: 1.25; font-weight: 700; color: #FFFFFF">Vangrails voor een gezonde flow</h2>
+                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px">
+                    <sc-for list="{{cflow.rails}}" as="rl" hint-placeholder-count="5">
+                      <div style="padding: 14px; border-radius: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); display: flex; flex-direction: column; gap: 6px">
+                        <span style="font-size: 15px; font-weight: 700; color: #FFFFFF">{{rl.title}}</span>
+                        <span style="font-size: 13px; line-height: 1.55; color: #E4DAF7">{{rl.text}}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </section>
+              </sc-if>
 
               <sc-if value="{{page.isLACE}}" hint-placeholder-val="{{ false }}">
                 <div style="padding: 16px 18px; border-radius: 14px; border: 2px solid {{orange}}; background: #FFF8EC; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
@@ -2851,6 +2972,10 @@ class Component extends DCLogic {
     // ---- VPT / Feature Kanban: bron 'Werkwijze Feature Kanban-proces' (J. van Diermen) ----
     I.vpt = ['VPT / Feature Kanban', 'Het Feature Kanban-proces maakt de weg van een eerste idee naar een afgeronde feature inzichtelijk en beheersbaar. Iedere fase heeft een duidelijk doel, een eigenaar en expliciete criteria om werk door te zetten. De Product Manager stuurt met het VPT op waarde en prioriteit, de Product Owner en het DevOps-team werken de feature uit, realiseren en testen haar, en de Product Manager valideert het eindresultaat.', null];
     open.vpt = () => this.setState({ sel: 'vpt', vptStep: 0 });
+    open.cflow = () => this.setState({ sel: 'cflow', cfStep: 0 });
+    open.wow = ai ? open.cflow : open.vpt;
+    I.cflow = ['Continuous Flow', 'In AI-Native EDSN stroomt werk niet meer door fasen en poortjes, maar door een continue lus: sense, shape, build en learn. Teams van mensen en AI-agents leveren in kleine stappen, en de ART stuurt elke iteratie bij in Sense and Respond en elke PI in PI Outcome Planning. Zo blijft de snelheid van AI gekoppeld aan echte uitkomsten voor de klant.', null];
+    C.cflow = { g: 'Agile Release Train', x: [], k: ['Een lus in plaats van poortjes', 'Sturen op uitkomsten, niet op output', 'Elke iteratie bijsturen in Sense and Respond', 'Mensen beslissen, agents versnellen'], e: '', r: ['sense', 'pi', 't4k', 'vpt'] };
     C.vpt = { g: 'Agile Release Train', x: [], k: ['Van idee naar voorspelbaar geleverde waarde', 'Elke fase: doel, eigenaar en expliciete criteria', 'WIP-limieten houden de flow gezond', 'DoR vóór planning, DoD vóór release'], e: '', r: ['pm', 'backlog', 'workitems', 'pi'] };
     const VS = [
       ['Funnel', 'ready', '', 'PM', 'Features vanuit epics, nieuwe werkitems, ideeën en verzoeken centraal verzamelen.', ['De indiener meldt de feature met een idee, functionele titel en bij voorkeur een eerste hypothese.', 'De Product Manager registreert de feature in Jira op het VPT-project.', 'De Product Manager en het VPT bepalen met opdrachtgevers welke features doorgaan.', 'Features zonder voldoende informatie blijven staan; features zonder voldoende waarde worden gestopt.'], 'De feature is geregistreerd met indiener, titel, urgentie of gewenste PI, epic-koppeling, verwachte teams, waarde en eerste hypothese.', 'Product Manager', 'Idee geregistreerd'],
@@ -3211,11 +3336,12 @@ class Component extends DCLogic {
     C.t4k = { g: 'Agile Release Train', x: [], k: ['Waarde – Product Manager', 'Techniek – System Architect', 'Flow – Release Train Engineer', 'Mensen – People Developer', 'Samen verantwoordelijk voor de hele CDP'], e: '', r: t4kOrder };
     t4kOrder.forEach((k) => { C[k].g = 'Agile Release Train · T4K'; });
 
-    const order = Object.keys(C).filter((k) => k !== 't4k' && k !== 'sp' && k !== 'vpt');
+    const order = Object.keys(C).filter((k) => k !== 't4k' && k !== 'sp' && k !== 'vpt' && k !== 'cflow');
     order.splice(order.indexOf('peopledev') + 1, 0, 't4k');
     order.splice(order.indexOf('t4k') + 1, 0, 'vpt');
+    if (ai) order.splice(order.indexOf('vpt'), 1, 'cflow');
     ['ee', 'ade', 'itf'].forEach((k) => order.splice(order.indexOf(k), 1));
-    order.splice(order.indexOf('vpt') + 1, 0, 'ade', 'ee', 'itf');
+    order.splice(order.indexOf(ai ? 'cflow' : 'vpt') + 1, 0, 'ade', 'ee', 'itf');
     order.splice(order.indexOf('teams') + 1, 0, 'sp');
     this._order = order;
     // ---- Vraagbalk: snel antwoord uit de inhoud van het Delivery Model ----
@@ -3225,7 +3351,7 @@ class Component extends DCLogic {
     const idx = order.filter((k) => I[k] && C[k] && k !== 'concepts').map((k) => {
       const c = C[k];
       const body = [].concat((c.x || []).map((x) => x[0] + '. ' + x[1]), c.k || [], c.e ? [c.e] : []).join(' ');
-      const ALIAS = { t4k: 't4k tactisch vierkant', vpt: 'vpt feature kanban', sp: 'story points sp', itf: 'itf it foundation', ee: 'engineering enablement', ade: 'art development enablement run beheer', pi: 'pi planning' };
+      const ALIAS = { t4k: 't4k tactisch vierkant', vpt: 'vpt feature kanban', cflow: 'continuous flow continue flow sense shape build learn', sp: 'story points sp', itf: 'itf it foundation', ee: 'engineering enablement', ade: 'art development enablement run beheer', pi: 'pi planning' };
       const rr = typeof R !== 'undefined' && R[k] ? R[k] : null;
       const alias = (rr ? rr.abbr + ' ' + rr.full + ' ' : '') + (ALIAS[k] || '');
       const body2 = body + (rr ? ' ' + rr.kern + ' ' + (rr.intro || '') : '');
@@ -3304,7 +3430,7 @@ class Component extends DCLogic {
     const cur0 = this.state.sel && C[this.state.sel] ? this.state.sel : null;
     // ---- Concepten WP-002 (Volg een Feature) en WP-003 (Ik ben…) ----
     const SPOT = { outcomes: [425, 140, 140, 86], leadership: [250, 170, 140, 84], investment: [425, 268, 140, 96], backlog: [632, 196, 110, 151], epic: [752, 214, 100, 58], roi: [1420, 150, 130, 118],
-      owners: [260, 420, 120, 82], art: [580, 470, 760, 34], vpt: [488, 510, 196, 50], t4k: [680, 424, 240, 138], pioutcomes: [170, 540, 110, 110], vision: [66, 560, 100, 74], roadmap: [273, 668, 110, 76],
+      owners: [260, 420, 120, 82], art: [580, 470, 760, 34], vpt: [488, 510, 196, 50], cflow: [488, 504, 196, 56], t4k: [680, 424, 240, 138], pioutcomes: [170, 540, 110, 110], vision: [66, 560, 100, 74], roadmap: [273, 668, 110, 76],
       teams: [520, 566, 150, 60], teamoutcomes: [700, 566, 130, 92], sp: [850, 566, 130, 74], value: [1030, 510, 260, 30], customer: [1462, 536, 90, 95], pipeline: [476, 700, 1064, 92],
       ee: [438, 648, 1102, 34], architects: [880, 830, 290, 61], ade: [568, 910, 972, 46], pi: [600, 958, 170, 54], sense: [860, 958, 250, 54], f5: [1047, 1160, 235, 76] };
     const ell = ([x, y, w, h]) => ({ cx: x + w / 2, cy: y + h / 2, rx: Math.round(w * 0.62 + 22), ry: Math.round(h * 0.62 + 22) });
@@ -3322,6 +3448,7 @@ class Component extends DCLogic {
       ['pipeline', 'Over de lopende band', 'Via de Continuous Delivery Pipeline gaat het werk van exploration via integratie naar deployment: kleine stappen, automatisch getest en steeds klaar om live te gaan.', 'De teams, ondersteund door Engineering Enablement'],
       ['customer', 'Waarde bij de klant', 'Met Release on Demand gaat F-101 live op het moment dat het de klant het meest oplevert. Netbeheerders zien hun meterdata nu realtime: dáár ontstaat de waarde.', 'Product Manager en Business Owners'],
       ['sense', 'Leren en verbeteren', 'In de System Demo en Inspect and Adapt kijkt de ART terug: is de beoogde waarde gehaald en wat leren we? De inzichten gaan mee naar de volgende PI. De cirkel is rond.', 'De hele ART']];
+    if (ai) { const vi = TOUR.findIndex((t) => t[0] === 'vpt'); if (vi >= 0) TOUR[vi] = ['cflow', 'De continue flow in', 'In AI-Native EDSN gaat de Epic niet door poortjes, maar de continue lus in: sense, shape, build en learn. Agents helpen met analyse en specificatie, mensen beslissen over richting en prioriteit.', 'Product Manager en AI Value Architect']; }
     const tStep = typeof this.state.tour === 'number' ? Math.max(0, Math.min(TOUR.length - 1, this.state.tour)) : null;
     const tourOn = tStep !== null && !cur0;
     const tokAt = (k) => { const [x, y, w] = SPOT[k]; return { x: Math.round(Math.min(1440, Math.max(8, x + w / 2 - 70))), y: Math.round(Math.max(6, y - 44)) }; };
@@ -3352,6 +3479,7 @@ class Component extends DCLogic {
       ['pd', 'People Developer', ['t4k', 'ade', 'teams', 'f5'], 'Jij ontwikkelt de mensen achter de ART: vakmanschap, groei en continuïteit via de People Runway.', ['T4K-sync', 'PI Planning', 'Inspect and Adapt', 'Ontwikkelgesprekken'], ['People Runway', 'Competentie- en ontwikkelplannen'], 'Je collega’s in het T4K (PM, SA en RTE).', 'peopledev'],
       ['lace', 'LACE', ['f5', 'leadership', 'backlog', 't4k', 'pi', 'sense', 'architects', 'ade'], 'Het LACE jaagt de manier van werken aan: het coacht leiders en het T4K, faciliteert PI Planning en Inspect and Adapt, ondersteunt Lean Portfolio Management en organiseert het leren.', ['PI Planning (faciliteren)', 'Inspect and Adapt (verbeterworkshop)', 'Portfolio sync', 'Coach sync en communities of practice', 'Eigen LACE-PI Planning'], ['Transformatiebacklog', 'Het EDSN Delivery Model', 'ARTie', 'Leerpaden en trainingen'], 'De Business Owner van het LACE en de RTE’s.', 'f5'],
       ['lead', 'Leidinggevende / portfolio', ['leadership', 'outcomes', 'investment', 'backlog', 'epic', 'roi', 'owners'], 'Jij zet de koers: strategie, investeringen en de randvoorwaarden waarin teams kunnen leveren.', ['Portfolio sync', 'Strategische portfolioreview', 'PI Planning (management review)'], ['Strategische thema’s', 'Portfolio Backlog en Epics', 'Lean budgetten'], 'De Business Owners en Epic Owners.', 'leadership']];
+    if (ai) ROLES.forEach((r) => { r[2] = r[2].map((k) => (k === 'vpt' ? 'cflow' : k)); });
     const rKey = this.state.role || 'teamlid';
     const rDef = ROLES.find((r) => r[0] === rKey) || ROLES[0];
     const rvOn = !!this.state.roleView && !cur0;
@@ -3362,6 +3490,38 @@ class Component extends DCLogic {
         spots: rDef[2].filter((k) => SPOT[k]).map((k, i) => { const [x, y, w] = SPOT[k]; const bx = Math.round(x + w / 2 + Math.min(w / 2, 90) - 6), by = Math.max(4, y - 16);
           return { n: i + 1, name: I[k] ? I[k][0] : k, open: () => this.setState({ sel: k }),
             badge: 'position:absolute;z-index:47;pointer-events:none;left:' + bx + 'px;top:' + by + 'px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:' + orange + ';color:#2B1A00;font-size:15px;font-weight:800;box-shadow:0 0 0 3px #FFFFFF,0 4px 10px rgba(0,0,0,.3)' }; }) } };
+    // ---- Continuous Flow (AI-Native, vervangt het VPT) ----
+    const CF = [
+      ['Sense', 'Signalen ophalen', 'Weten wat er speelt bij klant, keten en systeem, voordat we iets bouwen.', ['Klantfeedback, gebruiksdata en incidenten verzamelen', 'Signalen uit de keten en uit Sense and Respond bundelen', 'Kansen en risico’s zichtbaar maken op het ART-bord'], 'Agents analyseren grote hoeveelheden feedback en data, en vatten patronen samen.', 'Product Manager en AI-Native teams'],
+      ['Shape', 'Uitkomst vormgeven', 'Van signaal naar een scherpe outcome-hypothese: welke verandering verwachten we, en hoe meten we dat?', ['Outcome-hypothese en meetbaar succescriterium opstellen', 'Klein genoeg snijden om snel te leren', 'Prioriteren op waarde en impact, met een WIP-limiet'], 'Agents helpen met impactanalyse, specificatie en eerste ontwerpen; mensen kiezen.', 'Product Manager, System Architect en AI Value Architect'],
+      ['Build', 'Bouwen met mens en agent', 'Kleine increments leveren via de Continuous Delivery Pipeline, steeds klaar om live te gaan.', ['Teams bouwen samen met agents en reviewen elkaars werk', 'Automatisch testen en veilig uitrollen', 'Kwaliteit en architectuur bewaken'], 'Agents schrijven code, tests en documentatie; mensen sturen, beoordelen en beslissen.', 'AI-Native teams'],
+      ['Learn', 'Meten en bijsturen', 'Toetsen of de uitkomst echt is gehaald, en wat we daarvan leren.', ['Resultaat meten tegen de hypothese', 'Doorgaan, bijsturen of stoppen: werk zonder impact verdwijnt', 'Inzichten delen over de ART heen'], 'Agents monitoren uitkomsten en signaleren afwijkingen; de ART besluit in Sense and Respond.', 'Product Manager, Business Owners en RTE']];
+    const cfStep = Math.max(0, Math.min(CF.length - 1, this.state.cfStep || 0));
+    const cfPos = [[230, 60], [400, 230], [230, 400], [60, 230]];
+    const cfPurple = p.aiPrimary || '#6E44B8';
+    const cfCol = [blue, cfPurple, orange, green];
+    const cflow = {
+      purple: cfPurple,
+      stations: CF.map((c2, i) => ({ n: String(i + 1).padStart(2, '0'), title: c2[0], sub: c2[1], on: i === cfStep, pick: () => this.setState({ cfStep: i }),
+        style: 'position:absolute;left:' + cfPos[i][0] + 'px;top:' + cfPos[i][1] + 'px;transform:translate(-50%,-50%)' + (i === cfStep ? ' scale(1.08)' : '') + ';width:112px;height:112px;border-radius:50%;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;padding:8px;box-sizing:border-box;'
+          + (i === cfStep ? 'border:0;background:' + cfCol[i] + ';color:' + (i >= 2 ? '#1F1A00' : '#FFFFFF') + ';box-shadow:0 10px 24px rgba(42,22,80,.3)' : 'border:3px solid ' + cfCol[i] + ';background:#FFFFFF;color:#1B2A5C') })),
+      tokens: [[45, 'F'], [135, 'F'], [210, ''], [260, 'F'], [320, '']].map(([deg, label]) => { const r = deg * Math.PI / 180; const x = 230 + 170 * Math.cos(r), y = 230 + 170 * Math.sin(r);
+        return { label, style: 'position:absolute;left:' + Math.round(x) + 'px;top:' + Math.round(y) + 'px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;' + (label ? 'width:26px;height:26px;border-radius:6px;background:' + orange + ';color:#2B1A00;font-size:12px;font-weight:800;box-shadow:0 3px 8px rgba(0,0,0,.25)' : 'width:14px;height:14px;border-radius:50%;background:' + cfPurple) + ';animation-play-state:' + play }; }),
+      cur: { kicker: 'Stap ' + (cfStep + 1) + ' van 4 · ' + CF[cfStep][0], title: CF[cfStep][1], goal: CF[cfStep][2], acts: CF[cfStep][3], ai: CF[cfStep][4], owner: CF[cfStep][5] },
+      next: () => this.setState({ cfStep: (cfStep + 1) % CF.length }),
+      prev: () => this.setState({ cfStep: (cfStep + CF.length - 1) % CF.length }),
+      cmp: [['Ritme', 'PI-gedreven: Features gaan fase voor fase door het bord.', 'Continu: werk stroomt door de lus, met elke iteratie Sense and Respond.'],
+        ['Eenheid van werk', 'Feature met Definition of Ready en Done.', 'Outcome-hypothese met een meetbaar succescriterium, in kleine increments.'],
+        ['Analyse en specificatie', 'Handmatig in de fasen Analyse en Refinement.', 'Agents ondersteunen analyse, impact en specificatie; mensen kiezen.'],
+        ['Besluiten', 'Per poort in het VPT-overleg.', 'Doorlopend op basis van data, met een vast moment in Sense and Respond.'],
+        ['Succes meten', 'Output en voorspelbaarheid van levering.', 'Uitkomsten, flowtijd en of hypotheses kloppen.']].map(([a, b, c3]) => ({ a, b, c: c3 })),
+      ritme: [['Doorlopend', 'De lus draait', 'Teams en agents halen signalen op, bouwen en meten in kleine stappen. Agents bewaken uitkomsten en melden afwijkingen.', '#F4F2FA', '#2A1650'],
+        ['Elke iteratie · 2 uur', 'Sense and Respond', 'Het eerste uur kijken we naar data, klantfeedback en demo’s. Het tweede uur besluiten we over bijsturen, capaciteit of stoppen. Vervangt Inspect and Adapt.', cfPurple, '#FFFFFF'],
+        ['Elke PI · 1 dag', 'PI Outcome Planning', 'De ART herijkt de uitkomsten voor de komende PI en lijnt lopend werk opnieuw uit. Vervangt de tweedaagse PI Planning.', '#2A1650', '#FFFFFF']]
+        .map(([when, title, text, bg, fg]) => ({ when, title, text, box: 'padding:18px;border-radius:14px;background:' + bg + ';color:' + fg + ';display:flex;flex-direction:column;gap:6px' })),
+      roles: [['Product Manager', 'Eigenaar van de uitkomsten. Prioriteert continu op waarde en impact.'], ['AI Value Architect', 'Zorgt dat AI echt waarde toevoegt en verantwoord wordt ingezet.'], ['System Architect', 'Bewaakt de technische samenhang, ook als teams en agents snel gaan.'], ['Release Train Engineer', 'Faciliteert Sense and Respond en houdt de flow gezond.'], ['AI-Native teams', 'Bouwen, testen en leren samen met agents, in kleine stappen.'], ['Business Owners', 'Toetsen of de uitkomsten de beoogde waarde opleveren.']].map(([title, text]) => ({ title, text })),
+      rails: [['Beperk het onderhanden werk', 'Een WIP-limiet op de lus voorkomt dat de snelheid van agents leidt tot te veel half werk.'], ['Elke stap een hypothese', 'Geen werk zonder verwachte uitkomst en een manier om die te meten.'], ['Mens beslist, agent versnelt', 'Richting, prioriteit en acceptatie blijven mensenwerk.'], ['Stop wat geen impact heeft', 'Sense and Respond schrapt werk dat niet bijdraagt.'], ['Transparant en verantwoord', 'Binnen de kaders van AI Governance and Ethics.']].map(([title, text]) => ({ title, text }))
+    };
     // ---- Concept WP-004: de LACE-pagina ----
     const ICON = { lead: 'M4 20h16M6 20V10l6-5 6 5v10M10 20v-5h4v5', art: 'M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4', team: 'M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 11a3 3 0 1 0 0-6M2 20c0-3 3-5 6-5s6 2 6 5M14 15c3 0 6 2 6 5', hr: 'M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10z', strat: 'M12 3v4M12 17v4M3 12h4M17 12h4M12 12m-5 0a5 5 0 1 0 10 0 5 5 0 1 0-10 0', learn: 'M3 8l9-4 9 4-9 4zM7 10v5c0 1.5 2.5 3 5 3s5-1.5 5-3v-5' };
     const tagOf = (type) => 'justify-self:start;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;' + (type === 'Nieuw' ? 'background:#2F7A12;color:#FFFFFF' : type === 'Vervalt' ? 'background:#C8102E;color:#FFFFFF' : type === 'Gewijzigd' ? 'background:' + blue + ';color:#FFFFFF' : 'background:#E1E6EE;color:#3E4A63');
@@ -3415,7 +3575,7 @@ class Component extends DCLogic {
     };
     const cur = this.state.sel && C[this.state.sel] ? this.state.sel : null;
     const emptyRole = { abbr: '', full: '', fullBr: '', color: '#1B2A5C', tint: '#EEF2F7', theme: '', kern: '', intro: '', wheel: [], doelen: [], ai: [], resp: [], meet: [], afst: '', top: { h: '', t: '' }, left: { h: '', t: '' }, right: { h: '', t: '' }, bottom: { h: '', t: '' }, mandaat: '', kpi: [], relatie: [], ontw: [], strat: '' };
-    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false, isLACE: false };
+    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false, isLACE: false, isCFLOW: false };
     if (cur) {
       const c = C[cur];
       const idx = order.indexOf(cur);
@@ -3484,6 +3644,7 @@ class Component extends DCLogic {
         page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }].concat(cv.isDelta ? [{ id: 'delta', h: 'Wat verandert er?' }] : []).concat([{ id: 'vier-rollen', h: 'Vier rollen, één resultaat' }]).concat(cv.showConcept ? [{ id: 'kenmerken', h: 'Wanneer werkt een T4K goed?' }, { id: 'signalen', h: 'Signalen' }, { id: 'ritme', h: 'Het ritme' }, { id: 'zelfscan', h: 'Zelfscan' }] : []).concat([{ id: 'samen', h: 'Samen verantwoordelijk' }]); page.minutes = cv.showConcept ? 6 : 2;
       }
       if (cur === 'art' && ai) { page.isAIART = true; page.toc.push({ id: 'zes-kenmerken', h: 'Zes kenmerken' }, { id: 'k1', h: '1. Rond producten' }, { id: 'k2', h: '2. Outcome-gedreven' }, { id: 'k3', h: '3. Menselijk oordeel' }, { id: 'k4', h: '4. Innovatie en cadans' }, { id: 'k5', h: '5. Gedeelde AI-workflows' }, { id: 'k6', h: '6. AI-governance' }); page.minutes = 12; }
+      if (cur === 'cflow') { page.isCFLOW = true; page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }, { id: 'flow-loop', h: 'De flow draait altijd' }, { id: 'flow-vs-vpt', h: 'Van poortjes naar flow' }, { id: 'flow-ritme', h: 'Het ritme' }, { id: 'flow-rollen', h: 'Wie doet wat?' }, { id: 'flow-vangrails', h: 'Vangrails' }]; page.minutes = 5; page.updated = '12 november 2026'; }
       if (cur === 'f5') {
         page.isLACE = true;
         if (cv.showConcept) {
@@ -3507,7 +3668,7 @@ class Component extends DCLogic {
     const off = 'display:flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:30px;border:0;cursor:pointer;font-family:inherit;font-size:18px;font-weight:500;background:transparent;color:#1B2A5C';
 
     return {
-      navy, blue, cyan, orange, green, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie, tour, tourOv, rv, lace,
+      navy, blue, cyan, orange, green, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie, tour, tourOv, rv, lace, cflow,
       openArtie: () => this.setState({ artie: true, artieQ: '' }),
       openConcepts: () => this.setState({ sel: 'concepts' }),
       pfOpen: !!this.state.pfOpen, pfClosed: !this.state.pfOpen,
