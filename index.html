@@ -188,9 +188,10 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
       <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2 2 6l8 4 8-4zM2 10l8 4 8-4M2 14l8 4 8-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>
       Basis EDSN
     </button>
-    <button style="{{aiBtn}}" onClick="{{setAi}}" aria-pressed="{{ai}}">
+    <button style="{{aiBtn}}" onClick="{{setAi}}" aria-pressed="{{ai}}" aria-disabled="{{aiLocked}}" title="{{aiTitle}}">
       <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M8 2l1.6 4.4L14 8l-4.4 1.6L8 14l-1.6-4.4L2 8l4.4-1.6zM15 12l.8 2.2L18 15l-2.2.8L15 18l-.8-2.2L12 15l2.2-.8z" fill="currentColor"></path></svg>
       AI-Native EDSN
+      <sc-if value="{{aiLocked}}" hint-placeholder-val="{{ true }}"><span style="margin-left: 2px; padding: 3px 9px; border-radius: 10px; background: #F39200; color: #2B1A00; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap">Coming soon</span></sc-if>
     </button>
   </div>
 
@@ -2490,7 +2491,8 @@ class Component extends DCLogic {
   }
   renderVals() {
     const p = this.props;
-    const mode = this.state.mode ?? p.startMode ?? 'core';
+    const aiLocked = !(p.aiOpen ?? false);
+    const mode = aiLocked ? 'core' : (this.state.mode ?? p.startMode ?? 'core');
     const ai = mode === 'ai';
     const orange = p.orange ?? '#F39200', green = p.green ?? '#95C11F';
     // Core: EDSN blauw + groen · AI-Native: paars
@@ -3692,14 +3694,15 @@ class Component extends DCLogic {
       hasSel: !!cur,
       close: () => this.setState({ sel: null }),
       setCore: () => this.setState({ mode: 'core', sel: null }),
-      setAi: () => this.setState({ mode: 'ai', sel: null }),
+      setAi: () => { if (!aiLocked) this.setState({ mode: 'ai', sel: null }); },
+      aiLocked, aiTitle: aiLocked ? 'AI-Native EDSN komt binnenkort beschikbaar' : 'Bekijk AI-Native EDSN',
       coreBtn: ai ? off : on,
-      aiBtn: ai ? on : off
+      aiBtn: ai ? on : (aiLocked ? off + ';opacity:.6;cursor:not-allowed' : off)
     };
   }
 }
 
-mountDC(Component, {"navy": "#1B2A5C", "blue": "#0072BC", "cyan": "#00A6D6", "orange": "#F39200", "green": "#95C11F", "aiDeep": "#3A1D6E", "aiPrimary": "#6E44B8", "aiSecondary": "#A47FE0", "artieUrl": "#", "artieEmbed": "", "compact": 0.86, "animate": true, "startMode": "core"}, document.getElementById('tpl').content, document.getElementById('app'));
+mountDC(Component, {"navy": "#1B2A5C", "blue": "#0072BC", "cyan": "#00A6D6", "orange": "#F39200", "green": "#95C11F", "aiDeep": "#3A1D6E", "aiPrimary": "#6E44B8", "aiSecondary": "#A47FE0", "artieUrl": "#", "artieEmbed": "", "compact": 0.86, "animate": true, "startMode": "core", "aiOpen": false}, document.getElementById('tpl').content, document.getElementById('app'));
 </script>
 </body>
 </html>
