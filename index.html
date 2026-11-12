@@ -137,7 +137,7 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
   </div>
   <div style="padding: 20px 22px; border-radius: 16px; border: 2px solid {{orange}}; background: #FFF8EC; display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); gap: 22px">
     <div style="display: flex; flex-direction: column; gap: 8px">
-      <span style="font-size: 22px; font-weight: 700; color: #1B2A5C">Jij als {{rv.cur.label}}</span>
+      <span style="font-size: 22px; font-weight: 700; color: #1B2A5C">{{rv.cur.heading}}</span>
       <span style="font-size: 14px; line-height: 1.6; color: #3E4A63">{{rv.cur.intro}}</span>
       <button style="align-self: flex-start; margin-top: 4px; min-height: 40px; padding: 0 16px; border: 0; border-radius: 20px; background: {{navy}}; color: #FFFFFF; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700" onClick="{{rv.cur.open}}">Lees meer over jouw rol →</button>
     </div>
@@ -673,6 +673,219 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
                   <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #2E3A55">{{s.p}}</p>
                 </section>
               </sc-for>
+
+              <sc-if value="{{page.isLACE}}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 16px 18px; border-radius: 14px; border: 2px solid {{orange}}; background: #FFF8EC; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+                  <span style="display: flex; flex-direction: column; gap: 2px">
+                    <span style="font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #7A4A00">Wijzigingsvoorstel WP-004 · Concept</span>
+                    <span style="font-size: 15px; font-weight: 700; color: #1B2A5C">Het LACE: rol, werkwijze en producten</span>
+                  </span>
+                  <span role="group" aria-label="Weergave" style="display: flex; gap: 4px; padding: 4px; border-radius: 24px; background: #FFFFFF; border: 1.5px solid #D5DBE5">
+                    <sc-for list="{{cv.tabs}}" as="tb" hint-placeholder-count="3"><button style="{{tb.style}}" onClick="{{tb.pick}}" aria-pressed="{{tb.on}}">{{tb.label}}</button></sc-for>
+                  </span>
+                </div>
+                <sc-if value="{{lock.showT4KLock}}" hint-placeholder-val="{{ false }}">
+                  <form onSubmit="{{lock.submit}}" style="padding: 24px 26px; border-radius: 16px; border: 2px solid #D5DBE5; background: #F4F6FA; display: flex; flex-direction: column; gap: 12px; max-width: 520px">
+                    <span style="font-size: 20px; font-weight: 700; color: #1B2A5C">Alleen voor reviewers</span>
+                    <span style="font-size: 14px; line-height: 1.5; color: #3E4A63">Concepten zijn nog niet vastgesteld. Vul het wachtwoord in om ze te lezen.</span>
+                    <span style="display: flex; gap: 8px; flex-wrap: wrap">
+                      <input id="edm-pw" type="password" autocomplete="off" aria-label="Wachtwoord" placeholder="Wachtwoord" style="flex: 1; min-width: 180px; min-height: 44px; padding: 0 14px; border: 1.5px solid #C9D1DD; border-radius: 10px; font-family: inherit; font-size: 15px; color: #1B2A5C; background: #FFFFFF">
+                      <button type="submit" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: 22px; background: {{navy}}; color: #FFFFFF; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700">Ontgrendel</button>
+                    </span>
+                    <sc-if value="{{lock.err}}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size: 13px; font-weight: 700; color: #C8102E">Onjuist wachtwoord, probeer het opnieuw.</span></sc-if>
+                  </form>
+                </sc-if>
+
+                <sc-if value="{{cv.isDelta}}" hint-placeholder-val="{{ false }}">
+                  <section id="delta" style="padding: 20px 22px; border-radius: 14px; background: #F4F6FA; display: flex; flex-direction: column; gap: 10px">
+                    <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: #1B2A5C">Wat verandert er?</h2>
+                    <sc-for list="{{lace.changes}}" as="ch" hint-placeholder-count="6">
+                      <a href="{{ch.href}}" style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; align-items: start; padding: 10px 12px; border-radius: 10px; background: #FFFFFF; text-decoration: none">
+                        <span style="{{ch.tag}}">{{ch.type}}</span>
+                        <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700; color: #1B2A5C">{{ch.what}}</span><span style="font-size: 13px; line-height: 1.5; color: #3E4A63">{{ch.text}}</span></span>
+                      </a>
+                    </sc-for>
+                  </section>
+                  <section id="vervalt" style="padding: 20px; border-radius: 16px; border: 2px solid #C8102E; background: #FDF1F2; display: flex; flex-direction: column; gap: 12px">
+                    <span style="align-self: flex-start; padding: 4px 12px; border-radius: 10px; background: #C8102E; color: #FFFFFF; font-size: 12px; font-weight: 800; letter-spacing: 1px">VERVALT · OPGENOMEN IN DE NIEUWE SECTIES</span>
+                    <sc-for list="{{lace.old}}" as="od" hint-placeholder-count="3">
+                      <div style="display: flex; flex-direction: column; gap: 4px; opacity: 0.85">
+                        <span style="font-size: 18px; font-weight: 700; color: #8A1020; text-decoration: line-through">{{od.h}}</span>
+                        <span style="font-size: 15px; line-height: 1.6; color: #6B2A33; text-decoration: line-through">{{od.p}}</span>
+                      </div>
+                    </sc-for>
+                  </section>
+                </sc-if>
+
+                <sc-if value="{{cv.showConcept}}" hint-placeholder-val="{{ false }}">
+                <div style="{{cv.wrap}}">
+                  <sc-if value="{{cv.isDelta}}" hint-placeholder-val="{{ false }}"><span style="align-self: flex-start; padding: 4px 12px; border-radius: 10px; background: #2F7A12; color: #FFFFFF; font-size: 12px; font-weight: 800; letter-spacing: 1px">NIEUW · VOORGESTELD IN WP-004</span></sc-if>
+
+                  <!-- 1. Hub -->
+                  <section id="lace-oogopslag" style="display: flex; flex-direction: column; gap: 14px">
+                    <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Het LACE in één oogopslag</h2>
+                    <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #2E3A55">Het LACE is de motor achter onze manier van werken. Het is geen afdeling die regels oplegt, maar een klein agile team dat verbindt: tussen leiderschap en teams, tussen strategie en de werkvloer, en tussen de vastgestelde WoW en wat we in de praktijk leren.</p>
+                    <div style="position: relative; width: 100%; height: 480px; border-radius: 18px; background: #F4F6FA; overflow: hidden">
+                      <svg style="position: absolute; left: 0; top: 0; width: 100%; height: 100%" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <g stroke="#F39200" stroke-width="2" stroke-dasharray="6 6" vector-effect="non-scaling-stroke" fill="none">
+                          <line x1="50" y1="50" x2="19" y2="17" vector-effect="non-scaling-stroke"/><line x1="50" y1="50" x2="19" y2="50" vector-effect="non-scaling-stroke"/><line x1="50" y1="50" x2="19" y2="83" vector-effect="non-scaling-stroke"/>
+                          <line x1="50" y1="50" x2="81" y2="17" vector-effect="non-scaling-stroke"/><line x1="50" y1="50" x2="81" y2="50" vector-effect="non-scaling-stroke"/><line x1="50" y1="50" x2="81" y2="83" vector-effect="non-scaling-stroke"/>
+                        </g>
+                      </svg>
+                      <div class="tour-ring" style="position: absolute; left: 50%; top: 50%; width: 190px; height: 190px; margin: -95px 0 0 -95px; border-radius: 50%; border: 3px dashed {{orange}}"></div>
+                      <div style="position: absolute; left: 50%; top: 50%; width: 160px; height: 160px; margin: -80px 0 0 -80px; border-radius: 50%; background: {{orange}}; box-shadow: 0 12px 30px rgba(243, 146, 0, 0.35); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-align: center">
+                        <span style="font-size: 34px; font-weight: 800; letter-spacing: 1px; color: #2B1A00">LACE</span>
+                        <span style="font-size: 11px; line-height: 1.3; font-weight: 600; color: #3A2400">Lean-Agile Center<br>of Excellence</span>
+                      </div>
+                      <sc-for list="{{lace.hub}}" as="hb" hint-placeholder-count="6">
+                        <div style="{{hb.box}}">
+                          <span style="display: flex; align-items: center; gap: 8px"><span style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: {{navy}}"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{hb.icon}}" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span style="font-size: 14px; font-weight: 700; color: #1B2A5C">{{hb.title}}</span></span>
+                          <span style="font-size: 12px; line-height: 1.5; color: #3E4A63">{{hb.text}}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </section>
+
+                  <!-- 2. Verantwoordelijkheden -->
+                  <section id="lace-taken" style="display: flex; flex-direction: column; gap: 14px">
+                    <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Vijf verantwoordelijkheden</h2>
+                    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px">
+                      <sc-for list="{{lace.taken}}" as="tk" hint-placeholder-count="5">
+                        <div style="padding: 18px; border-radius: 14px; border: 1.5px solid #D5DBE5; border-top: 5px solid {{orange}}; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
+                          <span style="display: flex; align-items: center; gap: 10px"><span style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: {{navy}}; color: #FFFFFF; font-size: 14px; font-weight: 800">{{tk.n}}</span><span style="font-size: 16px; font-weight: 700; color: #1B2A5C">{{tk.title}}</span></span>
+                          <span style="font-size: 14px; line-height: 1.6; color: #3E4A63">{{tk.text}}</span>
+                          <span style="margin-top: auto; padding: 8px 10px; border-radius: 8px; background: #FFF8EC; font-size: 13px; line-height: 1.5; color: #5A3A00"><strong>Bij EDSN:</strong> {{tk.edsn}}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </section>
+
+                  <!-- 3. Producten -->
+                  <section id="lace-producten" style="display: flex; flex-direction: column; gap: 14px">
+                    <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Onze producten</h2>
+                    <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #2E3A55">Het LACE werkt zelf als productteam. Onze producten maken de werkwijze vindbaar, begrijpelijk en levend.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px">
+                      <sc-for list="{{lace.prods}}" as="pr2" hint-placeholder-count="3">
+                        <div style="{{pr2.box}}">
+                          <span style="{{pr2.tag}}">{{pr2.kind}}</span>
+                          <span style="font-size: 22px; font-weight: 800">{{pr2.title}}</span>
+                          <span style="font-size: 14px; line-height: 1.6; opacity: 0.9">{{pr2.text}}</span>
+                          <sc-if value="{{pr2.hasRun}}" hint-placeholder-val="{{ true }}"><button style="{{pr2.btn}}" onClick="{{pr2.run}}">{{pr2.cta}}</button></sc-if>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </section>
+
+                  <!-- 4. Team -->
+                  <section id="lace-team" style="display: flex; flex-direction: column; gap: 14px">
+                    <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Het LACE als agile team</h2>
+                    <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #2E3A55">Het LACE geeft het goede voorbeeld: het werkt zelf als agile team, met vaste rollen, een zichtbare backlog en dezelfde cadans als de ART’s.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px">
+                      <sc-for list="{{lace.roles}}" as="lr" hint-placeholder-count="4">
+                        <div style="padding: 16px; border-radius: 14px; background: #F4F6FA; display: flex; flex-direction: column; gap: 6px">
+                          <span style="font-size: 15px; font-weight: 700; color: #1B2A5C">{{lr.title}}</span>
+                          <span style="font-size: 13px; line-height: 1.55; color: #3E4A63">{{lr.text}}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                      <span style="font-size: 13px; font-weight: 700; color: #5A6478">Het LACE van EDSN:</span>
+                      <sc-for list="{{lace.crew}}" as="cr" hint-placeholder-count="6"><span style="padding: 6px 14px; border-radius: 16px; background: {{navy}}; color: #FFFFFF; font-size: 13px; font-weight: 700">{{cr}}</span></sc-for>
+                    </div>
+                  </section>
+
+                  <!-- 5. Ritme -->
+                  <section id="lace-ritme" style="display: flex; flex-direction: column; gap: 14px">
+                    <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Het ritme van het LACE</h2>
+                    <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #2E3A55">Het LACE plant, levert en verbetert in de PI-cadans van de ART’s, volgens het ritme van align, sense en respond. Zo beweegt het mee met de teams die het ondersteunt.</p>
+                    <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px">
+                      <sc-for list="{{lace.ritme}}" as="rt" hint-placeholder-count="5">
+                        <div style="{{rt.box}}">
+                          <span style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8">{{rt.phase}}</span>
+                          <span style="font-size: 15px; font-weight: 700">{{rt.title}}</span>
+                          <span style="font-size: 12px; line-height: 1.5; opacity: 0.9">{{rt.text}}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </section>
+
+                  <!-- 6. Backlog -->
+                  <section id="lace-backlog" style="display: flex; flex-direction: column; gap: 14px">
+                    <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">De transformatiebacklog</h2>
+                    <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #2E3A55">Alle verbeteringen aan de manier van werken staan op één zichtbare backlog, geprioriteerd met WSJF en gekoppeld aan transformatie-OKR’s. Liever kleine, zichtbare successen dan alles tegelijk.</p>
+                    <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px">
+                      <sc-for list="{{lace.kanban}}" as="kc" hint-placeholder-count="5">
+                        <div style="padding: 10px; border-radius: 12px; background: #F4F6FA; display: flex; flex-direction: column; gap: 8px; min-height: 170px">
+                          <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: #1B2A5C">{{kc.title}}</span>
+                          <sc-for list="{{kc.items}}" as="ki" hint-placeholder-count="2">
+                            <span style="padding: 8px 9px; border-radius: 8px; background: #FFFFFF; border: 1.5px solid #D5DBE5; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 2px 0 rgba(27, 42, 92, 0.06)"><span style="{{ki.tag}}">{{ki.type}}</span><span style="font-size: 12px; line-height: 1.4; font-weight: 600; color: #1B2A5C">{{ki.label}}</span></span>
+                          </sc-for>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <span style="font-size: 12px; color: #5A6478">Voorbeelditems ter illustratie. De echte backlog volgt uit de review en de PI Planning van het LACE.</span>
+                  </section>
+
+                  <!-- 7. Organisatiemodel -->
+                  <section id="lace-model" style="display: flex; flex-direction: column; gap: 14px">
+                    <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Het organisatiemodel groeit mee</h2>
+                    <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #2E3A55">Een team van vier tot zes mensen kan een paar honderd collega’s ondersteunen. Groeit de organisatie of de volwassenheid, dan verschuift het LACE naar een hybride of decentraal model.</p>
+                    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr); gap: 6px; align-items: stretch">
+                      <sc-for list="{{lace.model}}" as="md" hint-placeholder-count="5">
+                        <sc-if value="{{md.isStep}}" hint-placeholder-val="{{ true }}">
+                          <div style="padding: 16px; border-radius: 14px; border: 1.5px solid #D5DBE5; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
+                            <div aria-hidden="true" style="position: relative; height: 70px; border-radius: 10px; background: #F4F6FA"><sc-for list="{{md.dots}}" as="dd" hint-placeholder-count="4"><span style="{{dd}}"></span></sc-for></div>
+                            <span style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #7A4A00">{{md.phase}}</span>
+                            <span style="font-size: 17px; font-weight: 700; color: #1B2A5C">{{md.title}}</span>
+                            <span style="font-size: 13px; line-height: 1.55; color: #3E4A63">{{md.text}}</span>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{md.isArrow}}" hint-placeholder-val="{{ false }}"><span style="display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3l7 7-7 7" fill="none" stroke="{{orange}}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></sc-if>
+                      </sc-for>
+                    </div>
+                    <span style="padding: 10px 14px; border-radius: 10px; background: #FFF8EC; font-size: 14px; line-height: 1.5; color: #5A3A00"><strong>Vraag voor de review:</strong> welk model past nu bij EDSN, en waar willen we over een jaar staan?</span>
+                  </section>
+
+                  <!-- 8. Meten -->
+                  <section id="lace-meten" style="display: flex; flex-direction: column; gap: 14px">
+                    <h2 style="margin: 0; font-size: 28px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Zo meten we voortgang</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px">
+                      <sc-for list="{{lace.meten}}" as="mt" hint-placeholder-count="2">
+                        <div style="padding: 18px; border-radius: 14px; background: #F4F6FA; border-left: 5px solid {{mt.color}}; display: flex; flex-direction: column; gap: 8px">
+                          <span style="font-size: 16px; font-weight: 700; color: #1B2A5C">{{mt.title}}</span>
+                          <sc-for list="{{mt.items}}" as="mi" hint-placeholder-count="4"><span style="font-size: 14px; line-height: 1.5; color: #3E4A63">• {{mi}}</span></sc-for>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <button style="align-self: flex-start; min-height: 40px; padding: 0 16px; border: 1.5px solid #D5DBE5; border-radius: 20px; background: #FFFFFF; color: #1B2A5C; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 700" onClick="{{lace.openMeasure}}">Meer over Measure and Grow →</button>
+                  </section>
+
+                  <!-- 9. AI-Native -->
+                  <section id="lace-ai" style="padding: 22px 24px; border-radius: 16px; background: #2A1650; color: #FFFFFF; display: flex; flex-direction: column; gap: 14px">
+                    <h2 style="margin: 0; font-size: 26px; line-height: 1.25; font-weight: 700; color: #FFFFFF">Het LACE in een AI-Native EDSN</h2>
+                    <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #E4DAF7">AI verandert niet alleen hoe teams werken, maar ook hoe het LACE werkt. Het LACE helpt de organisatie AI verantwoord te omarmen en doet dat zelf voor.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px">
+                      <sc-for list="{{lace.ai}}" as="la" hint-placeholder-count="4">
+                        <div style="padding: 14px; border-radius: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); display: flex; flex-direction: column; gap: 6px">
+                          <span style="font-size: 15px; font-weight: 700; color: #FFFFFF">{{la.title}}</span>
+                          <span style="font-size: 13px; line-height: 1.55; color: #E4DAF7">{{la.text}}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <span style="font-size: 12px; color: #C9B8EC">Eigen vertaling door het LACE: AI-Native SAFe beschrijft de rol van het LACE (nog) niet expliciet.</span>
+                  </section>
+
+                  <!-- 10. In de Big Picture -->
+                  <section id="lace-bigpicture" style="padding: 22px 24px; border-radius: 16px; border: 2px dashed {{orange}}; display: flex; flex-wrap: wrap; align-items: center; gap: 18px">
+                    <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 8px">
+                      <h2 style="margin: 0; font-size: 24px; line-height: 1.25; font-weight: 700; color: #1B2A5C">Waar is het LACE actief in de Big Picture?</h2>
+                      <span style="font-size: 14px; line-height: 1.6; color: #3E4A63">Het LACE staat niet op één plek: het is actief van portfolio tot team. Bekijk het in de plaat: alle plekken waar het LACE een rol speelt lichten op.</span>
+                    </div>
+                    <button style="min-height: 48px; padding: 0 22px; display: flex; align-items: center; gap: 10px; border: 0; border-radius: 24px; background: {{orange}}; color: #2B1A00; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 800" onClick="{{lace.showInBP}}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#2B1A00" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="#2B1A00"/></svg>Toon het LACE in de Big Picture</button>
+                  </section>
+                </div>
+                </sc-if>
+              </sc-if>
 
               <sc-if value="{{page.isRole}}" hint-placeholder-val="{{ false }}">
                 <section id="oogopslag" style="display: flex; flex-direction: column; gap: 22px">
@@ -2148,6 +2361,7 @@ class Component extends DCLogic {
     if (prevState && prevState.roleView !== this.state.roleView && this.state.roleView) { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {} }
     if (prevState && prevState.sel !== this.state.sel) {
       try { window.scrollTo(0, 0); } catch (e) {}
+      if (prevState.cview === this.state.cview && this.state.cview !== 'current') this.setState({ cview: 'current' });
       if (!this.state.sel) { this.setState({ bpStopped: false }); this._bpStart(); }
       try { const want = this.state.sel ? '#' + this.state.sel : ''; if ((window.location.hash || '') !== want) window.history.pushState(null, '', want || (window.location.pathname + window.location.search)); } catch (e) {}
     }
@@ -2953,7 +3167,11 @@ class Component extends DCLogic {
     { id: 'WP-003', page: null, pageTitle: 'Big Picture · nieuwe functie', title: 'Ik ben…: de Big Picture vanuit jouw rol', status: 0,
       summary: 'Kies je rol (bijv. teamlid, Product Owner, RTE of Business Owner) en de Big Picture licht op waar jij een rol speelt. Je ziet jouw plekken in de plaat, jouw events, jouw artefacten en je aanspreekpunt in het T4K.',
       author: 'Pieter Meijer', reviewers: 'LACE', date: '9 november 2026', deadline: 'n.t.b.',
-      actions: [['Probeer Ik ben…', () => this._startRoles()]] }];
+      actions: [['Probeer Ik ben…', () => this._startRoles()]] },
+    { id: 'WP-004', page: 'f5', pageTitle: 'LACE', title: 'Het LACE: rol, werkwijze en producten', status: 0,
+      summary: 'Voorstel om de LACE-pagina uit te breiden: het LACE als verbindende hub, vijf verantwoordelijkheden, onze producten ARTie en het Delivery Model, het LACE als agile team met eigen ritme en transformatiebacklog, het organisatiemodel, voortgang meten, de rol in een AI-Native EDSN en waar het LACE actief is in de Big Picture.',
+      author: 'Pieter Meijer', reviewers: 'LACE', date: '12 november 2026', deadline: 'n.t.b.',
+      actions: [['Bekijk wat verandert', () => this.setState({ sel: 'f5', cview: 'delta' })], ['Lees het concept', () => this.setState({ sel: 'f5', cview: 'concept' })]] }];
     const wow = {
       open: propDefs.filter((x) => x.status < 2).length,
       process: [['1', 'Concept', 'Een wijziging wordt uitgewerkt als voorstel. De vastgestelde WoW blijft ongewijzigd zichtbaar.', blue], ['2', 'In review', 'Reviewers lezen het concept en de delta en geven feedback.', orange], ['3', 'Vastgesteld', 'Na akkoord wordt het voorstel verwerkt in de WoW en vastgelegd in het wijzigingslog.', green]]
@@ -3132,6 +3350,7 @@ class Component extends DCLogic {
       ['rte', 'Release Train Engineer', ['t4k', 'art', 'pi', 'sense', 'pipeline', 'architects'], 'Jij zorgt dat de trein rijdt: flow, PI-uitvoering en het wegnemen van belemmeringen.', ['T4K-sync', 'ART Sync', 'PI Planning', 'System Demo', 'Inspect and Adapt'], ['ART Planning Board', 'PI Objectives en voortgang', 'Risico’s (ROAM)'], 'Je collega’s in het T4K (PM, SA en PD) en de Scrum Masters / Team Coaches.', 'rte'],
       ['bo', 'Business Owner', ['owners', 'outcomes', 'pioutcomes', 'pi', 'sense', 'value'], 'Jij bent eindverantwoordelijk voor de waarde van de ART en kent business value toe aan de PI Objectives.', ['PI Planning (business value toekennen)', 'System Demo', 'Inspect and Adapt'], ['PI Objectives met business value', 'Strategische thema’s'], 'De Product Manager en de RTE.', 'owners'],
       ['pd', 'People Developer', ['t4k', 'ade', 'teams', 'f5'], 'Jij ontwikkelt de mensen achter de ART: vakmanschap, groei en continuïteit via de People Runway.', ['T4K-sync', 'PI Planning', 'Inspect and Adapt', 'Ontwikkelgesprekken'], ['People Runway', 'Competentie- en ontwikkelplannen'], 'Je collega’s in het T4K (PM, SA en RTE).', 'peopledev'],
+      ['lace', 'LACE', ['f5', 'leadership', 'backlog', 't4k', 'pi', 'sense', 'architects', 'ade'], 'Het LACE jaagt de manier van werken aan: het coacht leiders en het T4K, faciliteert PI Planning en Inspect and Adapt, ondersteunt Lean Portfolio Management en organiseert het leren.', ['PI Planning (faciliteren)', 'Inspect and Adapt (verbeterworkshop)', 'Portfolio sync', 'Coach sync en communities of practice', 'Eigen LACE-PI Planning'], ['Transformatiebacklog', 'Het EDSN Delivery Model', 'ARTie', 'Leerpaden en trainingen'], 'De Business Owner van het LACE en de RTE’s.', 'f5'],
       ['lead', 'Leidinggevende / portfolio', ['leadership', 'outcomes', 'investment', 'backlog', 'epic', 'roi', 'owners'], 'Jij zet de koers: strategie, investeringen en de randvoorwaarden waarin teams kunnen leveren.', ['Portfolio sync', 'Strategische portfolioreview', 'PI Planning (management review)'], ['Strategische thema’s', 'Portfolio Backlog en Epics', 'Lean budgetten'], 'De Business Owners en Epic Owners.', 'leadership']];
     const rKey = this.state.role || 'teamlid';
     const rDef = ROLES.find((r) => r[0] === rKey) || ROLES[0];
@@ -3139,13 +3358,64 @@ class Component extends DCLogic {
     const rv = { on: rvOn, show: rvOn, mask: rvOn ? maskOf(rDef[2]) : '', close: () => this.setState({ roleView: false }),
       chips: ROLES.map((r) => ({ label: r[1], on: r[0] === rKey, pick: () => this.setState({ role: r[0] }),
         style: 'min-height:38px;padding:0 14px;border-radius:19px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;' + (r[0] === rKey ? 'border:0;background:' + navy + ';color:#FFFFFF' : 'border:1.5px solid #D5DBE5;background:#FFFFFF;color:#1B2A5C') })),
-      cur: { label: rDef[1], intro: rDef[3], events: rDef[4], arts: rDef[5], contact: rDef[6], open: () => this.setState({ sel: rDef[7] }),
+      cur: { label: rDef[1], heading: rDef[0] === 'lace' ? 'Het LACE in de plaat' : 'Jij als ' + rDef[1], intro: rDef[3], events: rDef[4], arts: rDef[5], contact: rDef[6], open: () => this.setState({ sel: rDef[7] }),
         spots: rDef[2].filter((k) => SPOT[k]).map((k, i) => { const [x, y, w] = SPOT[k]; const bx = Math.round(x + w / 2 + Math.min(w / 2, 90) - 6), by = Math.max(4, y - 16);
           return { n: i + 1, name: I[k] ? I[k][0] : k, open: () => this.setState({ sel: k }),
             badge: 'position:absolute;z-index:47;pointer-events:none;left:' + bx + 'px;top:' + by + 'px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:' + orange + ';color:#2B1A00;font-size:15px;font-weight:800;box-shadow:0 0 0 3px #FFFFFF,0 4px 10px rgba(0,0,0,.3)' }; }) } };
+    // ---- Concept WP-004: de LACE-pagina ----
+    const ICON = { lead: 'M4 20h16M6 20V10l6-5 6 5v10M10 20v-5h4v5', art: 'M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4', team: 'M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 11a3 3 0 1 0 0-6M2 20c0-3 3-5 6-5s6 2 6 5M14 15c3 0 6 2 6 5', hr: 'M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10z', strat: 'M12 3v4M12 17v4M3 12h4M17 12h4M12 12m-5 0a5 5 0 1 0 10 0 5 5 0 1 0-10 0', learn: 'M3 8l9-4 9 4-9 4zM7 10v5c0 1.5 2.5 3 5 3s5-1.5 5-3v-5' };
+    const tagOf = (type) => 'justify-self:start;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;' + (type === 'Nieuw' ? 'background:#2F7A12;color:#FFFFFF' : type === 'Vervalt' ? 'background:#C8102E;color:#FFFFFF' : type === 'Gewijzigd' ? 'background:' + blue + ';color:#FFFFFF' : 'background:#E1E6EE;color:#3E4A63');
+    const kTag = { Product: [orange, '#2B1A00'], WoW: [blue, '#FFFFFF'], Leren: [green, '#1F2604'], Portfolio: [navy, '#FFFFFF'], Mensen: ['#A0337A', '#FFFFFF'], LACE: ['#5A6478', '#FFFFFF'] };
+    const dot = (x, y, r, c) => 'position:absolute;left:' + x + '%;top:' + y + '%;width:' + r + 'px;height:' + r + 'px;border-radius:50%;background:' + c + ';transform:translate(-50%,-50%)';
+    const people = [[15, 30], [30, 72], [50, 22], [70, 74], [85, 32], [38, 48], [62, 50]];
+    const lace = {
+      hub: [['lead', 'Leiderschap en portfolio', 'Coacht leiders en ondersteunt Lean Portfolio Management: portfolio sync, reviews en participatief budgetteren.', 19, 17],
+        ['art', 'ART’s en T4K', 'Helpt ART’s lanceren en verbeteren, coacht het T4K en faciliteert PI Planning en Inspect and Adapt.', 19, 50],
+        ['team', 'Teams en coaches', 'Ondersteunt Scrum Masters / Team Coaches en Product Owners, en deelt goede praktijken tussen teams.', 19, 83],
+        ['strat', 'CIO Office en strategie', 'Houdt de transformatie verbonden met de strategie en stuurt op transformatie-OKR’s.', 81, 17],
+        ['hr', 'Mensen en HR', 'Bouwt met HR en de People Developers aan rolprofielen, leerpaden en de People Runway.', 81, 50],
+        ['learn', 'Leren en communities', 'Organiseert trainingen, communities of practice en kennisdeling over de hele organisatie.', 81, 83]]
+        .map(([ic, title, text, x, y]) => ({ title, text, icon: ICON[ic], box: 'position:absolute;left:' + x + '%;top:' + y + '%;transform:translate(-50%,-50%);width:31%;box-sizing:border-box;padding:12px 14px;border-radius:12px;background:#FFFFFF;border:1.5px solid #D5DBE5;box-shadow:0 4px 12px rgba(27,42,92,.06);display:flex;flex-direction:column;gap:6px' })),
+      taken: [['Transformatie faciliteren', 'Een heldere missie, zelf het goede voorbeeld geven als agile team, en regelmatig en eerlijk communiceren over visie en voortgang.', 'het Delivery Model en de wijzigingsvoorstellen maken de WoW voor iedereen zichtbaar.'],
+        ['Transformatiebacklog beheren', 'Eén transparante backlog met verbeteringen, geprioriteerd met WSJF en gekoppeld aan transformatie-OKR’s. Kleine, zichtbare successen in plaats van alles tegelijk.', 'voorstellen als WP-001 lopen via review naar de vastgestelde WoW.'],
+        ['Leren organiseren', 'Rolgerichte leerpaden samen met HR, trainingen en communities of practice, en meten of het leren effect heeft.', 'samen met de People Developers en de People Runway.'],
+        ['Leiders coachen', 'Leiderschapsworkshops, coaching één-op-één en in kleine groepen, en dicht bij de praktijk blijven: geen ivoren toren.', 'coaching van het T4K, met de T4K-zelfscan als gespreksstarter.'],
+        ['Lean Portfolio Management ondersteunen', 'Portfolio-events faciliteren, zoals Portfolio Sync en Portfolio Review, en inzicht leveren over waardestromen heen.', 'in nauwe samenwerking met het CIO Office.']]
+        .map(([title, text, edsn], i) => ({ n: i + 1, title, text, edsn })),
+      prods: [
+        { kind: 'Product', title: 'ARTie', text: 'Onze WoW-agent in Copilot Studio. ARTie beantwoordt vragen over rollen, events en werkwijze, op basis van de kennisbank van het Delivery Model.', cta: 'Vraag het ARTie', hasRun: true, run: () => this.setState({ artie: true, artieQ: '' }), bg: navy, fg: '#FFFFFF', tagBg: orange, tagFg: '#2B1A00', btnBg: orange, btnFg: '#2B1A00' },
+        { kind: 'Product', title: 'EDSN Delivery Model', text: 'De Big Picture met verdiepende pagina’s, wijzigingsvoorstellen en een wijzigingslog: één plek voor onze vastgestelde werkwijze.', cta: 'Naar de Big Picture', hasRun: true, run: () => this.setState({ sel: null }), bg: orange, fg: '#2B1A00', tagBg: navy, tagFg: '#FFFFFF', btnBg: navy, btnFg: '#FFFFFF' },
+        { kind: 'Dienst', title: 'Trainingen en communities', text: 'Leiderschapsworkshops, rolgerichte trainingen en communities of practice voor onder meer RTE’s, Scrum Masters / Team Coaches en Product Owners.', cta: '', hasRun: false, run: null, bg: '#F4F6FA', fg: '#1B2A5C', tagBg: '#E1E6EE', tagFg: '#1B2A5C', btnBg: navy, btnFg: '#FFFFFF' }]
+        .map((p2) => Object.assign(p2, { box: 'padding:20px;border-radius:16px;background:' + p2.bg + ';color:' + p2.fg + ';display:flex;flex-direction:column;gap:10px',
+          tag: 'align-self:flex-start;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;background:' + p2.tagBg + ';color:' + p2.tagFg,
+          btn: 'align-self:flex-start;margin-top:auto;min-height:40px;padding:0 16px;border:0;border-radius:20px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;background:' + p2.btnBg + ';color:' + p2.btnFg })),
+      roles: [['Product Owner', 'Prioriteert de transformatiebacklog samen met de stakeholders en houdt hem zichtbaar.'], ['Team Coach', 'Faciliteert het LACE-team en ruimt belemmeringen op.'], ['Verandercoaches', 'Collega’s met verschillende achtergronden, zoals agile coaches en procesconsultants, met gezag in de organisatie.'], ['Business Owner', 'Een sponsor uit het management, die vroege drempels wegneemt en de koppeling met de strategie bewaakt.']].map(([title, text]) => ({ title, text })),
+      crew: ['Jeffrey', 'Pieter', 'Luc', 'Vian', 'Paul', 'Monique'],
+      ritme: [['Align', 'PI Planning', 'Faciliteert de PI Planning van de ART’s en plant de eigen LACE-PI.', navy, '#FFFFFF'], ['Sense', 'Iteraties', 'Coaching op de werkvloer en de transformatiebacklog oppakken.', blue, '#FFFFFF'], ['Sense', 'Signalen ophalen', 'Zelfscans, metingen en gesprekken laten zien waar het knelt.', blue, '#FFFFFF'], ['Respond', 'System Demo', 'Toont eigen resultaten, zoals nieuwe versies van het Delivery Model en ARTie.', orange, '#2B1A00'], ['Respond', 'Inspect and Adapt', 'Faciliteert de verbeterworkshop en neemt de uitkomsten mee naar de backlog.', orange, '#2B1A00']]
+        .map(([phase, title, text, bg, fg]) => ({ phase, title, text, box: 'padding:14px 12px;border-radius:12px;background:' + bg + ';color:' + fg + ';display:flex;flex-direction:column;gap:6px' })),
+      kanban: [['Funnel', [['Portfolio', 'Lean budgetten met Finance'], ['Mensen', 'Rolprofielen AI-native met HR']]], ['Analyse', [['LACE', 'Organisatiemodel LACE kiezen'], ['Product', 'ARTie koppelen aan de kennisbank']]], ['Klaar voor start', [['Leren', 'Training AI-geletterdheid']]], ['In uitvoering', [['WoW', 'WP-001 T4K-zelfscan'], ['Product', 'Volg een Feature-tour']]], ['Gereed', [['Product', 'EDSN Delivery Model live']]]]
+        .map(([title, items]) => ({ title, items: items.map(([type, label]) => ({ type, label, tag: 'align-self:flex-start;padding:1px 7px;border-radius:6px;font-size:10px;font-weight:800;background:' + kTag[type][0] + ';color:' + kTag[type][1] })) })),
+      model: [['Startfase', 'Centraal', 'Eén LACE-team, dicht bij het management. Heldere regie en snel schakelen.', [dot(50, 50, 26, orange)].concat(people.map(([x, y]) => dot(x, y, 9, navy)))],
+        ['Groeifase', 'Hybride (hub & spoke)', 'Een kernteam plus coaches die in de ART’s en waardestromen zitten.', [dot(50, 50, 22, orange), dot(18, 34, 12, orange), dot(82, 34, 12, orange), dot(50, 82, 12, orange)].concat(people.map(([x, y]) => dot(x, y, 8, navy)))],
+        ['Volwassen fase', 'Decentraal', 'Het verandervermogen zit in de lijn. Het LACE is vooral kenniscentrum en aanjager.', people.map(([x, y]) => dot(x, y, 9, navy)).concat([[22, 52], [42, 30], [58, 70], [78, 52], [50, 50]].map(([x, y]) => dot(x, y, 11, orange)))]]
+        .flatMap(([phase, title, text, dots], i, arr) => { const st = { isStep: true, isArrow: false, phase, title, text, dots }; return i < arr.length - 1 ? [st, { isStep: false, isArrow: true }] : [st]; }),
+      meten: [['Adoptie (eerste fase)', blue, ['ART’s gelanceerd en ondersteund', 'Mensen getraind per rol', 'Coaches en SPC’s opgeleid', 'T4K-zelfscans ingevuld']], ['Uitkomsten (volwassen fase)', green, ['Flow: doorlooptijd, cycle time en throughput', 'Voorspelbaarheid van PI’s', 'Kwaliteit en klanttevredenheid', 'Business Agility Assessment als nul- en vervolgmeting']]].map(([title, color, items]) => ({ title, color, items })),
+      ai: [['AI-geletterdheid organiseren', 'Leerpaden zodat iedereen AI goed en verantwoord kan inzetten in zijn rol.'], ['Verantwoord AI-gebruik', 'Samen met AI Governance and Ethics: heldere kaders voor transparantie, privacy en veiligheid.'], ['Zelf AI-native werken', 'Het LACE gebruikt zelf agents zoals ARTie en werkt volgens align, sense en respond.'], ['Mens-AI-teams coachen', 'Teams helpen bepalen wat mensen doen en wat agents doen, en hoe ze samen beter worden.']].map(([title, text]) => ({ title, text })),
+      old: (C.f5 && C.f5.x ? C.f5.x : []).map((x) => ({ h: x[0], p: x[1] })),
+      changes: [['Nieuw', 'Het LACE in één oogopslag', 'Het LACE als verbindende hub tussen leiderschap, ART’s, teams, HR, strategie en communities.', '#lace-oogopslag'],
+        ['Nieuw', 'Vijf verantwoordelijkheden', 'Met per verantwoordelijkheid wat het bij EDSN betekent.', '#lace-taken'],
+        ['Nieuw', 'Onze producten', 'ARTie, het EDSN Delivery Model en de trainingen en communities.', '#lace-producten'],
+        ['Nieuw', 'Het LACE als agile team, ritme en backlog', 'Rollen in het LACE-team, de PI-cadans met align, sense en respond, en de transformatiebacklog.', '#lace-team'],
+        ['Nieuw', 'Organisatiemodel en voortgang meten', 'Van centraal via hybride naar decentraal, en hoe we adoptie en uitkomsten meten.', '#lace-model'],
+        ['Nieuw', 'Het LACE in een AI-Native EDSN', 'AI-geletterdheid, verantwoord AI-gebruik en mens-AI-teams.', '#lace-ai'],
+        ['Nieuw', 'Het LACE in de Big Picture', 'Een knop die laat zien waar het LACE actief is in de plaat.', '#lace-bigpicture'],
+        ['Vervalt', 'Wat is het? · Wat doet het LACE? · Samenwerking', 'De huidige korte teksten gaan op in de nieuwe secties.', '#vervalt']].map(([type, what, text, href]) => ({ type, what, text, href, tag: tagOf(type) })),
+      openMeasure: () => this.setState({ sel: 'f6' }),
+      showInBP: () => this.setState({ sel: null, roleView: true, role: 'lace', tour: null, pfOpen: true })
+    };
     const cur = this.state.sel && C[this.state.sel] ? this.state.sel : null;
     const emptyRole = { abbr: '', full: '', fullBr: '', color: '#1B2A5C', tint: '#EEF2F7', theme: '', kern: '', intro: '', wheel: [], doelen: [], ai: [], resp: [], meet: [], afst: '', top: { h: '', t: '' }, left: { h: '', t: '' }, right: { h: '', t: '' }, bottom: { h: '', t: '' }, mandaat: '', kpi: [], relatie: [], ontw: [], strat: '' };
-    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false };
+    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false, isLACE: false };
     if (cur) {
       const c = C[cur];
       const idx = order.indexOf(cur);
@@ -3214,6 +3484,14 @@ class Component extends DCLogic {
         page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }].concat(cv.isDelta ? [{ id: 'delta', h: 'Wat verandert er?' }] : []).concat([{ id: 'vier-rollen', h: 'Vier rollen, één resultaat' }]).concat(cv.showConcept ? [{ id: 'kenmerken', h: 'Wanneer werkt een T4K goed?' }, { id: 'signalen', h: 'Signalen' }, { id: 'ritme', h: 'Het ritme' }, { id: 'zelfscan', h: 'Zelfscan' }] : []).concat([{ id: 'samen', h: 'Samen verantwoordelijk' }]); page.minutes = cv.showConcept ? 6 : 2;
       }
       if (cur === 'art' && ai) { page.isAIART = true; page.toc.push({ id: 'zes-kenmerken', h: 'Zes kenmerken' }, { id: 'k1', h: '1. Rond producten' }, { id: 'k2', h: '2. Outcome-gedreven' }, { id: 'k3', h: '3. Menselijk oordeel' }, { id: 'k4', h: '4. Innovatie en cadans' }, { id: 'k5', h: '5. Gedeelde AI-workflows' }, { id: 'k6', h: '6. AI-governance' }); page.minutes = 12; }
+      if (cur === 'f5') {
+        page.isLACE = true;
+        if (cv.showConcept) {
+          page.sections = []; page.minutes = 7;
+          page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }].concat(cv.isDelta ? [{ id: 'delta', h: 'Wat verandert er?' }, { id: 'vervalt', h: 'Vervalt' }] : [])
+            .concat([['lace-oogopslag', 'In één oogopslag'], ['lace-taken', 'Vijf verantwoordelijkheden'], ['lace-producten', 'Onze producten'], ['lace-team', 'Het LACE als agile team'], ['lace-ritme', 'Ritme'], ['lace-backlog', 'Transformatiebacklog'], ['lace-model', 'Organisatiemodel'], ['lace-meten', 'Voortgang meten'], ['lace-ai', 'AI-Native EDSN'], ['lace-bigpicture', 'In de Big Picture']].map(([id, h]) => ({ id, h })));
+        }
+      }
       if (cur === 'concepts') { page.isConcepts = true; page.toc.push({ id: 'proces', h: 'Zo verloopt een wijziging' }, { id: 'voorstellen', h: 'Lopende voorstellen' }, { id: 'wijzigingslog', h: 'Wijzigingslog' }); page.minutes = 2; }
       if (cur === 'value') { page.isBV = true; page.toc.push({ id: 'waardedraad', h: 'Waarde verbindt beslissingen' }, { id: 'hefboom', h: 'Hefboompunten' }, { id: 'valkuil', h: 'Waardefocus' }, { id: 'waarde-in-safe', h: 'Waarde in het model' }, { id: 'meten', h: 'Meten op resultaat' }); page.minutes = 6; }
       if (cur === 'peopledev') { page.isPD = true; page.toc.push({ id: 'people-authority', h: 'De people authority' }, { id: 'people-debt', h: 'People debt' }, { id: 'capaciteit', h: 'Capaciteitsallocatie' }, { id: 'pd-verantwoordelijkheden', h: 'Kernverantwoordelijkheden' }); page.minutes = 9; }
@@ -3229,7 +3507,7 @@ class Component extends DCLogic {
     const off = 'display:flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:30px;border:0;cursor:pointer;font-family:inherit;font-size:18px;font-weight:500;background:transparent;color:#1B2A5C';
 
     return {
-      navy, blue, cyan, orange, green, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie, tour, tourOv, rv,
+      navy, blue, cyan, orange, green, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie, tour, tourOv, rv, lace,
       openArtie: () => this.setState({ artie: true, artieQ: '' }),
       openConcepts: () => this.setState({ sel: 'concepts' }),
       pfOpen: !!this.state.pfOpen, pfClosed: !this.state.pfOpen,
