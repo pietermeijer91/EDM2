@@ -1,0 +1,34 @@
+# Bouwt de site opnieuw zodra iemand iets in src/ wijzigt,
+# en zet de nieuwe index.html terug in de repo (GitHub Pages publiceert die).
+name: Build Delivery Model
+
+on:
+  push:
+    branches: [main]
+    paths: ['src/**', 'scripts/**', 'package.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-audit --no-fund
+      - run: npm run build
+      - name: Commit index.html
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "Geen wijzigingen in index.html"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Build: index.html bijgewerkt"
+            git push
+          fi
