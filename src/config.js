@@ -16,5 +16,5 @@ export const settings = {
   compact: 0.86,  // Tekstgrootte (site en pagina’s)
   animate: true,  // Lopende band
   startMode: "core",
-  aiOpen: false,  // AI-Native EDSN (coming soon)
+  aiOpen: true,  // AI-Native EDSN zichtbaar (false = grijs met 'Coming soon')
 };

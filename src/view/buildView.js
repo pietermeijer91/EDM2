@@ -951,10 +951,13 @@ export function buildView(self) {
     const artie = { open: !!self.state.artie, close: () => self.setState({ artie: false }), q: self.state.artieQ || '', hasQ: !!self.state.artieQ, embed, hasEmbed: /^https:\/\//.test(embed), noEmbed: !/^https:\/\//.test(embed) };
     const cur0 = self.state.sel && C[self.state.sel] ? self.state.sel : null;
     // ---- Concepten WP-002 (Volg een Feature) en WP-003 (Ik ben…) ----
+    const AI_SHIFT = -280;
     const SPOT = { outcomes: [425, 140, 140, 86], leadership: [250, 170, 140, 84], investment: [425, 268, 140, 96], backlog: [632, 196, 110, 151], epic: [752, 214, 100, 58], roi: [1420, 150, 130, 118],
       owners: [260, 420, 120, 82], art: [580, 470, 760, 34], vpt: [488, 510, 196, 50], cflow: [488, 504, 196, 56], t4k: [680, 424, 240, 138], pioutcomes: [170, 540, 110, 110], vision: [66, 560, 100, 74], roadmap: [273, 668, 110, 76],
       teams: [520, 566, 150, 60], teamoutcomes: [700, 566, 130, 92], sp: [850, 566, 130, 74], value: [1030, 510, 260, 30], customer: [1462, 536, 90, 95], pipeline: [476, 700, 1064, 92],
       ee: [438, 648, 1102, 34], architects: [880, 830, 290, 61], ade: [568, 910, 972, 46], pi: [600, 958, 170, 54], sense: [860, 958, 250, 54], f5: [1047, 1160, 235, 76] };
+    // AI-Native EDSN heeft geen portfolio-niveau: die plekken vervallen en de rest schuift omhoog.
+    if (ai) Object.keys(SPOT).forEach((k) => { if (SPOT[k][1] < 400) delete SPOT[k]; else SPOT[k] = [SPOT[k][0], SPOT[k][1] + AI_SHIFT, SPOT[k][2], SPOT[k][3]]; });
     const ell = ([x, y, w, h]) => ({ cx: x + w / 2, cy: y + h / 2, rx: Math.round(w * 0.62 + 22), ry: Math.round(h * 0.62 + 22) });
     const maskOf = (keys) => {
       const g = keys.filter((k) => SPOT[k]).map((k) => { const e = ell(SPOT[k]); return 'radial-gradient(ellipse ' + e.rx + 'px ' + e.ry + 'px at ' + Math.round(e.cx) + 'px ' + Math.round(e.cy) + 'px, transparent 0 90%, #000 100%)'; }).join(',');
@@ -971,6 +974,7 @@ export function buildView(self) {
       ['customer', 'Waarde bij de klant', 'Met Release on Demand gaat F-101 live op het moment dat het de klant het meest oplevert. Netbeheerders zien hun meterdata nu realtime: dáár ontstaat de waarde.', 'Product Manager en Business Owners'],
       ['sense', 'Leren en verbeteren', 'In de System Demo en Inspect and Adapt kijkt de ART terug: is de beoogde waarde gehaald en wat leren we? De inzichten gaan mee naar de volgende PI. De cirkel is rond.', 'De hele ART']];
     if (ai) { const vi = TOUR.findIndex((t) => t[0] === 'vpt'); if (vi >= 0) TOUR[vi] = ['cflow', 'De continue flow in', 'In AI-Native EDSN gaat de Epic niet door poortjes, maar de continue lus in: sense, shape, build en learn. Agents helpen met analyse en specificatie, mensen beslissen over richting en prioriteit.', 'Product Manager en AI Value Architect']; }
+    if (ai) { for (let i = TOUR.length - 1; i >= 0; i--) if (!SPOT[TOUR[i][0]]) TOUR.splice(i, 1); }
     const tStep = typeof self.state.tour === 'number' ? Math.max(0, Math.min(TOUR.length - 1, self.state.tour)) : null;
     const tourOn = tStep !== null && !cur0;
     const tokAt = (k) => { const [x, y, w] = SPOT[k]; return { x: Math.round(Math.min(1440, Math.max(8, x + w / 2 - 70))), y: Math.round(Math.max(6, y - 44)) }; };
@@ -1193,12 +1197,13 @@ export function buildView(self) {
       navy, blue, cyan, orange, green, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie, tour, tourOv, rv, lace, cflow,
       openArtie: () => self.setState({ artie: true, artieQ: '' }),
       openConcepts: () => self.setState({ sel: 'concepts' }),
-      pfOpen: !!self.state.pfOpen, pfClosed: !self.state.pfOpen,
+      // Portfolio-niveau: in Basis EDSN uitklapbaar, in AI-Native EDSN niet aanwezig
+      pfOpen: !ai && !!self.state.pfOpen, pfClosed: !ai && !self.state.pfOpen,
       togglePf: () => self.setState({ pfOpen: !self.state.pfOpen }),
-      shiftY: self.state.pfOpen ? 0 : -240,
-      frameH: self.state.pfOpen ? 1040 : 800,
-      rootH: self.state.pfOpen ? 1260 : 1020,
-      pageH: self.state.pfOpen ? 1800 : 1560,
+      shiftY: ai ? AI_SHIFT : (self.state.pfOpen ? 0 : -240),
+      frameH: ai ? 1040 + AI_SHIFT : (self.state.pfOpen ? 1040 : 800),
+      rootH: ai ? 1260 + AI_SHIFT : (self.state.pfOpen ? 1260 : 1020),
+      pageH: ai ? 1800 + AI_SHIFT : (self.state.pfOpen ? 1800 : 1560),
       laceOn: !!self.state.lace,
       openLace: () => self.setState({ lace: true }),
       closeLace: () => self.setState({ lace: false }),
@@ -1210,7 +1215,7 @@ export function buildView(self) {
       darkLabel: self.state.dark ? 'Dagmodus' : 'Nachtmodus',
       toggleDark: () => { const d = !self.state.dark; try { window.localStorage.setItem('edm-dark', d ? '1' : '0'); } catch (e) {} self.setState({ dark: d }); },
       scale: self.state.scale || 1, noSel: !cur, uiZoom: p.compact ?? 0.86,
-      bpH: Math.round((self.state.pfOpen ? 1260 : 1020) * (self.state.scale || 1)), artieUrl: p.artieUrl ?? '#', tintA, tintB, tintC, tintD, shadeA, shadeB, shadeC, labelOpacity, ai, coreOn: !ai, t, steps, footer, open, page,
+      bpH: Math.round((ai ? 1260 + AI_SHIFT : (self.state.pfOpen ? 1260 : 1020)) * (self.state.scale || 1)), artieUrl: p.artieUrl ?? '#', tintA, tintB, tintC, tintD, shadeA, shadeB, shadeC, labelOpacity, ai, coreOn: !ai, t, steps, footer, open, page,
       hasSel: !!cur,
       close: () => self.setState({ sel: null }),
       setCore: () => self.setState({ mode: 'core', sel: null }),
