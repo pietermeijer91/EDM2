@@ -61,3 +61,16 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
 .sp-gate{animation:spGate 2s ease-in-out infinite}
 @media (prefers-reduced-motion: reduce){.bv-pulse,.ee-tok,.ee-hi,.vpt-card,.vpt-done,.vpt-wip,.belt,.rollers,.belt-item,.rise,.sp-move,.sp-badge,.sp-fill,.sp-pulse,.sp-hi,.sp-check,.sp-gate{animation-play-state:paused !important}}
 .hit:focus-visible{outline:2px solid #0072BC;outline-offset:2px}
+
+/* ---- AI Innovation Pipeline (AI-Native EDSN) ---- */
+@keyframes aipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes aipDash{to{background-position:32px 0}}
+@keyframes aipMove{0%,8%{left:0;opacity:0}10%{opacity:1}14%,22%{left:calc(100% / 7)}28%,36%{left:calc(200% / 7)}42%,50%{left:calc(300% / 7)}56%,64%{left:calc(400% / 7)}70%,78%{left:calc(500% / 7)}84%,94%{left:calc(600% / 7);opacity:1}100%{left:calc(600% / 7);opacity:0}}
+@keyframes aipDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+.aip-chip{animation:aipFloat 3.2s ease-in-out infinite}
+.aip-dash{animation:aipDash 1.6s linear infinite}
+.aip-move{animation:aipMove 16s linear infinite}
+.aip-flow{animation:aipDrift 4s ease-in-out infinite}
+.aip-layer{transition:filter .15s ease,box-shadow .15s ease}
+.aip-layer:hover,.aip-layer:focus-visible{filter:brightness(.94);box-shadow:0 6px 16px rgba(42,22,80,.18)}
+@media (prefers-reduced-motion: reduce){.aip-chip,.aip-dash,.aip-move,.aip-flow{animation-play-state:paused}}

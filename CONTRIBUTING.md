@@ -14,6 +14,8 @@ Open `src/view/buildView.js` en zoek op de sleutel van de pagina, bijvoorbeeld `
 - `I.<sleutel>`: titel en samenvatting
 - `C.<sleutel>`: secties (`x`), kernpunten (`k`), de tekst "Bij EDSN" (`e`) en gerelateerde pagina's (`r`)
 
+De teksten van de AI Innovation Pipeline en de vier lagen staan apart in `src/content/aiPipeline.js`.
+
 Teksten die per weergave verschillen, staan als `L('tekst Basis EDSN', 'tekst AI-Native EDSN')`.
 
 De sleutel van een pagina zie je in de adresbalk: `.../EDM2/#rte`.

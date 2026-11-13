@@ -1,3 +1,5 @@
+import { STAGES, WORKFLOWS } from '../content/aiPipeline.js';
+
 /**
  * Bouwt alle gegevens die de componenten tonen: teksten van de pagina's,
  * kleuren, de Big Picture-data en de handlers voor knoppen.
@@ -94,7 +96,7 @@ export function buildView(self) {
       teams: [t.teams, L('Cross-functionele teams van 5–11 mensen die waarde leveren in korte iteraties.', 'Kleine teams van mensen en AI-agents. Mensen sturen, beoordelen en nemen besluiten; agents versnellen het werk.'), null],
       teamoutcomes: [t.teamOutcomes, 'Wat het team in deze periode wil bereiken, afgeleid van de ART-doelen.', null],
       architects: [t.architects, L('Coaches die teams helpen met agile werken, flow en continue verbetering.', 'Een evolutie van SM’s, Team Coaches en SPC’s: zij helpen teams om AI effectief en verantwoord in te zetten om meer waarde te creëren.'), null],
-      pipeline: [t.pipeline, L('De Continuous Delivery Pipeline: van idee via exploratie, integratie en deployment naar release on demand.', 'Een snelle cyclus van Discover → Specify → Build → Validate → Release, waarin mensen en AI elke stap samen doen.'), null],
+      pipeline: [t.pipeline, L('De Continuous Delivery Pipeline: van idee via exploratie, integratie en deployment naar release on demand.', 'De AI Innovation Pipeline brengt werk van geplande uitkomst naar gerealiseerde waarde in vijf stappen: Discover, Specify, Build, Validate en Release. Mensen en AI-agents doen elke stap samen, gedragen door vier lagen: AI-Empowered Workflows, Embedded Policies, Insights and Evidence en Shared Platforms.'), null],
       team: ['Product · Builder(s) · Domain Expert', 'De kern van een AI-Native team: iemand die het product stuurt, builders die met AI-agents bouwen en een domeinexpert die de vakinhoud borgt.', 'Bij EDSN: de energiemarktkennis zit in de Domain Expert.'],
       workitems: ['Werkitems', L('Features, stories, spikes en enablers stromen door de iteraties.', 'Naast features en enablers: prototypes en experimenten – AI maakt snel valideren goedkoop.'), null],
       pi: [t.pi, L('Het gezamenlijke planningsevent aan het begin van elke Program Increment.', 'Planning gericht op uitkomsten: welke effecten willen we deze PI bereiken?'), null],
@@ -271,8 +273,8 @@ export function buildView(self) {
         ['Wat is het?', L('De Continuous Delivery Pipeline beschrijft de stappen om een idee om te zetten in waarde: Continuous Exploration, Integration, Deployment en Release on Demand.', 'De AI Innovation Pipeline is een snelle cyclus van Discover, Specify, Build, Validate en Release, waarin mensen en AI elke stap samen doorlopen.')],
         ['De stappen', L('Exploratie zoekt naar waarde, integratie bouwt en test, deployment brengt naar productie en de release maakt het beschikbaar wanneer de business dat wil.', 'Discover zoekt naar kansen, Specify legt intentie en eisen vast, Build bouwt met behulp van agents, Validate toetst of het werkt en waarde levert, en Release brengt het naar de klant.')],
         ['Snelheid en kwaliteit', 'Automatisering en kleine stappen maken het mogelijk om vaak en met weinig risico te leveren. ' + L('', 'AI verkort vooral de tijd tussen idee en werkend prototype.')]],
-        k: ['Van idee naar waarde', 'Kleine stappen, vaak leveren', L('Automatiseer waar het kan', 'Mens en AI in elke stap')],
-        e: '', r: ['intent', 'workitems', 'gtm'] },
+        k: L(['Van idee naar waarde', 'Kleine stappen, vaak leveren', 'Automatiseer waar het kan'], ['Vijf stappen van uitkomst naar waarde', 'Leren (experimenten, prototypes) en waarde (features, enablers)', 'Mens en AI in elke stap', 'Vier lagen dragen de pipeline']),
+        e: '', r: L(['intent', 'workitems', 'gtm'], ['cflow', 'aiwf', 'aipol', 'aiplat']) },
       team: { g: 'Team', x: [
         ['De samenstelling', 'Het AI-Native team draait om drie rollen: Product, Builder(s) en Domain Expert, ondersteund door AI-agents.'],
         ['De rollen', 'Product bepaalt wat waardevol is en stelt prioriteiten. Builders specificeren, bouwen en testen samen met agents. De Domain Expert brengt vakkennis in en beoordeelt of de oplossing klopt.'],
@@ -495,8 +497,19 @@ export function buildView(self) {
     open.vpt = () => self.setState({ sel: 'vpt', vptStep: 0 });
     open.cflow = () => self.setState({ sel: 'cflow', cfStep: 0 });
     open.wow = ai ? open.cflow : open.vpt;
-    I.cflow = ['Continuous Flow', 'In AI-Native EDSN stroomt werk niet meer door fasen en poortjes, maar door een continue lus: sense, shape, build en learn. Teams van mensen en AI-agents leveren in kleine stappen, en de ART stuurt elke iteratie bij in Sense and Respond en elke PI in PI Outcome Planning. Zo blijft de snelheid van AI gekoppeld aan echte uitkomsten voor de klant.', null];
-    C.cflow = { g: 'Agile Release Train', x: [], k: ['Een lus in plaats van poortjes', 'Sturen op uitkomsten, niet op output', 'Elke iteratie bijsturen in Sense and Respond', 'Mensen beslissen, agents versnellen'], e: '', r: ['sense', 'pi', 't4k', 'vpt'] };
+    I.cflow = ['Continuous Flow', 'In AI-Native EDSN stroomt werk niet meer door fasen en poortjes, maar door een continue lus van vijf stappen: discover, specify, build, validate en release. Teams van mensen en AI-agents leveren in kleine stappen, en de ART stuurt elke iteratie bij in Sense and Respond en elke PI in PI Outcome Planning. Zo blijft de snelheid van AI gekoppeld aan echte uitkomsten voor de klant.', null];
+    C.cflow = { g: 'Agile Release Train', x: [], k: ['Een lus in plaats van poortjes', 'Sturen op uitkomsten, niet op output', 'Elke iteratie bijsturen in Sense and Respond', 'Mensen beslissen, agents versnellen'], e: '', r: ['pipeline', 'sense', 'pi', 't4k'] };
+    // ---- AI Innovation Pipeline: vier lagen (alleen AI-Native EDSN) ----
+    const AIP = ['aiwf', 'aipol', 'aiev', 'aiplat'];
+    I.aiwf = ['AI-Empowered Workflows', 'De bouwstenen van het werk van een AI-Native team: reeksen stappen om een doel te bereiken, waarin mensen en AI-agents samenwerken. Ze zijn gegrond, verbonden, beheerst, controleerbaar en hebben een eigenaar.', null];
+    C.aiwf = { g: 'AI Innovation Pipeline', x: [], k: ['Eigen werkwijze binnen een gedeelde levenscyclus', 'Vijf kwaliteiten: gegrond, verbonden, beheerst, controleerbaar, eigenaar', 'AI maakt ‘vaak overgeslagen’ workflows haalbaar', 'Leg processen expliciet vast voor agents'], e: '', r: ['pipeline', 'aipol', 'aiev', 'aiplat'] };
+    I.aipol = ['Embedded Policies', 'Kaders die in elke stap van elke workflow zijn ingebouwd: systeemkwaliteiten, standaarden en checks. Ze bepalen grenzen, goedkeuringen en stopregels, zodat mensen en agents veilig en verantwoord werken.', null];
+    C.aipol = { g: 'AI Innovation Pipeline', x: [], k: ['Compliance in elke stap, niet bij de poort', 'Mens in de lus bij ingrijpende besluiten', 'Mens op de lus bij routinewerk', 'Bevoegdheid van agents: toegekend, begrensd en verdiend'], e: '', r: ['pipeline', 'governance', 'aiwf', 'aiev'] };
+    I.aiev = ['Insights and Evidence', 'Het audittrail van alles wat mensen en agents doen in de pipeline, en de inzichten die we daaruit halen over het product én over hoe we het bouwen. Bewijs maakt vertrouwen, en vertrouwen maakt verantwoord risico nemen mogelijk.', null];
+    C.aiev = { g: 'AI Innovation Pipeline', x: [], k: ['Elk werk is controleerbaar', 'Bewijs bouwt vertrouwen', 'Snel de oorzaak vinden en bijsturen', 'Inzichten voeden de volgende output'], e: '', r: ['pipeline', 'aiwf', 'aiplat', 'sense'] };
+    I.aiplat = ['Shared Platforms', 'Het control plane van de AI Innovation Pipeline: de gedeelde technische basis die workflows, kaders, inzichten en bewijs verbindt, en die werk met de context erbij van workflow naar workflow brengt.', null];
+    C.aiplat = { g: 'AI Innovation Pipeline', x: [], k: ['Eén control plane voor alle teams', 'Bewezen basis naar beneden, verbeteringen omhoog', 'Context reist mee met het werk', 'Consistentie én lokale vrijheid'], e: '', r: ['pipeline', 'aiwf', 'aipol', 'itf'] };
+    AIP.forEach((k) => { open[k] = () => self.setState({ sel: k }); });
     C.vpt = { g: 'Agile Release Train', x: [], k: ['Van idee naar voorspelbaar geleverde waarde', 'Elke fase: doel, eigenaar en expliciete criteria', 'WIP-limieten houden de flow gezond', 'DoR vóór planning, DoD vóór release'], e: '', r: ['pm', 'backlog', 'workitems', 'pi'] };
     const VS = [
       ['Funnel', 'ready', '', 'PM', 'Features vanuit epics, nieuwe werkitems, ideeën en verzoeken centraal verzamelen.', ['De indiener meldt de feature met een idee, functionele titel en bij voorkeur een eerste hypothese.', 'De Product Manager registreert de feature in Jira op het VPT-project.', 'De Product Manager en het VPT bepalen met opdrachtgevers welke features doorgaan.', 'Features zonder voldoende informatie blijven staan; features zonder voldoende waarde worden gestopt.'], 'De feature is geregistreerd met indiener, titel, urgentie of gewenste PI, epic-koppeling, verwachte teams, waarde en eerste hypothese.', 'Product Manager', 'Idee geregistreerd'],
@@ -857,7 +870,8 @@ export function buildView(self) {
     C.t4k = { g: 'Agile Release Train', x: [], k: ['Waarde – Product Manager', 'Techniek – System Architect', 'Flow – Release Train Engineer', 'Mensen – People Developer', 'Samen verantwoordelijk voor de hele CDP'], e: '', r: t4kOrder };
     t4kOrder.forEach((k) => { C[k].g = 'Agile Release Train · T4K'; });
 
-    const order = Object.keys(C).filter((k) => k !== 't4k' && k !== 'sp' && k !== 'vpt' && k !== 'cflow');
+    const order = Object.keys(C).filter((k) => k !== 't4k' && k !== 'sp' && k !== 'vpt' && k !== 'cflow' && !AIP.includes(k));
+    if (ai) order.splice(order.indexOf('pipeline') + 1, 0, ...AIP);
     order.splice(order.indexOf('peopledev') + 1, 0, 't4k');
     order.splice(order.indexOf('t4k') + 1, 0, 'vpt');
     if (ai) order.splice(order.indexOf('vpt'), 1, 'cflow');
@@ -873,7 +887,7 @@ export function buildView(self) {
     const idx = order.filter((k) => I[k] && C[k] && k !== 'concepts').map((k) => {
       const c = C[k];
       const body = [].concat((c.x || []).map((x) => x[0] + '. ' + x[1]), c.k || [], c.e ? [c.e] : []).join(' ');
-      const ALIAS = { t4k: 't4k tactisch vierkant', vpt: 'vpt feature kanban', cflow: 'continuous flow continue flow sense shape build learn', sp: 'story points sp', itf: 'itf it foundation', ee: 'engineering enablement', ade: 'art development enablement run beheer', pi: 'pi planning' };
+      const ALIAS = { aiwf: 'workflows agents', aipol: 'policies kaders beleid human in the loop', aiev: 'evidence bewijs audit inzicht', aiplat: 'platform control plane', t4k: 't4k tactisch vierkant', vpt: 'vpt feature kanban', cflow: 'continuous flow continue flow discover specify build validate release levenscyclus', sp: 'story points sp', itf: 'itf it foundation', ee: 'engineering enablement', ade: 'art development enablement run beheer', pi: 'pi planning' };
       const rr = typeof R !== 'undefined' && R[k] ? R[k] : null;
       const alias = (rr ? rr.abbr + ' ' + rr.full + ' ' : '') + (ALIAS[k] || '');
       const body2 = body + (rr ? ' ' + rr.kern + ' ' + (rr.intro || '') : '');
@@ -973,7 +987,7 @@ export function buildView(self) {
       ['pipeline', 'Over de lopende band', 'Via de Continuous Delivery Pipeline gaat het werk van exploration via integratie naar deployment: kleine stappen, automatisch getest en steeds klaar om live te gaan.', 'De teams, ondersteund door Engineering Enablement'],
       ['customer', 'Waarde bij de klant', 'Met Release on Demand gaat F-101 live op het moment dat het de klant het meest oplevert. Netbeheerders zien hun meterdata nu realtime: dáár ontstaat de waarde.', 'Product Manager en Business Owners'],
       ['sense', 'Leren en verbeteren', 'In de System Demo en Inspect and Adapt kijkt de ART terug: is de beoogde waarde gehaald en wat leren we? De inzichten gaan mee naar de volgende PI. De cirkel is rond.', 'De hele ART']];
-    if (ai) { const vi = TOUR.findIndex((t) => t[0] === 'vpt'); if (vi >= 0) TOUR[vi] = ['cflow', 'De continue flow in', 'In AI-Native EDSN gaat de Epic niet door poortjes, maar de continue lus in: sense, shape, build en learn. Agents helpen met analyse en specificatie, mensen beslissen over richting en prioriteit.', 'Product Manager en AI Value Architect']; }
+    if (ai) { const vi = TOUR.findIndex((t) => t[0] === 'vpt'); if (vi >= 0) TOUR[vi] = ['cflow', 'De continue flow in', 'In AI-Native EDSN gaat de Epic niet door poortjes, maar de continue lus in: discover, specify, build, validate en release. Agents helpen met analyse en specificatie, mensen beslissen over richting en prioriteit.', 'Product Manager en AI Value Architect']; }
     if (ai) { for (let i = TOUR.length - 1; i >= 0; i--) if (!SPOT[TOUR[i][0]]) TOUR.splice(i, 1); }
     const tStep = typeof self.state.tour === 'number' ? Math.max(0, Math.min(TOUR.length - 1, self.state.tour)) : null;
     const tourOn = tStep !== null && !cur0;
@@ -1017,23 +1031,26 @@ export function buildView(self) {
           return { n: i + 1, name: I[k] ? I[k][0] : k, open: () => self.setState({ sel: k }),
             badge: 'position:absolute;z-index:47;pointer-events:none;left:' + bx + 'px;top:' + by + 'px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:' + orange + ';color:#2B1A00;font-size:15px;font-weight:800;box-shadow:0 0 0 3px #FFFFFF,0 4px 10px rgba(0,0,0,.3)' }; }) } };
     // ---- Continuous Flow (AI-Native, vervangt het VPT) ----
-    const CF = [
-      ['Sense', 'Signalen ophalen', 'Weten wat er speelt bij klant, keten en systeem, voordat we iets bouwen.', ['Klantfeedback, gebruiksdata en incidenten verzamelen', 'Signalen uit de keten en uit Sense and Respond bundelen', 'Kansen en risico’s zichtbaar maken op het ART-bord'], 'Agents analyseren grote hoeveelheden feedback en data, en vatten patronen samen.', 'Product Manager en AI-Native teams'],
-      ['Shape', 'Uitkomst vormgeven', 'Van signaal naar een scherpe outcome-hypothese: welke verandering verwachten we, en hoe meten we dat?', ['Outcome-hypothese en meetbaar succescriterium opstellen', 'Klein genoeg snijden om snel te leren', 'Prioriteren op waarde en impact, met een WIP-limiet'], 'Agents helpen met impactanalyse, specificatie en eerste ontwerpen; mensen kiezen.', 'Product Manager, System Architect en AI Value Architect'],
-      ['Build', 'Bouwen met mens en agent', 'Kleine increments leveren via de Continuous Delivery Pipeline, steeds klaar om live te gaan.', ['Teams bouwen samen met agents en reviewen elkaars werk', 'Automatisch testen en veilig uitrollen', 'Kwaliteit en architectuur bewaken'], 'Agents schrijven code, tests en documentatie; mensen sturen, beoordelen en beslissen.', 'AI-Native teams'],
-      ['Learn', 'Meten en bijsturen', 'Toetsen of de uitkomst echt is gehaald, en wat we daarvan leren.', ['Resultaat meten tegen de hypothese', 'Doorgaan, bijsturen of stoppen: werk zonder impact verdwijnt', 'Inzichten delen over de ART heen'], 'Agents monitoren uitkomsten en signaleren afwijkingen; de ART besluit in Sense and Respond.', 'Product Manager, Business Owners en RTE']];
+    const CF_AI = {
+      discover: ['Agents doorzoeken klantfeedback, markt- en gebruiksdata en helpen hypotheses en aannames scherp te formuleren.', 'Product Manager en AI-Native team'],
+      specify: ['Agents stellen specificaties en ontwerpen op en zoeken randgevallen; mensen kiezen en beslissen.', 'Product Owner, System Architect en AI-Native team'],
+      build: ['Agents schrijven code, tests en documentatie; mensen sturen, reviewen en beslissen.', 'AI-Native team'],
+      validate: ['Agents draaien tests en AI-evals en vatten demo-feedback samen; mensen beoordelen of het doel is gehaald.', 'AI-Native team, Product Owner en Business Owners'],
+      release: ['Agents bewaken telemetrie en gebruik en signaleren afwijkingen; de ART stuurt bij in Sense and Respond.', 'Product Manager en RTE'],
+    };
+    const CF = STAGES.map((st, i) => [st.title, st.nl, st.text, WORKFLOWS.table[i][1].split(/;\s*/).map((x) => x.charAt(0).toUpperCase() + x.slice(1)), CF_AI[st.key][0], CF_AI[st.key][1]]);
     const cfStep = Math.max(0, Math.min(CF.length - 1, self.state.cfStep || 0));
-    const cfPos = [[230, 60], [400, 230], [230, 400], [60, 230]];
+    const cfPos = [-90, -18, 54, 126, 198].map((d) => [Math.round(230 + 170 * Math.cos(d * Math.PI / 180)), Math.round(230 + 170 * Math.sin(d * Math.PI / 180))]);
     const cfPurple = p.aiPrimary || '#6E44B8';
-    const cfCol = [blue, cfPurple, orange, green];
+    const cfCol = [cfPurple, '#8C6BD1', orange, '#1F9E95', green];
     const cflow = {
       purple: cfPurple,
       stations: CF.map((c2, i) => ({ n: String(i + 1).padStart(2, '0'), title: c2[0], sub: c2[1], on: i === cfStep, pick: () => self.setState({ cfStep: i }),
         style: 'position:absolute;left:' + cfPos[i][0] + 'px;top:' + cfPos[i][1] + 'px;transform:translate(-50%,-50%)' + (i === cfStep ? ' scale(1.08)' : '') + ';width:112px;height:112px;border-radius:50%;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;padding:8px;box-sizing:border-box;'
-          + (i === cfStep ? 'border:0;background:' + cfCol[i] + ';color:' + (i >= 2 ? '#1F1A00' : '#FFFFFF') + ';box-shadow:0 10px 24px rgba(42,22,80,.3)' : 'border:3px solid ' + cfCol[i] + ';background:#FFFFFF;color:#1B2A5C') })),
+          + (i === cfStep ? 'border:0;background:' + cfCol[i] + ';color:' + (i === 2 || i === 4 ? '#1F1A00' : '#FFFFFF') + ';box-shadow:0 10px 24px rgba(42,22,80,.3)' : 'border:3px solid ' + cfCol[i] + ';background:#FFFFFF;color:#1B2A5C') })),
       tokens: [[45, 'F'], [135, 'F'], [210, ''], [260, 'F'], [320, '']].map(([deg, label]) => { const r = deg * Math.PI / 180; const x = 230 + 170 * Math.cos(r), y = 230 + 170 * Math.sin(r);
         return { label, style: 'position:absolute;left:' + Math.round(x) + 'px;top:' + Math.round(y) + 'px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;' + (label ? 'width:26px;height:26px;border-radius:6px;background:' + orange + ';color:#2B1A00;font-size:12px;font-weight:800;box-shadow:0 3px 8px rgba(0,0,0,.25)' : 'width:14px;height:14px;border-radius:50%;background:' + cfPurple) + ';animation-play-state:' + play }; }),
-      cur: { kicker: 'Stap ' + (cfStep + 1) + ' van 4 · ' + CF[cfStep][0], title: CF[cfStep][1], goal: CF[cfStep][2], acts: CF[cfStep][3], ai: CF[cfStep][4], owner: CF[cfStep][5] },
+      cur: { kicker: 'Stap ' + (cfStep + 1) + ' van ' + CF.length + ' · ' + CF[cfStep][0], title: CF[cfStep][1], goal: CF[cfStep][2], acts: CF[cfStep][3], ai: CF[cfStep][4], owner: CF[cfStep][5] },
       next: () => self.setState({ cfStep: (cfStep + 1) % CF.length }),
       prev: () => self.setState({ cfStep: (cfStep + CF.length - 1) % CF.length }),
       cmp: [['Ritme', 'PI-gedreven: Features gaan fase voor fase door het bord.', 'Continu: werk stroomt door de lus, met elke iteratie Sense and Respond.'],
@@ -1101,7 +1118,7 @@ export function buildView(self) {
     };
     const cur = self.state.sel && C[self.state.sel] ? self.state.sel : null;
     const emptyRole = { abbr: '', full: '', fullBr: '', color: '#1B2A5C', tint: '#EEF2F7', theme: '', kern: '', intro: '', wheel: [], doelen: [], ai: [], resp: [], meet: [], afst: '', top: { h: '', t: '' }, left: { h: '', t: '' }, right: { h: '', t: '' }, bottom: { h: '', t: '' }, mandaat: '', kpi: [], relatie: [], ontw: [], strat: '' };
-    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false, isLACE: false, isCFLOW: false };
+    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false, isLACE: false, isCFLOW: false, isAIPIPE: false, isAIWF: false, isAIPOL: false, isAIEV: false, isAIPLAT: false };
     if (cur) {
       const c = C[cur];
       const idx = order.indexOf(cur);
@@ -1170,6 +1187,12 @@ export function buildView(self) {
         page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }].concat(cv.isDelta ? [{ id: 'delta', h: 'Wat verandert er?' }] : []).concat([{ id: 'vier-rollen', h: 'Vier rollen, één resultaat' }]).concat(cv.showConcept ? [{ id: 'kenmerken', h: 'Wanneer werkt een T4K goed?' }, { id: 'signalen', h: 'Signalen' }, { id: 'ritme', h: 'Het ritme' }, { id: 'zelfscan', h: 'Zelfscan' }] : []).concat([{ id: 'samen', h: 'Samen verantwoordelijk' }]); page.minutes = cv.showConcept ? 6 : 2;
       }
       if (cur === 'art' && ai) { page.isAIART = true; page.toc.push({ id: 'zes-kenmerken', h: 'Zes kenmerken' }, { id: 'k1', h: '1. Rond producten' }, { id: 'k2', h: '2. Outcome-gedreven' }, { id: 'k3', h: '3. Menselijk oordeel' }, { id: 'k4', h: '4. Innovatie en cadans' }, { id: 'k5', h: '5. Gedeelde AI-workflows' }, { id: 'k6', h: '6. AI-governance' }); page.minutes = 12; }
+      if (ai && cur === 'pipeline') { page.isAIPIPE = true; page.sections = []; page.minutes = 6; page.updated = '13 november 2026'; page.toc = [['samenvatting', 'Samenvatting'], ['pipeline-plaat', 'De pipeline in één plaat'], ['stappen', 'Vijf stappen'], ['leren-en-waarde', 'Leren en waarde'], ['kanban', 'Het Kanban-bord'], ['componenten', 'Vier componenten']].map(([id, h]) => ({ id, h })); }
+      const AITOC = { aiwf: [['waarom', 'Eigen werkwijze'], ['wat', 'Wat is een workflow?'], ['kwaliteiten', 'Vijf kwaliteiten'], ['voorbeeld', 'Voorbeeld'], ['per-stap', 'Workflows per stap'], ['vastleggen', 'Waarom vastleggen?']],
+        aipol: [['soorten', 'Drie soorten kaders'], ['ingebouwd', 'In elke stap'], ['mens-in-de-lus', 'Mens in of op de lus'], ['agents', 'Bevoegdheid van agents']],
+        aiev: [['bewijs', 'Bewijs'], ['voorbeeld', 'Voorbeeld'], ['inzicht', 'Van bewijs naar inzicht']],
+        aiplat: [['control-plane', 'Het control plane'], ['functies', 'Vijf functies'], ['niveaus', 'Meerdere niveaus'], ['afspraken', 'Brengen en krijgen']] };
+      if (AITOC[cur]) { page['isAI' + { aiwf: 'WF', aipol: 'POL', aiev: 'EV', aiplat: 'PLAT' }[cur]] = true; page.minutes = 5; page.updated = '13 november 2026'; page.badgeBg = orange; page.badgeFg = '#2B1A00'; page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }].concat(AITOC[cur].map(([id, h]) => ({ id, h }))); }
       if (cur === 'cflow') { page.isCFLOW = true; page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }, { id: 'flow-loop', h: 'De flow draait altijd' }, { id: 'flow-vs-vpt', h: 'Van poortjes naar flow' }, { id: 'flow-ritme', h: 'Het ritme' }, { id: 'flow-rollen', h: 'Wie doet wat?' }, { id: 'flow-vangrails', h: 'Vangrails' }]; page.minutes = 5; page.updated = '12 november 2026'; }
       if (cur === 'f5') {
         page.isLACE = true;

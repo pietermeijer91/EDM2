@@ -14,6 +14,7 @@ Zodra er een wijziging in `src/` op `main` landt, bouwt GitHub Actions de site a
 |---|---|
 | `src/config.js` | Instellingen: kleuren, ARTie-link, AI-Native EDSN aan/uit (`aiOpen`) |
 | `src/view/buildView.js` | Alle teksten van de pagina's en de data achter de Big Picture |
+| `src/content/` | Teksten per onderwerp, zoals de AI Innovation Pipeline (`aiPipeline.js`) |
 | `src/components/` | De opmaak: kop, startpagina, Big Picture, artikelpagina en overlays |
 | `src/components/pages/` | Pagina-specifieke onderdelen (T4K, Feature Kanban, LACE, Continuous Flow, …) |
 | `src/App.jsx` | Gedrag: navigatie, deeplinks, nachtmodus, tour |

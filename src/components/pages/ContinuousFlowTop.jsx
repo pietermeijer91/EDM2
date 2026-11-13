@@ -10,17 +10,13 @@ export default function ContinuousFlowTop({ view }) {
           <section id="flow-loop" style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
             <h2 style={{ margin: "0", fontSize: "28px", lineHeight: "1.25", fontWeight: "700", color: "#1B2A5C" }}>De flow draait altijd</h2>
             <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.6", color: "#3E4A63" }}>
-              Geen poortjes en fasen meer, maar een lus die niet stopt: signalen ophalen, een uitkomst vormgeven, bouwen met mensen en agents, en leren van het resultaat. Klik op een station voor het doel, de activiteiten en wie aan zet is.
+              Geen poortjes en fasen meer, maar een lus die niet stopt: ontdekken, specificeren, bouwen, valideren en releasen, steeds door mensen en agents samen. Wat we in productie leren, voedt de volgende ronde. Klik op een station voor het doel, de activiteiten en wie aan zet is.
             </p>
             <div style={{ padding: "24px", borderRadius: "18px", background: "#F4F2FA", display: "flex", flexWrap: "wrap", gap: "28px", alignItems: "center", justifyContent: "center" }}>
               <div style={{ position: "relative", width: "460px", height: "460px", flexShrink: "0" }}>
                 <svg style={{ position: "absolute", left: "0", top: "0" }} width="460" height="460" viewBox="0 0 460 460" aria-hidden="true">
                   <circle cx="230" cy="230" r="170" fill="none" stroke="#DCD3F0" strokeWidth="34" />
                   <circle cx="230" cy="230" r="170" fill="none" stroke={view.cflow.purple} strokeWidth="4" strokeDasharray="10 12" className="cf-dash" style={{ animationPlayState: view.play }} />
-                  <path d="M372 136 l18 -4 -4 18" fill="none" stroke={view.cflow.purple} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M324 372 l4 18 -18 -4" fill="none" stroke={view.cflow.purple} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M88 324 l-18 4 4 -18" fill="none" stroke={view.cflow.purple} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M136 88 l-4 -18 18 4" fill="none" stroke={view.cflow.purple} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <div className="cf-orbit" style={{ position: "absolute", inset: "0", animationPlayState: view.play }}>
                   {(view.cflow.tokens || []).map((tkn, i) => (

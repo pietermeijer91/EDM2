@@ -1,4 +1,10 @@
 import { Fragment } from 'react';
+import AiPipelineTop from './pages/AiPipelineTop.jsx';
+import AiPipeline from './pages/AiPipeline.jsx';
+import AiWorkflows from './pages/AiWorkflows.jsx';
+import AiPolicies from './pages/AiPolicies.jsx';
+import AiEvidence from './pages/AiEvidence.jsx';
+import AiPlatforms from './pages/AiPlatforms.jsx';
 import ContinuousFlowTop from './pages/ContinuousFlowTop.jsx';
 import FeatureKanbanTop from './pages/FeatureKanbanTop.jsx';
 import ContinuousFlow from './pages/ContinuousFlow.jsx';
@@ -65,6 +71,7 @@ export default function Article({ view }) {
                   <div style={{ height: "6px", width: "120px", borderRadius: "3px", background: view.orange }} />
                 </div>
                 <ContinuousFlowTop view={view} />
+                <AiPipelineTop view={view} />
                 <FeatureKanbanTop view={view} />
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "40px 56px", alignItems: "flex-start" }}>
                   <div style={{ flex: "999 1 600px", minWidth: "0", display: "flex", flexDirection: "column", gap: "30px" }}>
@@ -83,6 +90,11 @@ export default function Article({ view }) {
                       </Fragment>
                     ))}
                     <ContinuousFlow view={view} />
+                    <AiPipeline view={view} />
+                    <AiWorkflows view={view} />
+                    <AiPolicies view={view} />
+                    <AiEvidence view={view} />
+                    <AiPlatforms view={view} />
                     <Lace view={view} />
                     <RolePage view={view} />
                     <ConceptenWachtwoord view={view} />
