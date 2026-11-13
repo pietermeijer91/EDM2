@@ -966,12 +966,16 @@ export function buildView(self) {
     const cur0 = self.state.sel && C[self.state.sel] ? self.state.sel : null;
     // ---- Concepten WP-002 (Volg een Feature) en WP-003 (Ik ben…) ----
     const AI_SHIFT = -280;
+    const AI_LOW = 120; // ruimte onder de pipeline voor de vier lagen (zie .ai-low in styles.css)
     const SPOT = { outcomes: [425, 140, 140, 86], leadership: [250, 170, 140, 84], investment: [425, 268, 140, 96], backlog: [632, 196, 110, 151], epic: [752, 214, 100, 58], roi: [1420, 150, 130, 118],
       owners: [260, 420, 120, 82], art: [580, 470, 760, 34], vpt: [488, 510, 196, 50], cflow: [488, 504, 196, 56], t4k: [680, 424, 240, 138], pioutcomes: [170, 540, 110, 110], vision: [66, 560, 100, 74], roadmap: [273, 668, 110, 76],
       teams: [520, 566, 150, 60], teamoutcomes: [700, 566, 130, 92], sp: [850, 566, 130, 74], value: [1030, 510, 260, 30], customer: [1462, 536, 90, 95], pipeline: [476, 700, 1064, 92],
       ee: [438, 648, 1102, 34], architects: [880, 830, 290, 61], ade: [568, 910, 972, 46], pi: [600, 958, 170, 54], sense: [860, 958, 250, 54], f5: [1047, 1160, 235, 76] };
     // AI-Native EDSN heeft geen portfolio-niveau: die plekken vervallen en de rest schuift omhoog.
-    if (ai) Object.keys(SPOT).forEach((k) => { if (SPOT[k][1] < 400) delete SPOT[k]; else SPOT[k] = [SPOT[k][0], SPOT[k][1] + AI_SHIFT, SPOT[k][2], SPOT[k][3]]; });
+    if (ai) {
+      SPOT.ee = [60, 1036, 222, 104];
+      Object.keys(SPOT).forEach((k) => { const [x, y, w, h] = SPOT[k]; if (y < 400) delete SPOT[k]; else SPOT[k] = [x, y + (y >= 826 ? AI_LOW : 0) + AI_SHIFT, w, h]; });
+    }
     const ell = ([x, y, w, h]) => ({ cx: x + w / 2, cy: y + h / 2, rx: Math.round(w * 0.62 + 22), ry: Math.round(h * 0.62 + 22) });
     const maskOf = (keys) => {
       const g = keys.filter((k) => SPOT[k]).map((k) => { const e = ell(SPOT[k]); return 'radial-gradient(ellipse ' + e.rx + 'px ' + e.ry + 'px at ' + Math.round(e.cx) + 'px ' + Math.round(e.cy) + 'px, transparent 0 90%, #000 100%)'; }).join(',');
@@ -1224,9 +1228,12 @@ export function buildView(self) {
       pfOpen: !ai && !!self.state.pfOpen, pfClosed: !ai && !self.state.pfOpen,
       togglePf: () => self.setState({ pfOpen: !self.state.pfOpen }),
       shiftY: ai ? AI_SHIFT : (self.state.pfOpen ? 0 : -240),
-      frameH: ai ? 1040 + AI_SHIFT : (self.state.pfOpen ? 1040 : 800),
-      rootH: ai ? 1260 + AI_SHIFT : (self.state.pfOpen ? 1260 : 1020),
-      pageH: ai ? 1800 + AI_SHIFT : (self.state.pfOpen ? 1800 : 1560),
+      slabH: ai ? 350 + AI_LOW : 350,
+      aiLayers: [['aiwf', 'AI-Empowered Workflows', 'AI-ondersteunde workflows'], ['aipol', 'Embedded Policies', 'ingebouwde kaders'], ['aiev', 'Insights and Evidence', 'inzichten en bewijs'], ['aiplat', 'Shared Platforms', 'gedeelde platforms']]
+        .map(([key, title, nl], i) => ({ key, title, nl, open: open[key], bg: i === 3 ? '#C9BDE6' : '#E4DCF5' })),
+      frameH: ai ? 1040 + AI_SHIFT + AI_LOW : (self.state.pfOpen ? 1040 : 800),
+      rootH: ai ? 1260 + AI_SHIFT + AI_LOW : (self.state.pfOpen ? 1260 : 1020),
+      pageH: ai ? 1800 + AI_SHIFT + AI_LOW : (self.state.pfOpen ? 1800 : 1560),
       laceOn: !!self.state.lace,
       openLace: () => self.setState({ lace: true }),
       closeLace: () => self.setState({ lace: false }),
@@ -1238,7 +1245,7 @@ export function buildView(self) {
       darkLabel: self.state.dark ? 'Dagmodus' : 'Nachtmodus',
       toggleDark: () => { const d = !self.state.dark; try { window.localStorage.setItem('edm-dark', d ? '1' : '0'); } catch (e) {} self.setState({ dark: d }); },
       scale: self.state.scale || 1, noSel: !cur, uiZoom: p.compact ?? 0.86,
-      bpH: Math.round((ai ? 1260 + AI_SHIFT : (self.state.pfOpen ? 1260 : 1020)) * (self.state.scale || 1)), artieUrl: p.artieUrl ?? '#', tintA, tintB, tintC, tintD, shadeA, shadeB, shadeC, labelOpacity, ai, coreOn: !ai, t, steps, footer, open, page,
+      bpH: Math.round((ai ? 1260 + AI_SHIFT + AI_LOW : (self.state.pfOpen ? 1260 : 1020)) * (self.state.scale || 1)), artieUrl: p.artieUrl ?? '#', tintA, tintB, tintC, tintD, shadeA, shadeB, shadeC, labelOpacity, ai, coreOn: !ai, t, steps, footer, open, page,
       hasSel: !!cur,
       close: () => self.setState({ sel: null }),
       setCore: () => self.setState({ mode: 'core', sel: null }),

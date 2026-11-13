@@ -282,7 +282,7 @@ export default function BigPicture({ view }) {
                 </>
               ) : null}
               {/* Alles onder het portfolio schuift mee */}
-              <div className="shift" style={{ position: "absolute", left: "0", top: `${view.shiftY ?? ''}px`, width: "1600px", height: "1260px", pointerEvents: "none" }}>
+              <div className={view.ai ? "shift ai-low" : "shift"} style={{ position: "absolute", left: "0", top: `${view.shiftY ?? ''}px`, width: "1600px", height: "1260px", pointerEvents: "none" }}>
                 {/* Portfolio / ART divider */}
                 <div style={{ position: "absolute", left: "42px", top: "470px", width: "1516px", height: "2px", background: "#D5DBE5" }} />
                 <div style={{ position: "absolute", left: "540px", top: "440px", width: "820px", height: "70px", border: "2px solid #D5DBE5", borderBottom: "0", borderRadius: "40px 40px 0 0", background: "#FFFFFF", boxSizing: "border-box" }} />
@@ -452,43 +452,47 @@ export default function BigPicture({ view }) {
                   </>
                 ) : null}
                 {/* ===== 3D slab (ART-vloer) ===== */}
-                <div style={{ position: "absolute", left: "430px", top: "640px", width: "1110px", height: "350px", pointerEvents: "none", WebkitMaskImage: "linear-gradient(90deg, #000 80%, transparent 100%)", maskImage: "linear-gradient(90deg, #000 80%, transparent 100%)" }}>
-                  <div style={{ position: "absolute", inset: "0", background: "#BCC6D4", clipPath: "polygon(0 0, 148px 320px, 148px 350px, 0 30px)" }} />
-                  <div style={{ position: "absolute", inset: "0", background: "repeating-linear-gradient(65.2deg, transparent 0 196px, rgba(185,160,95,.55) 196px 198px), #EEF1F5", clipPath: "polygon(0 0, 100% 0, 100% 320px, 148px 320px)" }} />
-                  <div style={{ position: "absolute", inset: "0", background: "#D3D9E2", clipPath: "polygon(148px 320px, 100% 320px, 100% 350px, 148px 350px)" }} />
+                <div style={{ position: "absolute", left: "430px", top: "640px", width: "1110px", height: `${view.slabH}px`, pointerEvents: "none", WebkitMaskImage: "linear-gradient(90deg, #000 80%, transparent 100%)", maskImage: "linear-gradient(90deg, #000 80%, transparent 100%)" }}>
+                  <div style={{ position: "absolute", inset: "0", background: "#BCC6D4", clipPath: `polygon(0 0, 148px ${view.slabH - 30}px, 148px ${view.slabH}px, 0 30px)` }} />
+                  <div style={{ position: "absolute", inset: "0", background: "repeating-linear-gradient(65.2deg, transparent 0 196px, rgba(185,160,95,.55) 196px 198px), #EEF1F5", clipPath: `polygon(0 0, 100% 0, 100% ${view.slabH - 30}px, 148px ${view.slabH - 30}px)` }} />
+                  <div style={{ position: "absolute", inset: "0", background: "#D3D9E2", clipPath: `polygon(148px ${view.slabH - 30}px, 100% ${view.slabH - 30}px, 100% ${view.slabH}px, 148px ${view.slabH}px)` }} />
                 </div>
-                {/* Engineering Enablement (per ART): gereedschapsbalk achter de teams */}
-                <button className="hit" style={{ left: "438px", top: "648px", width: "1102px", height: "34px", zIndex: "1", padding: "0 0 0 30px", borderRadius: "0", flexDirection: "row", justifyContent: "flex-start", gap: "8px", background: view.blue, color: "#FFFFFF", clipPath: "polygon(0 0, 100% 0, 100% 100%, 16px 100%)", WebkitMaskImage: "linear-gradient(90deg, #000 82%, transparent 100%)", maskImage: "linear-gradient(90deg, #000 82%, transparent 100%)", whiteSpace: "nowrap" }} onClick={view.open.ee} aria-label="Engineering Enablement">
-                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M14.5 4.5a4.5 4.5 0 0 0-5.6 5.6L3.5 15.5l5 5 5.4-5.4a4.5 4.5 0 0 0 5.6-5.6l-2.8 2.8-3.4-.8-.8-3.4z" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinejoin="round" />
-                  </svg>
-                  {" "}
-                  <span style={{ fontSize: "14px", fontWeight: "700", marginRight: "14px" }}>Engineering Enablement</span>
-                  {(view.eeChips || []).map((c, i) => (
-                    <Fragment key={i}>
-                      <span style={{ display: "flex", alignItems: "center", gap: "6px", height: "24px", padding: "0 11px 0 8px", borderRadius: "12px", background: "#FFFFFF", color: "#1B2A5C", fontSize: "12px", fontWeight: "700" }}>
-                        <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
-                          <path d={c.icon} fill="none" stroke={view.blue} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        {" "}{c.label}
-                      </span>
-                    </Fragment>
-                  ))}
-                </button>
-                {" "}
-                <svg style={{ position: "absolute", left: "556px", top: "630px" }} width="12" height="9" viewBox="0 0 14 10" aria-hidden="true">
-                  <path d="M7 0 14 10H0z" fill={view.blue} />
-                </svg>
-                {" "}
-                <svg style={{ position: "absolute", left: "590px", top: "630px" }} width="12" height="9" viewBox="0 0 14 10" aria-hidden="true">
-                  <path d="M7 0 14 10H0z" fill={view.blue} />
-                </svg>
-                {" "}
-                <svg style={{ position: "absolute", left: "624px", top: "630px" }} width="12" height="9" viewBox="0 0 14 10" aria-hidden="true">
-                  <path d="M7 0 14 10H0z" fill={view.blue} />
-                </svg>
+                {/* Engineering Enablement (per ART): gereedschapsbalk achter de teams · in Basis EDSN; in AI-Native EDSN staat hij onderin */}
+                {view.coreOn ? (
+                  <>
+                    <button className="hit" style={{ left: "438px", top: "648px", width: "1102px", height: "34px", zIndex: "1", padding: "0 0 0 30px", borderRadius: "0", flexDirection: "row", justifyContent: "flex-start", gap: "8px", background: view.blue, color: "#FFFFFF", clipPath: "polygon(0 0, 100% 0, 100% 100%, 16px 100%)", WebkitMaskImage: "linear-gradient(90deg, #000 82%, transparent 100%)", maskImage: "linear-gradient(90deg, #000 82%, transparent 100%)", whiteSpace: "nowrap" }} onClick={view.open.ee} aria-label="Engineering Enablement">
+                      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M14.5 4.5a4.5 4.5 0 0 0-5.6 5.6L3.5 15.5l5 5 5.4-5.4a4.5 4.5 0 0 0 5.6-5.6l-2.8 2.8-3.4-.8-.8-3.4z" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinejoin="round" />
+                      </svg>
+                      {" "}
+                      <span style={{ fontSize: "14px", fontWeight: "700", marginRight: "14px" }}>Engineering Enablement</span>
+                      {(view.eeChips || []).map((c, i) => (
+                        <Fragment key={i}>
+                          <span style={{ display: "flex", alignItems: "center", gap: "6px", height: "24px", padding: "0 11px 0 8px", borderRadius: "12px", background: "#FFFFFF", color: "#1B2A5C", fontSize: "12px", fontWeight: "700" }}>
+                            <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
+                              <path d={c.icon} fill="none" stroke={view.blue} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            {" "}{c.label}
+                          </span>
+                        </Fragment>
+                      ))}
+                    </button>
+                    {" "}
+                    <svg style={{ position: "absolute", left: "556px", top: "630px" }} width="12" height="9" viewBox="0 0 14 10" aria-hidden="true">
+                      <path d="M7 0 14 10H0z" fill={view.blue} />
+                    </svg>
+                    {" "}
+                    <svg style={{ position: "absolute", left: "590px", top: "630px" }} width="12" height="9" viewBox="0 0 14 10" aria-hidden="true">
+                      <path d="M7 0 14 10H0z" fill={view.blue} />
+                    </svg>
+                    {" "}
+                    <svg style={{ position: "absolute", left: "624px", top: "630px" }} width="12" height="9" viewBox="0 0 14 10" aria-hidden="true">
+                      <path d="M7 0 14 10H0z" fill={view.blue} />
+                    </svg>
+                  </>
+                ) : null}
                 {/* ART Development & Enablement: runway met rood lijntje langs de voorrand */}
-                <button className="hit" style={{ left: "568px", top: "910px", width: "972px", height: "46px", padding: "0", borderRadius: "0", background: "none" }} onClick={view.open.ade} aria-label="ART Development & Enablement">
+                <button className="low hit" style={{ left: "568px", top: "910px", width: "972px", height: "46px", padding: "0", borderRadius: "0", background: "none" }} onClick={view.open.ade} aria-label="ART Development & Enablement">
                   <span style={{ position: "absolute", left: "22px", top: "0", display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", fontWeight: "700", whiteSpace: "nowrap" }}>
                     {"ART Development & Enablement"}{" "}
                     <span style={{ fontWeight: "500", color: "#3E4A63" }}>
@@ -502,7 +506,7 @@ export default function BigPicture({ view }) {
                   </svg>
                 </button>
                 {/* IT Foundation (ITF): sokkel onder de ART */}
-                <button style={{ position: "absolute", left: "300px", top: "1036px", width: "1240px", height: "104px", padding: "0", border: "0", background: "none", cursor: "pointer", fontFamily: "inherit" }} onClick={view.open.itf} aria-label="IT Foundation (ITF)">
+                <button className="low" style={{ position: "absolute", left: "300px", top: "1036px", width: "1240px", height: "104px", padding: "0", border: "0", background: "none", cursor: "pointer", fontFamily: "inherit" }} onClick={view.open.itf} aria-label="IT Foundation (ITF)">
                   <span style={{ position: "absolute", inset: "0", background: `color-mix(in srgb, ${view.navy ?? ''} 55%, #FFFFFF)`, clipPath: "polygon(0 0, 100% 0, 100% 18px, 18px 18px)" }} />
                   {" "}
                   <span style={{ position: "absolute", inset: "0", background: `color-mix(in srgb, ${view.navy ?? ''} 70%, #000000)`, clipPath: "polygon(0 0, 18px 18px, 18px 104px, 0 86px)" }} />
@@ -691,10 +695,36 @@ export default function BigPicture({ view }) {
                 <button className="hit" style={{ left: "790px", top: "792px", width: "380px", height: "30px", padding: "0", borderRadius: "15px", background: view.navy, color: "#FFFFFF", fontSize: "15px", fontWeight: "600", justifyContent: "center" }} onClick={view.open.pipeline}>
                   {view.t.pipeline}
                 </button>
+                {/* AI-Native EDSN: de vier lagen onder de AI Innovation Pipeline */}
+                {view.ai ? (
+                  <>
+                    {(view.aiLayers || []).map((ly, i) => (
+                      <Fragment key={ly.key}>
+                        <button className="ai-layer" onClick={ly.open} aria-label={ly.title} style={{ position: "absolute", left: `${522 + i * 12}px`, top: `${834 + i * 29}px`, width: `${1018 - i * 12}px`, height: "25px", padding: "0", border: "0", cursor: "pointer", fontFamily: "inherit", background: ly.bg, color: "#2A1650", clipPath: "polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%)", WebkitMaskImage: "linear-gradient(90deg, #000 82%, transparent 100%)", maskImage: "linear-gradient(90deg, #000 82%, transparent 100%)", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
+                          <span style={{ fontSize: "13px", fontWeight: "700" }}>{ly.title}</span>
+                          <span style={{ fontSize: "11px", fontWeight: "500", color: "#5A4A7A" }}>· {ly.nl}</span>
+                        </button>
+                      </Fragment>
+                    ))}
+                    {/* Engineering Enablement als knop onderin */}
+                    <button className="hit low" onClick={view.open.ee} style={{ left: "60px", top: "1036px", width: "222px", height: "104px", padding: "12px 14px", boxSizing: "border-box", flexDirection: "row", alignItems: "center", justifyContent: "flex-start", gap: "12px", textAlign: "left", background: "#FFFFFF", border: `2px solid ${view.blue ?? ''}`, borderRadius: "14px" }}>
+                      <span style={{ flexShrink: "0", display: "flex", alignItems: "center", justifyContent: "center", width: "52px", height: "52px", borderRadius: "14px", background: view.blue }}>
+                        <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
+                          <path d="M19 6.5a5.5 5.5 0 0 0-6.9 6.9L5 20.5l4.5 4.5 7.1-7.1a5.5 5.5 0 0 0 6.9-6.9l-3.4 3.4-4-1-1-4z" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinejoin="round" />
+                          <path d="M22 21l-3 3 3 3M27 21l3 3-3 3" fill="none" stroke="#F39200" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                      <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                        <span style={{ fontSize: "15px", fontWeight: "700", lineHeight: "1.2" }}>Engineering Enablement</span>
+                        <span style={{ fontSize: "11px", fontWeight: "500", color: "#5A6478", lineHeight: "1.3" }}>tooling · pipelines · standaarden</span>
+                      </span>
+                    </button>
+                  </>
+                ) : null}
                 {/* Voorkant van de vloer: teamsamenstelling, coaches, iteraties */}
                 {view.ai ? (
                   <>
-                    <button className="hit" style={{ left: "560px", top: "826px", width: "300px" }} onClick={view.open.team}>
+                    <button className="low hit" style={{ left: "560px", top: "826px", width: "300px" }} onClick={view.open.team}>
                       <span style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", fontWeight: "600" }}>
                         Product{" "}
                         <svg width="20" height="24" viewBox="0 0 22 26" aria-hidden="true">
@@ -727,7 +757,7 @@ export default function BigPicture({ view }) {
                     </button>
                   </>
                 ) : null}
-                <button className="hit" style={{ left: "880px", top: "830px", width: "290px", flexDirection: "row", gap: "10px", textAlign: "left" }} onClick={view.open.architects}>
+                <button className="low hit" style={{ left: "880px", top: "830px", width: "290px", flexDirection: "row", gap: "10px", textAlign: "left" }} onClick={view.open.architects}>
                   <span style={{ display: "flex", gap: "1px" }}>
                     <svg width="22" height="27" viewBox="0 0 22 26" aria-hidden="true">
                       <circle cx="11" cy="7" r="5" fill={view.blue} />
@@ -751,11 +781,11 @@ export default function BigPicture({ view }) {
                   </span>
                 </button>
                 {" "}
-                <button className="hit" style={{ left: "1200px", top: "840px", width: "110px", fontSize: "14px", fontWeight: "600", color: "#5A6478" }} onClick={view.open.workitems}>
+                <button className="low hit" style={{ left: "1200px", top: "840px", width: "110px", fontSize: "14px", fontWeight: "600", color: "#5A6478" }} onClick={view.open.workitems}>
                   Iterations
                 </button>
                 {/* PI-cadans op de voorkant */}
-                <button className="hit" style={{ left: "600px", top: "958px", width: "170px", padding: "0 6px 4px" }} onClick={view.open.pi}>
+                <button className="low hit" style={{ left: "600px", top: "958px", width: "170px", padding: "0 6px 4px" }} onClick={view.open.pi}>
                   <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
                     <circle cx="15" cy="15" r="13" fill="#FFF1DA" stroke={view.orange} strokeWidth="2.5" />
                     <path d="M12 9.5v11l8.5-5.5z" fill={view.navy} />
@@ -764,7 +794,7 @@ export default function BigPicture({ view }) {
                   <span style={{ fontSize: "13px", fontWeight: "600" }}>{view.t.pi}</span>
                 </button>
                 {" "}
-                <button className="hit" style={{ left: "860px", top: "958px", width: "250px", padding: "0 6px 4px" }} onClick={view.open.sense}>
+                <button className="low hit" style={{ left: "860px", top: "958px", width: "250px", padding: "0 6px 4px" }} onClick={view.open.sense}>
                   <span style={{ display: "flex", gap: "40px" }}>
                     <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
                       <circle cx="15" cy="15" r="13" fill="#FFF1DA" stroke={view.orange} strokeWidth="2.5" />
@@ -785,7 +815,7 @@ export default function BigPicture({ view }) {
                   <span style={{ fontSize: "13px", fontWeight: "600" }}>{view.t.sense}</span>
                 </button>
                 {" "}
-                <button className="hit" style={{ left: "1150px", top: "958px", width: "170px", padding: "0 6px 4px" }} onClick={view.open.pi}>
+                <button className="low hit" style={{ left: "1150px", top: "958px", width: "170px", padding: "0 6px 4px" }} onClick={view.open.pi}>
                   <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
                     <circle cx="15" cy="15" r="13" fill="#FFF1DA" stroke={view.orange} strokeWidth="2.5" />
                     <path d="M12 9.5v11l8.5-5.5z" fill={view.navy} />
@@ -794,7 +824,7 @@ export default function BigPicture({ view }) {
                   <span style={{ fontSize: "13px", fontWeight: "600" }}>{view.t.pi}</span>
                 </button>
                 {" "}
-                <button className="hit" style={{ left: "1340px", top: "1002px", width: "200px", flexDirection: "row", gap: "8px", padding: "4px 6px" }} onClick={view.open.pioutcomes}>
+                <button className="low hit" style={{ left: "1340px", top: "1002px", width: "200px", flexDirection: "row", gap: "8px", padding: "4px 6px" }} onClick={view.open.pioutcomes}>
                   <svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true">
                     <circle cx="11" cy="11" r="9" fill="#FFFFFF" stroke={view.cyan} strokeWidth="2" />
                     <path d="M6.5 11l3 3 6-6" fill="none" stroke={view.cyan} strokeWidth="2" />
@@ -807,7 +837,7 @@ export default function BigPicture({ view }) {
                   </span>
                 </button>
                 {/* Footer */}
-                <div style={{ position: "absolute", left: "60px", top: "1160px", width: "1480px", height: "76px", background: view.navy, borderRadius: "0 0 10px 10px", display: "grid", gridTemplateColumns: "repeat(6, minmax(0, 1fr))", gap: "8px", padding: "0 16px", boxSizing: "border-box" }}>
+                <div className="low" style={{ position: "absolute", left: "60px", top: "1160px", width: "1480px", height: "76px", background: view.navy, borderRadius: "0 0 10px 10px", display: "grid", gridTemplateColumns: "repeat(6, minmax(0, 1fr))", gap: "8px", padding: "0 16px", boxSizing: "border-box" }}>
                   {(view.footer || []).map((f, i) => (
                     <Fragment key={i}>
                       <button style={{ background: "none", border: "0", cursor: "pointer", color: "#FFFFFF", fontFamily: "inherit", fontSize: "15px", fontWeight: "600", lineHeight: "1.25", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", textAlign: "left", borderRadius: "8px" }} onClick={f.pick}>
@@ -817,11 +847,11 @@ export default function BigPicture({ view }) {
                     </Fragment>
                   ))}
                 </div>
-                <span style={{ position: "absolute", left: "60px", top: "1244px", fontSize: "11px", color: "#5A6478" }}>
+                <span className="low" style={{ position: "absolute", left: "60px", top: "1244px", fontSize: "11px", color: "#5A6478" }}>
                   Klik op een onderdeel om de pagina te openen · gebaseerd op SAFe® van Scaled Agile, Inc.
                 </span>
                 {" "}
-                <button className="lace-egg" style={{ position: "absolute", left: "1520px", top: "1232px", width: "30px", height: "30px", padding: "0", border: "0", background: "none", cursor: "pointer" }} onClick={view.openLace} aria-label="Verrassing van het LACE">
+                <button className="low lace-egg" style={{ position: "absolute", left: "1520px", top: "1232px", width: "30px", height: "30px", padding: "0", border: "0", background: "none", cursor: "pointer" }} onClick={view.openLace} aria-label="Verrassing van het LACE">
                   <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
                     <path d="M2 8l9 3M2 15l9-2M28 8l-9 3M28 15l-9-2" stroke="#F39200" strokeWidth="1.5" strokeLinecap="round" />
                     <path d="M12 9h6l2 19H10z" fill="#1B2A5C" />

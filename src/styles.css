@@ -74,3 +74,8 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
 .aip-layer{transition:filter .15s ease,box-shadow .15s ease}
 .aip-layer:hover,.aip-layer:focus-visible{filter:brightness(.94);box-shadow:0 6px 16px rgba(42,22,80,.18)}
 @media (prefers-reduced-motion: reduce){.aip-chip,.aip-dash,.aip-move,.aip-flow{animation-play-state:paused}}
+
+/* AI-Native EDSN: ruimte onder de pipeline voor de vier lagen */
+.ai-low .low{translate:0 120px}
+.ai-layer{transition:filter .15s ease}
+.ai-layer:hover,.ai-layer:focus-visible{filter:brightness(.92)}
