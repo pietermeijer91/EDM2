@@ -1,4 +1,4 @@
-import { STAGES, COMPONENTS, INTERPLAY, OUTPUTS, SET_BASED, KANBAN } from '../../content/aiPipeline.js';
+import { STAGES, COMPONENTS, INTERPLAY, OUTPUTS, SET_BASED, KANBAN, DORA } from '../../content/aiPipeline.js';
 import { AI, Section, Lead, GoTo } from '../ai/parts.jsx';
 
 const OUT = { Experiment: '#8C6BD1', Prototype: '#1F9E95', Feature: '#1B2A5C', Enabler: '#B5473C' };
@@ -122,6 +122,33 @@ export default function AiPipeline({ view }) {
           ))}
         </div>
         <Lead>{INTERPLAY}</Lead>
+      </Section>
+
+      <Section id="dora" title="Wat het onderzoek zegt: DORA 2025">
+        <Lead>{DORA.intro}</Lead>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 10 }}>
+          {DORA.stats.map(([n, t]) => (
+            <div key={t} style={{ padding: '14px 12px', borderRadius: 12, background: AI.deep, color: '#FFFFFF', display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <span style={{ fontSize: 26, fontWeight: 800, color: '#C9B8EC' }}>{n}</span>
+              <span style={{ fontSize: 12, lineHeight: 1.45, color: '#E4DAF7' }}>{t}</span>
+            </div>
+          ))}
+        </div>
+        <span style={{ fontSize: 15, fontWeight: 700, color: AI.ink }}>Zeven voorwaarden waaronder AI meer oplevert, en waar ze zitten in de pipeline</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {DORA.capabilities.map(([t, d, where, key], i) => (
+            <div key={t} style={{ display: 'grid', gridTemplateColumns: '34px minmax(0, 1fr) auto', gap: 12, alignItems: 'center', padding: '12px 14px', borderRadius: 12, background: '#FFFFFF', border: '1.5px solid #E1E6EE' }}>
+              <span style={{ width: 30, height: 30, borderRadius: '50%', background: AI.purple, color: '#FFFFFF', fontWeight: 800, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{i + 1}</span>
+              <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <strong style={{ fontSize: 15, color: AI.ink }}>{t}</strong>
+                <span style={{ fontSize: 13, lineHeight: 1.5, color: AI.text }}>{d}</span>
+              </span>
+              <button onClick={view.open[key]} style={{ justifySelf: 'end', minHeight: 34, padding: '0 12px', border: 0, borderRadius: 17, background: AI.lilac, color: AI.deep, cursor: 'pointer', fontFamily: 'inherit', fontSize: 12, fontWeight: 700, whiteSpace: 'nowrap' }}>{where} →</button>
+            </div>
+          ))}
+        </div>
+        <span style={{ padding: '12px 16px', borderRadius: 12, background: '#FFF8EC', fontSize: 14, lineHeight: 1.6, color: '#5A3A00' }}><strong>Value stream management als vermenigvuldiger.</strong> {DORA.vsm}</span>
+        <span style={{ fontSize: 12, color: '#5A6478' }}>Bron: <a href={DORA.url} target="_blank" rel="noopener">{DORA.source}</a></span>
       </Section>
     </>
   );

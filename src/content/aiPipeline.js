@@ -149,3 +149,21 @@ export const PLATFORMS = {
   context: 'Agents hebben geen stilzwijgende kennis. Daarom reist de context mee met het werk: de intentie, de actuele versie en de besluiten en het bewijs tot nu toe. Zo hoeft niemand te stoppen om te reconstrueren wat er eerder gebeurde.',
   scale: 'Gedeelde platforms schalen innovatie. De consistentie laat een grote organisatie snel bewegen zonder grip te verliezen; de lokale vrijheid is de bron van verbetering en nieuwe ideeën.',
 };
+
+/* ---------------- Onderzoek: DORA 2025 ---------------- */
+export const DORA = {
+  source: 'DORA, State of AI-assisted Software Development 2025 (Google Cloud)',
+  url: 'https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf',
+  intro: 'AI is een versterker: het maakt sterke organisaties sterker en maakt zwakke plekken zichtbaar groter. Wat AI oplevert, hangt vooral af van het systeem eromheen. Precies dat systeem beschrijven de vier lagen van de pipeline.',
+  stats: [['90%', 'gebruikt AI in het werk'], ['80%+', 'ervaart meer productiviteit'], ['30%', 'heeft weinig of geen vertrouwen in AI-output'], ['↑ ↑', 'meer doorvoer, maar ook meer instabiliteit']],
+  capabilities: [
+    ['Helder AI-beleid', 'Iedereen weet wat mag, wat wordt verwacht en welke tools zijn toegestaan.', 'Embedded Policies', 'aipol'],
+    ['Gezond data-ecosysteem', 'Interne data is goed, toegankelijk en eenduidig.', 'Shared Platforms', 'aiplat'],
+    ['Data toegankelijk voor AI', 'AI-tools kunnen interne informatie als context gebruiken: workflows zijn gegrond.', 'AI-Empowered Workflows', 'aiwf'],
+    ['Sterk versiebeheer', 'Vaak committen en vaak terugdraaien als het nodig is.', 'Insights and Evidence', 'aiev'],
+    ['Werken in kleine stappen', 'Kleine wijzigingen, kleine releases en korte taken.', 'Continuous Flow', 'cflow'],
+    ['Gebruikersgerichtheid', 'Waarde voor de eindgebruiker staat centraal. Zonder deze focus heeft AI zelfs een negatief effect op teamprestaties.', 'Outcome-Driven Development', 'f2'],
+    ['Goede interne platforms', 'Een platform als product, met ontwikkelaars als klant. Bij een slecht platform levert AI vrijwel niets op.', 'Shared Platforms', 'aiplat'],
+  ],
+  vsm: 'Zonder zicht op de hele waardestroom verdwijnt de winst van AI in knelpunten verderop. Is code-review het knelpunt, zet AI dan in op betere reviews, niet op méér code.',
+};
