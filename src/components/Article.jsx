@@ -11,6 +11,7 @@ import FeatureKanbanTop from './pages/FeatureKanbanTop.jsx';
 import ContinuousFlow from './pages/ContinuousFlow.jsx';
 import Lace from './pages/Lace.jsx';
 import RolePage from './pages/RolePage.jsx';
+import AiRoleExtra from './pages/AiRoleExtra.jsx';
 import ConceptenWachtwoord from './pages/ConceptenWachtwoord.jsx';
 import Concepten from './pages/Concepten.jsx';
 import TactischVierkant from './pages/TactischVierkant.jsx';
@@ -99,6 +100,7 @@ export default function Article({ view }) {
                     <AiPlatforms view={view} />
                     <Lace view={view} />
                     <RolePage view={view} />
+                    <AiRoleExtra view={view} />
                     <ConceptenWachtwoord view={view} />
                     <Concepten view={view} />
                     <TactischVierkant view={view} />

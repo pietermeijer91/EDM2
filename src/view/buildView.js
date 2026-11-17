@@ -1,4 +1,5 @@
 import { STAGES, WORKFLOWS } from '../content/aiPipeline.js';
+import { AI_ROLES, AI_ROLE_TOC } from '../content/aiRoles.js';
 
 /**
  * Bouwt alle gegevens die de componenten tonen: teksten van de pagina's,
@@ -1122,7 +1123,7 @@ export function buildView(self) {
     };
     const cur = self.state.sel && C[self.state.sel] ? self.state.sel : null;
     const emptyRole = { abbr: '', full: '', fullBr: '', color: '#1B2A5C', tint: '#EEF2F7', theme: '', kern: '', intro: '', wheel: [], doelen: [], ai: [], resp: [], meet: [], afst: '', top: { h: '', t: '' }, left: { h: '', t: '' }, right: { h: '', t: '' }, bottom: { h: '', t: '' }, mandaat: '', kpi: [], relatie: [], ontw: [], strat: '' };
-    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false, isLACE: false, isCFLOW: false, isAIPIPE: false, isAIWF: false, isAIPOL: false, isAIEV: false, isAIPLAT: false, isVA: false };
+    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false, isLACE: false, isCFLOW: false, isAIPIPE: false, isAIWF: false, isAIPOL: false, isAIEV: false, isAIPLAT: false, isVA: false, aiRole: '' };
     if (cur) {
       const c = C[cur];
       const idx = order.indexOf(cur);
@@ -1177,6 +1178,7 @@ export function buildView(self) {
           mandaat: rd.mandaat, kpi: li(rd.kpi), relatie: li(rd.relatie), ontw: li(rd.ontw), strat: rd.strat
         };
         page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }, { id: 'oogopslag', h: 'De rol in één oogopslag' }, { id: 'verantwoordelijkheden', h: 'Verantwoordelijkheden' }, { id: 'samenwerking', h: 'Samenwerking en resultaat' }, { id: 'kpis', h: 'KPI’s en ontwikkeling' }];
+        if (ai && AI_ROLES[cur]) { page.aiRole = cur; page.minutes = 7; page.updated = '17 november 2026'; page.toc = page.toc.concat(AI_ROLE_TOC.map(([id, h]) => ({ id, h }))); page.related = page.related.concat([nav('architects'), nav('pipeline')]); }
       }
       if (page.isT4K) {
         page.minutes = 2; page.updated = '1 november 2026 (werkvoorstel T4K)';
