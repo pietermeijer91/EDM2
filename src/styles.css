@@ -79,3 +79,5 @@ a{color:#0072BC}a:hover{color:#1B2A5C}
 .ai-low .low{translate:0 120px}
 .ai-layer{transition:filter .15s ease}
 .ai-layer:hover,.ai-layer:focus-visible{filter:brightness(.92)}
+.va-seg{outline:none}
+.va-seg:focus-visible path{stroke:#1B2A5C;stroke-width:3}

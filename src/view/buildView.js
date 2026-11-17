@@ -42,7 +42,7 @@ export function buildView(self) {
       teams: L('Agile Teams', 'AI-Native Teams'),
       teamOutcomes: L('Team Objectives', 'Team Outcomes'),
       architects: L('Scrum Masters / Team Coaches', 'AI Value Architects'),
-      architectsSub: L('(SM / TC)', '(SMs / TCs / SPCs / …)'),
+      architectsSub: L('(SM / TC)', '(SM’s · TC’s · PM’s · SPC’s · …)'),
       pipeline: L('Continuous Delivery Pipeline', 'AI Innovation Pipeline'),
       tag2: L('Stories', 'Prototypes'),
       tag3: L('Spikes', 'Experiments'),
@@ -95,7 +95,7 @@ export function buildView(self) {
       data: ['Curated Data', 'Gecureerde, betrouwbare data die AI-modellen en agents voeden. Zonder goede data geen goede AI.', 'Datakwaliteit in de keten is hier direct de randvoorwaarde.'],
       teams: [t.teams, L('Cross-functionele teams van 5–11 mensen die waarde leveren in korte iteraties.', 'Kleine teams van mensen en AI-agents. Mensen sturen, beoordelen en nemen besluiten; agents versnellen het werk.'), null],
       teamoutcomes: [t.teamOutcomes, 'Wat het team in deze periode wil bereiken, afgeleid van de ART-doelen.', null],
-      architects: [t.architects, L('Coaches die teams helpen met agile werken, flow en continue verbetering.', 'Een evolutie van SM’s, Team Coaches en SPC’s: zij helpen teams om AI effectief en verantwoord in te zetten om meer waarde te creëren.'), null],
+      architects: [t.architects, L('Coaches die teams helpen met agile werken, flow en continue verbetering.', 'De ontbrekende schakel tussen AI en waarde: de AI Value Architect zorgt dat de business-, ethische en technische kant van een AI-initiatief dezelfde kant op wijzen, van eerste signaal tot gerealiseerde waarde. Geen nieuwe functie, maar een rol voor wie al teams laat slagen: Scrum Masters, Team Coaches, Product Managers, architecten, RTE’s en SPC’s.'), null],
       pipeline: [t.pipeline, L('De Continuous Delivery Pipeline: van idee via exploratie, integratie en deployment naar release on demand.', 'De AI Innovation Pipeline brengt werk van geplande uitkomst naar gerealiseerde waarde in vijf stappen: Discover, Specify, Build, Validate en Release. Mensen en AI-agents doen elke stap samen, gedragen door vier lagen: AI-Empowered Workflows, Embedded Policies, Insights and Evidence en Shared Platforms.'), null],
       team: ['Product · Builder(s) · Domain Expert', 'De kern van een AI-Native team: iemand die het product stuurt, builders die met AI-agents bouwen en een domeinexpert die de vakinhoud borgt.', 'Bij EDSN: de energiemarktkennis zit in de Domain Expert.'],
       workitems: ['Werkitems', L('Features, stories, spikes en enablers stromen door de iteraties.', 'Naast features en enablers: prototypes en experimenten – AI maakt snel valideren goedkoop.'), null],
@@ -267,8 +267,8 @@ export function buildView(self) {
         ['Wie zijn het?', L('Scrum Masters en Team Coaches helpen teams om effectief samen te werken, flow te verbeteren en continu te leren.', 'AI Value Architects zijn een doorontwikkeling van Scrum Masters, Team Coaches en SPC’s. Ze helpen teams en ART’s om AI effectief en verantwoord in te zetten.')],
         ['Wat doen ze?', L('Ze faciliteren events, coachen het team en helpen belemmeringen op te ruimen.', 'Ze zoeken waar AI de meeste waarde oplevert, helpen werkwijzen aan te passen, delen goede voorbeelden en bewaken de kaders voor verantwoord gebruik.')],
         ['Benodigde vaardigheden', 'Coaching en facilitatie, kennis van Lean-Agile werken' + L('.', ' en praktische ervaring met AI-tools en agents.')]],
-        k: ['Coach van teams', L('Verbetert flow', 'Vertaalt AI naar waarde'), 'Verbindt teams en ART'],
-        e: '', r: ['teams', 'rte', 'f3'] },
+        k: L(['Coach van teams', 'Verbetert flow', 'Verbindt teams en ART'], ['De ontbrekende schakel tussen AI en waarde', 'Vijf verantwoordelijkheden', 'Elk antwoord specifiek, belegd en toetsbaar', 'Werkt op elk niveau', 'Verbindt, vervangt niet']),
+        e: '', r: L(['teams', 'rte', 'f3'], ['t4k', 'pipeline', 'governance', 'f5']) },
       pipeline: { g: 'Team', x: [
         ['Wat is het?', L('De Continuous Delivery Pipeline beschrijft de stappen om een idee om te zetten in waarde: Continuous Exploration, Integration, Deployment en Release on Demand.', 'De AI Innovation Pipeline is een snelle cyclus van Discover, Specify, Build, Validate en Release, waarin mensen en AI elke stap samen doorlopen.')],
         ['De stappen', L('Exploratie zoekt naar waarde, integratie bouwt en test, deployment brengt naar productie en de release maakt het beschikbaar wanneer de business dat wil.', 'Discover zoekt naar kansen, Specify legt intentie en eisen vast, Build bouwt met behulp van agents, Validate toetst of het werkt en waarde levert, en Release brengt het naar de klant.')],
@@ -1122,7 +1122,7 @@ export function buildView(self) {
     };
     const cur = self.state.sel && C[self.state.sel] ? self.state.sel : null;
     const emptyRole = { abbr: '', full: '', fullBr: '', color: '#1B2A5C', tint: '#EEF2F7', theme: '', kern: '', intro: '', wheel: [], doelen: [], ai: [], resp: [], meet: [], afst: '', top: { h: '', t: '' }, left: { h: '', t: '' }, right: { h: '', t: '' }, bottom: { h: '', t: '' }, mandaat: '', kpi: [], relatie: [], ontw: [], strat: '' };
-    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false, isLACE: false, isCFLOW: false, isAIPIPE: false, isAIWF: false, isAIPOL: false, isAIEV: false, isAIPLAT: false };
+    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false, isLACE: false, isCFLOW: false, isAIPIPE: false, isAIWF: false, isAIPOL: false, isAIEV: false, isAIPLAT: false, isVA: false };
     if (cur) {
       const c = C[cur];
       const idx = order.indexOf(cur);
@@ -1191,6 +1191,7 @@ export function buildView(self) {
         page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }].concat(cv.isDelta ? [{ id: 'delta', h: 'Wat verandert er?' }] : []).concat([{ id: 'vier-rollen', h: 'Vier rollen, één resultaat' }]).concat(cv.showConcept ? [{ id: 'kenmerken', h: 'Wanneer werkt een T4K goed?' }, { id: 'signalen', h: 'Signalen' }, { id: 'ritme', h: 'Het ritme' }, { id: 'zelfscan', h: 'Zelfscan' }] : []).concat([{ id: 'samen', h: 'Samen verantwoordelijk' }]); page.minutes = cv.showConcept ? 6 : 2;
       }
       if (cur === 'art' && ai) { page.isAIART = true; page.toc.push({ id: 'zes-kenmerken', h: 'Zes kenmerken' }, { id: 'k1', h: '1. Rond producten' }, { id: 'k2', h: '2. Outcome-gedreven' }, { id: 'k3', h: '3. Menselijk oordeel' }, { id: 'k4', h: '4. Innovatie en cadans' }, { id: 'k5', h: '5. Gedeelde AI-workflows' }, { id: 'k6', h: '6. AI-governance' }); page.minutes = 12; }
+      if (ai && cur === 'architects') { page.isVA = true; page.sections = []; page.minutes = 8; page.updated = '17 november 2026'; page.toc = [['samenvatting', 'Samenvatting'], ['rol', 'De ontbrekende schakel'], ['blinde-vlekken', 'Drie blinde vlekken'], ['wiel', 'Verantwoordelijkhedenwiel'], ['levenscyclus', 'Levenscyclus'], ['niveaus', 'Op elk niveau'], ['samenwerking', 'Samenwerking'], ['gereedschap', 'Gereedschapskist'], ['vertellen', 'Een succes laten reizen'], ['bij-edsn', 'Bij EDSN']].map(([id, h]) => ({ id, h })); }
       if (ai && cur === 'pipeline') { page.isAIPIPE = true; page.sections = []; page.minutes = 8; page.updated = '13 november 2026'; page.toc = [['samenvatting', 'Samenvatting'], ['pipeline-plaat', 'De pipeline in één plaat'], ['stappen', 'Vijf stappen'], ['leren-en-waarde', 'Leren en waarde'], ['kanban', 'Het Kanban-bord'], ['componenten', 'Vier componenten'], ['dora', 'Onderzoek: DORA 2025']].map(([id, h]) => ({ id, h })); }
       const AITOC = { aiwf: [['waarom', 'Eigen werkwijze'], ['wat', 'Wat is een workflow?'], ['kwaliteiten', 'Vijf kwaliteiten'], ['voorbeeld', 'Voorbeeld'], ['per-stap', 'Workflows per stap'], ['vastleggen', 'Waarom vastleggen?']],
         aipol: [['soorten', 'Drie soorten kaders'], ['ingebouwd', 'In elke stap'], ['mens-in-de-lus', 'Mens in of op de lus'], ['agents', 'Bevoegdheid van agents']],

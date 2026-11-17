@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import AiPipelineTop from './pages/AiPipelineTop.jsx';
 import AiPipeline from './pages/AiPipeline.jsx';
+import ValueArchitect from './pages/ValueArchitect.jsx';
 import AiWorkflows from './pages/AiWorkflows.jsx';
 import AiPolicies from './pages/AiPolicies.jsx';
 import AiEvidence from './pages/AiEvidence.jsx';
@@ -91,6 +92,7 @@ export default function Article({ view }) {
                     ))}
                     <ContinuousFlow view={view} />
                     <AiPipeline view={view} />
+                    <ValueArchitect view={view} />
                     <AiWorkflows view={view} />
                     <AiPolicies view={view} />
                     <AiEvidence view={view} />
