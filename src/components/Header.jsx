@@ -1,4 +1,4 @@
-/** Bovenbalk met logo, menu, Concepten, ARTie en nachtmodus. */
+/** Bovenbalk met logo, menu, ARTie en nachtmodus. */
 export default function Header({ view }) {
   return (
     <>
@@ -37,16 +37,6 @@ export default function Header({ view }) {
           {" "}
           <button style={{ minHeight: "44px", padding: "0 16px", background: "none", border: "0", borderRadius: "8px", cursor: "pointer", fontFamily: "inherit", fontSize: "15px", fontWeight: "500", color: "#3E4A63" }} onClick={view.open.f5}>
             LACE
-          </button>
-          {" "}
-          <button style={{ marginLeft: "8px", minHeight: "44px", padding: "0 14px", display: "flex", alignItems: "center", gap: "8px", border: "1.5px solid #D5DBE5", borderRadius: "22px", background: "#FFFFFF", cursor: "pointer", fontFamily: "inherit", fontSize: "15px", fontWeight: "600", color: "#1B2A5C" }} onClick={view.openConcepts}>
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 3h9l5 5v13H5zM14 3v5h5M8 13h8M8 17h5" fill="none" stroke="#1B2A5C" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
-            </svg>
-            {" "}Concepten{" "}
-            <span style={{ display: "flex", alignItems: "center", justifyContent: "center", minWidth: "22px", height: "22px", padding: "0 6px", boxSizing: "border-box", borderRadius: "11px", background: view.orange, color: "#2B1A00", fontSize: "12px", fontWeight: "800" }}>
-              {view.wow.open}
-            </span>
           </button>
           {" "}
           <button onClick={view.openArtie} style={{ marginLeft: "12px", border: "0", cursor: "pointer", fontFamily: "inherit", minHeight: "44px", padding: "0 20px", display: "flex", alignItems: "center", gap: "10px", borderRadius: "22px", background: "#F39200", color: "#2B1A00", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>

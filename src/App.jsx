@@ -12,9 +12,7 @@ export default class App extends Component {
     super(props);
     let dark = false;
     try { dark = window.localStorage.getItem('edm-dark') === '1'; } catch (e) {}
-    let unlocked = false;
-    try { unlocked = window.sessionStorage.getItem('edm-concepts') === '1'; } catch (e) {}
-    this.state = { mode: null, sel: null, vptStep: 0, pfOpen: true, scale: 1, lace: false, scan: {}, dark, cview: 'current', unlocked, pwErr: false, artie: false, artieQ: '' };
+    this.state = { mode: null, sel: null, vptStep: 0, pfOpen: true, scale: 1, lace: false, scan: {}, dark, cview: 'current', artie: false, artieQ: '' };
   }
   _theme() {
     // Nachtmodus: zet lichte vlakken om naar donker en donkere tekst naar licht; merkkleuren blijven gelijk.

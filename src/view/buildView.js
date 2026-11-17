@@ -827,44 +827,8 @@ export function buildView(self) {
       verdictBox: 'padding:20px;border-radius:14px;color:#FFFFFF;display:flex;flex-direction:column;gap:6px;background:' + (!answered || answered < scanQ.length ? '#5A6478' : (avgN >= 4 ? '#5E8A12' : (avgN >= 3 ? '#0E5F96' : '#C8102E'))),
       reset: () => self.setState({ scan: {} })
     };
-    // ---- Wijzigingsvoorstellen (WoW) ----
-    const STEPS = ['Concept', 'In review', 'Vastgesteld'];
-    const propDefs = [{ id: 'WP-001', page: 't4k', pageTitle: 'Tactisch vierkant (T4K)', title: 'Wanneer functioneert een T4K goed?', status: 1,
-      summary: 'Voorstel om op de T4K-pagina vast te leggen wanneer een T4K goed functioneert: zes kenmerken, herkenbare signalen, een vast ritme en een zelfscan waarmee een T4K zichzelf kan toetsen.',
-      author: 'Pieter Meijer', reviewers: 'LACE', date: '9 november 2026', deadline: 'n.t.b.',
-      actions: [['Bekijk wat verandert', () => self.setState({ sel: 't4k', cview: 'delta' })], ['Lees het concept', () => self.setState({ sel: 't4k', cview: 'concept' })]] },
-    { id: 'WP-002', page: null, pageTitle: 'Big Picture · nieuwe functie', title: 'Volg een Feature: de WoW als verhaal', status: 0,
-      summary: 'Een interactieve tour waarin één Feature in negen stappen door de Big Picture reist: van strategisch thema via Epic, Feature Kanban, T4K en PI Planning naar de teams, de pipeline, de klant en terug naar Inspect and Adapt. Per stap zie je wat er gebeurt en wie aan zet is.',
-      author: 'Pieter Meijer', reviewers: 'LACE', date: '9 november 2026', deadline: 'n.t.b.',
-      actions: [['Start de tour', () => self._startTour()]] },
-    { id: 'WP-003', page: null, pageTitle: 'Big Picture · nieuwe functie', title: 'Ik ben…: de Big Picture vanuit jouw rol', status: 0,
-      summary: 'Kies je rol (bijv. teamlid, Product Owner, RTE of Business Owner) en de Big Picture licht op waar jij een rol speelt. Je ziet jouw plekken in de plaat, jouw events, jouw artefacten en je aanspreekpunt in het T4K.',
-      author: 'Pieter Meijer', reviewers: 'LACE', date: '9 november 2026', deadline: 'n.t.b.',
-      actions: [['Probeer Ik ben…', () => self._startRoles()]] },
-    { id: 'WP-004', page: 'f5', pageTitle: 'LACE', title: 'Het LACE: rol, werkwijze en producten', status: 0,
-      summary: 'Voorstel om de LACE-pagina uit te breiden: het LACE als verbindende hub, vijf verantwoordelijkheden, onze producten ARTie en het Delivery Model, het LACE als agile team met eigen ritme en transformatiebacklog, het organisatiemodel, voortgang meten, de rol in een AI-Native EDSN en waar het LACE actief is in de Big Picture.',
-      author: 'Pieter Meijer', reviewers: 'LACE', date: '12 november 2026', deadline: 'n.t.b.',
-      actions: [['Bekijk wat verandert', () => self.setState({ sel: 'f5', cview: 'delta' })], ['Lees het concept', () => self.setState({ sel: 'f5', cview: 'concept' })]] }];
-    const wow = {
-      open: propDefs.filter((x) => x.status < 2).length,
-      process: [['1', 'Concept', 'Een wijziging wordt uitgewerkt als voorstel. De vastgestelde WoW blijft ongewijzigd zichtbaar.', blue], ['2', 'In review', 'Reviewers lezen het concept en de delta en geven feedback.', orange], ['3', 'Vastgesteld', 'Na akkoord wordt het voorstel verwerkt in de WoW en vastgelegd in het wijzigingslog.', green]]
-        .flatMap(([n, title, text, c], i, arr) => { const st = { isStep: true, isArrow: false, n, title, text, dot: 'display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-weight:800;font-size:14px;background:' + c + ';color:' + (c === blue ? '#FFFFFF' : onOrange) }; return i < arr.length - 1 ? [st, { isStep: false, isArrow: true }] : [st]; }),
-      proposals: propDefs.map((x) => ({ id: x.id, title: x.title, pageTitle: x.pageTitle, summary: x.summary, statusText: STEPS[x.status],
-        statusPill: 'padding:6px 14px;border-radius:14px;font-size:13px;font-weight:800;background:' + [blue, orange, green][x.status] + ';color:' + (x.status === 0 ? '#FFFFFF' : onOrange),
-        steps: STEPS.map((label, i) => ({ label, style: 'flex:1;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:700;' + (i < x.status ? 'background:#DCEFC8;color:#2F4A0B' : i === x.status ? 'background:' + orange + ';color:' + onOrange + '' : 'background:#EEF2F7;color:#5A6478') })),
-        meta: [['Indiener', x.author], ['Reviewers', x.reviewers], ['Ingediend', x.date], ['Reviewen vóór', x.deadline]].map(([k, v]) => ({ k, v })),
-        actions: x.actions.map(([label, run], i) => ({ label, run, style: 'min-height:44px;padding:0 18px;border-radius:22px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;' + (i === 0 ? 'border:0;background:' + navy + ';color:#FFFFFF' : 'border:1.5px solid #D5DBE5;background:#FFFFFF;color:#1B2A5C') })),
-        mail: 'mailto:?subject=' + encodeURIComponent('Feedback ' + x.id + ': ' + x.title) + '&body=' + encodeURIComponent('Mijn feedback op ' + x.id + ' (' + x.title + '):\n\n') })),
-      log: [['v1.0', '6 november 2026', 'Eerste publicatie', 'Het EDSN Delivery Model staat live: Big Picture voor Basis EDSN en AI-Native EDSN, met verdiepende pagina’s per onderdeel.']]
-        .map(([version, date, title, text]) => ({ version, date, title, text, dot: 'position:absolute;left:-9px;top:6px;width:15px;height:15px;border-radius:50%;background:' + navy + ';border:3px solid #FFFFFF' }))
-    };
-    const unlocked = !!self.state.unlocked;
-    const wantView = self.state.cview || 'current';
-    const cview = unlocked ? wantView : 'current';
-    const pwHash = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h; };
-    const lock = { err: !!self.state.pwErr, showConcepts: self.state.sel === 'concepts' && unlocked, showConceptsLock: self.state.sel === 'concepts' && !unlocked, showT4KLock: !unlocked && wantView !== 'current',
-      submit: (e) => { if (e && e.preventDefault) e.preventDefault(); const el = document.getElementById('edm-pw'); const v = el ? el.value.trim() : '';
-        if (pwHash(v.toUpperCase()) === 2421986502) { try { window.sessionStorage.setItem('edm-concepts', '1'); } catch (er) {} self.setState({ unlocked: true, pwErr: false }); } else { self.setState({ pwErr: true }); } } };
+    // ---- Weergave: het T4K toont de vastgestelde uitbreiding (kenmerken, signalen, ritme, zelfscan); overige concepten zijn uit de site gehaald ----
+    const cview = self.state.sel === 't4k' ? 'concept' : 'current';
     const cv = { isDelta: cview === 'delta', showConcept: cview !== 'current',
       wrap: cview === 'delta' ? 'display:flex;flex-direction:column;gap:30px;padding:20px;border-radius:16px;border:2px solid #5E8A12;background:#F5FBEF' : 'display:flex;flex-direction:column;gap:30px',
       tabs: [['current', 'Huidig'], ['concept', 'Concept'], ['delta', 'Wat verandert er?']].map(([k, label]) => ({ label, on: cview === k, pick: () => self.setState({ cview: k }),
@@ -876,8 +840,6 @@ export function buildView(self) {
         ['Ongewijzigd', 'Vier rollen en Samen verantwoordelijk', 'De vier rollen, hun bijdrage en afstemming, en de gezamenlijke verantwoordelijkheid voor de CDP blijven zoals ze zijn.', '#vier-rollen']]
         .map(([type, what, text, href]) => ({ type, what, text, href, tag: 'justify-self:start;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;' + (type === 'Nieuw' ? 'background:#2F7A12;color:#FFFFFF' : type === 'Vervalt' ? 'background:#C8102E;color:#FFFFFF' : type === 'Gewijzigd' ? 'background:' + blue + ';color:#FFFFFF' : 'background:#E1E6EE;color:#3E4A63') }))
     };
-    I.concepts = ['Wijzigingsvoorstellen', 'Hier vind je voorstellen om de werkwijze (WoW) aan te passen. Ze zijn nog niet vastgesteld: de officiële WoW verandert pas na review en akkoord. Per voorstel zie je wat er verandert, kun je het concept lezen en feedback geven.', null];
-    C.concepts = { g: 'Werkwijze', x: [], k: ['Concepten zijn nog niet vastgesteld', 'Bekijk per voorstel wat er verandert', 'Feedback is welkom tijdens de review', 'Vastgestelde wijzigingen staan in het wijzigingslog'], e: '', r: ['t4k', 'f5'] };
     const t4kOrder = ['pm', 'sa', 'rte', 'peopledev'];
     I.t4k = ['Tactisch vierkant (T4K)', 'Het tactisch vierkant is het leiderschapsteam van de ART: Product Manager, System Architect, Release Train Engineer en People Developer. Vier rollen – waarde, techniek, flow en mensen – met één gezamenlijk ART-resultaat, van idee tot operatie.', null];
     open.t4k = () => self.setState({ sel: 't4k' });
@@ -898,7 +860,7 @@ export function buildView(self) {
     const norm = (x) => String(x || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     const STOP = new Set('de het een en of in op aan van voor met bij naar over door om te tot uit als dat die dit deze wat wie hoe waar waarom wanneer welke welk is zijn was wordt worden word kan kun kunnen moet moeten mag doet doen je jij jullie ik we wij ons onze mijn er niet geen wel ook nog dan maar zo heel veel meer edsn'.split(' '));
     const esc = (x) => String(x).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
-    const idx = order.filter((k) => I[k] && C[k] && k !== 'concepts').map((k) => {
+    const idx = order.filter((k) => I[k] && C[k]).map((k) => {
       const c = C[k];
       const body = [].concat((c.x || []).map((x) => x[0] + '. ' + x[1]), c.k || [], c.e ? [c.e] : []).join(' ');
       const ALIAS = { aiwf: 'workflows agents', aipol: 'policies kaders beleid human in the loop', aiev: 'evidence bewijs audit inzicht', aiplat: 'platform control plane', t4k: 't4k tactisch vierkant', vpt: 'vpt feature kanban', cflow: 'continuous flow continue flow discover specify build validate release levenscyclus', sp: 'story points sp', itf: 'itf it foundation', ee: 'engineering enablement', ade: 'art development enablement run beheer', pi: 'pi planning' };
@@ -1136,7 +1098,7 @@ export function buildView(self) {
     };
     const cur = self.state.sel && C[self.state.sel] ? self.state.sel : null;
     const emptyRole = { abbr: '', full: '', fullBr: '', color: '#1B2A5C', tint: '#EEF2F7', theme: '', kern: '', intro: '', wheel: [], doelen: [], ai: [], resp: [], meet: [], afst: '', top: { h: '', t: '' }, left: { h: '', t: '' }, right: { h: '', t: '' }, bottom: { h: '', t: '' }, mandaat: '', kpi: [], relatie: [], ontw: [], strat: '' };
-    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isConcepts: false, isLACE: false, isCFLOW: false, isAIPIPE: false, isAIWF: false, isAIPOL: false, isAIEV: false, isAIPLAT: false, isVA: false, aiRole: '' };
+    let page = { title: '', group: '', summary: '', sections: [], keys: [], related: [], edsn: '', hasEdsn: false, minutes: 3, prev: { title: '', pick: null }, next: { title: '', pick: null }, badgeBg: '#EEF2F7', badgeFg: '#1B2A5C', toc: [], isRole: false, isT4K: false, role: emptyRole, t4k: [], updated: '4 november 2026', cmp: [], hasCmp: false, isSP: false, isVPT: false, isEE: false, isPD: false, isPR: false, isBV: false, isAIART: false, isLACE: false, isCFLOW: false, isAIPIPE: false, isAIWF: false, isAIPOL: false, isAIEV: false, isAIPLAT: false, isVA: false, aiRole: '' };
     if (cur) {
       const c = C[cur];
       const idx = order.indexOf(cur);
@@ -1195,7 +1157,7 @@ export function buildView(self) {
       }
       if (ai && cur === 'teams') { page.aiRole = cur; page.minutes = 6; page.updated = '17 november 2026'; page.toc = page.toc.concat(AI_ROLE_TOC.map(([id, h]) => ({ id, h }))); page.related = page.related.concat([nav('pipeline')]); }
       if (page.isT4K) {
-        page.minutes = 2; page.updated = '1 november 2026 (werkvoorstel T4K)';
+        page.minutes = 6; page.updated = '17 november 2026';
         page.t4k = t4kOrder.map((k, i) => {
           const [color, tint, theme] = RC[k];
           const radius = ['16px 4px 4px 4px', '4px 16px 4px 4px', '4px 4px 4px 16px', '4px 4px 16px 4px'][i];
@@ -1223,7 +1185,6 @@ export function buildView(self) {
             .concat([['lace-oogopslag', 'In één oogopslag'], ['lace-taken', 'Vijf verantwoordelijkheden'], ['lace-producten', 'Onze producten'], ['lace-team', 'Het LACE als agile team'], ['lace-ritme', 'Ritme'], ['lace-backlog', 'Transformatiebacklog'], ['lace-model', 'Organisatiemodel'], ['lace-meten', 'Voortgang meten'], ['lace-ai', 'AI-Native EDSN'], ['lace-bigpicture', 'In de Big Picture']].map(([id, h]) => ({ id, h })));
         }
       }
-      if (cur === 'concepts') { page.isConcepts = true; page.toc.push({ id: 'proces', h: 'Zo verloopt een wijziging' }, { id: 'voorstellen', h: 'Lopende voorstellen' }, { id: 'wijzigingslog', h: 'Wijzigingslog' }); page.minutes = 2; }
       if (cur === 'value') { page.isBV = true; page.toc.push({ id: 'waardedraad', h: 'Waarde verbindt beslissingen' }, { id: 'hefboom', h: 'Hefboompunten' }, { id: 'valkuil', h: 'Waardefocus' }, { id: 'waarde-in-safe', h: 'Waarde in het model' }, { id: 'meten', h: 'Meten op resultaat' }); page.minutes = 6; }
       if (cur === 'peopledev') { page.isPD = true; page.toc.push({ id: 'people-authority', h: 'De people authority' }, { id: 'people-debt', h: 'People debt' }, { id: 'capaciteit', h: 'Capaciteitsallocatie' }, { id: 'pd-verantwoordelijkheden', h: 'Kernverantwoordelijkheden' }); if (page.aiRole) { const ids = AI_ROLE_TOC.map(([id]) => id); page.toc = page.toc.filter((x) => !ids.includes(x.id)).concat(page.toc.filter((x) => ids.includes(x.id))); } page.minutes = 9; }
       if (cur === 'ade') { page.isPR = true; page.toc.push({ id: 'runway', h: 'Twee runways' }, { id: 'bouwstenen', h: 'Een sterke people runway' }, { id: 'strategisch-operationeel', h: 'Strategisch en operationeel' }, { id: 'procesopzet', h: 'Wie doet wat' }, { id: 'investeren', h: 'Opbouwen en onderhouden' }, { id: 'businesscase', h: 'Waarom het loont' }); page.minutes = 8; }
@@ -1238,9 +1199,8 @@ export function buildView(self) {
     const off = 'display:flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:30px;border:0;cursor:pointer;font-family:inherit;font-size:18px;font-weight:500;background:transparent;color:#1B2A5C';
 
     return {
-      navy, blue, cyan, orange, green, brand, onOrange, onGreen, accSoft, accTint, barNavy: bar(navy), barBlue: bar(blue), t4kCol, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie, tour, tourOv, rv, lace, cflow,
+      navy, blue, cyan, orange, green, brand, onOrange, onGreen, accSoft, accTint, barNavy: bar(navy), barBlue: bar(blue), t4kCol, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, cv, ask, artie, tour, tourOv, rv, lace, cflow,
       openArtie: () => self.setState({ artie: true, artieQ: '' }),
-      openConcepts: () => self.setState({ sel: 'concepts' }),
       // Portfolio-niveau: in Basis EDSN uitklapbaar, in AI-Native EDSN niet aanwezig
       pfOpen: !ai && !!self.state.pfOpen, pfClosed: !ai && !self.state.pfOpen,
       togglePf: () => self.setState({ pfOpen: !self.state.pfOpen }),

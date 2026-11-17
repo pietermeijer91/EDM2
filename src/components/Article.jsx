@@ -12,8 +12,6 @@ import ContinuousFlow from './pages/ContinuousFlow.jsx';
 import Lace from './pages/Lace.jsx';
 import RolePage from './pages/RolePage.jsx';
 import AiRoleExtra from './pages/AiRoleExtra.jsx';
-import ConceptenWachtwoord from './pages/ConceptenWachtwoord.jsx';
-import Concepten from './pages/Concepten.jsx';
 import TactischVierkant from './pages/TactischVierkant.jsx';
 import FeatureKanban from './pages/FeatureKanban.jsx';
 import StoryPoints from './pages/StoryPoints.jsx';
@@ -101,8 +99,6 @@ export default function Article({ view }) {
                     <Lace view={view} />
                     <RolePage view={view} />
                     {view.page.aiRole !== 'peopledev' ? <AiRoleExtra view={view} /> : null}
-                    <ConceptenWachtwoord view={view} />
-                    <Concepten view={view} />
                     <TactischVierkant view={view} />
                     <FeatureKanban view={view} />
                     <StoryPoints view={view} />

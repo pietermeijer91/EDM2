@@ -26,8 +26,8 @@ Kijk in `src/components/` (algemene onderdelen) of `src/components/pages/` (pagi
 **Kleuren, ARTie-link of AI-Native EDSN openzetten**
 `src/config.js`.
 
-**Een wijzigingsvoorstel (concept) toevoegen**
-Zoek in `buildView.js` op `propDefs`. Concepten staan achter het reviewer-wachtwoord en gaan pas live in de vastgestelde WoW na review door het LACE.
+**Een wijziging aan de WoW**
+Bespreek een voorstel eerst met het LACE. Pas na akkoord wordt het verwerkt in de site; er staan geen concepten meer op de site zelf.
 
 ## Spelregels
 
