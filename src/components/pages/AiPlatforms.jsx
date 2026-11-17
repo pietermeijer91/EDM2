@@ -91,7 +91,7 @@ export default function AiPlatforms({ view }) {
             <span style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{P.contract.get.map((g) => <span key={g} style={{ padding: '5px 10px', borderRadius: 12, background: '#FFFFFF', fontSize: 12, fontWeight: 600, color: AI.deep }}>{g}</span>)}</span>
           </div>
         </div>
-        <span style={{ padding: '12px 16px', borderRadius: 12, background: '#FFF8EC', fontSize: 15, lineHeight: 1.6, color: '#5A3A00' }}><strong>Context reist mee.</strong> {P.context}</span>
+        <span style={{ padding: '12px 16px', borderRadius: 12, background: '#E9F6F5', fontSize: 15, lineHeight: 1.6, color: '#0B5553' }}><strong>Context reist mee.</strong> {P.context}</span>
         <Lead>{P.scale}</Lead>
       </Section>
 

@@ -12,7 +12,7 @@ export default function StoryPoints({ view }) {
             <div style={{ padding: "24px", borderRadius: "16px", background: "#F4F6FA", display: "flex", flexDirection: "column", gap: "18px" }}>
               <div style={{ position: "relative", height: "300px", overflow: "hidden" }}>
                 <div className="sp-pulse" style={{ position: "absolute", left: "4px", top: "100px", width: "72px", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", animationPlayState: view.play }}>
-                  <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "60px", height: "80px", borderRadius: "10px", background: view.orange, color: "#2B1A00", fontSize: "34px", fontWeight: "700", boxShadow: "0 5px 0 rgba(0,0,0,.18)" }}>
+                  <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "60px", height: "80px", borderRadius: "10px", background: view.orange, color: view.onOrange, fontSize: "34px", fontWeight: "700", boxShadow: "0 5px 0 rgba(0,0,0,.18)" }}>
                     1
                   </span>
                   {" "}

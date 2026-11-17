@@ -16,7 +16,14 @@ export function buildView(self) {
     const aiLocked = !(p.aiOpen ?? false);
     const mode = aiLocked ? 'core' : (self.state.mode ?? p.startMode ?? 'core');
     const ai = mode === 'ai';
-    const orange = p.orange ?? '#F39200', green = p.green ?? '#95C11F';
+    // Basis EDSN: oranje en limoen als accent · AI-Native: groen (oranje blijft alleen voor de EDSN-huisstijl)
+    const brand = p.orange ?? '#F39200';
+    const orange = ai ? (p.aiAccent ?? '#00807E') : brand;
+    const green = ai ? (p.aiAccent2 ?? '#1F9E95') : (p.green ?? '#95C11F');
+    const onOrange = ai ? '#FFFFFF' : '#2B1A00', onGreen = ai ? '#FFFFFF' : '#1F2604';
+    const accSoft = ai ? '#E0F2F1' : '#FFF1DA';
+    const accTint = ai ? '#EAF6F5' : '#FFF4E3'; // zacht accentvlak (kernpunten, conceptbalk)
+    const bar = (c) => (ai ? 'linear-gradient(90deg, #2A1650, #6E44B8)' : c);
     // Core: EDSN blauw + groen · AI-Native: paars
     const navy = ai ? (p.aiDeep ?? '#3A1D6E') : (p.navy ?? '#1B2A5C');
     const blue = ai ? (p.aiPrimary ?? '#6E44B8') : (p.blue ?? '#0072BC');
@@ -67,7 +74,7 @@ export function buildView(self) {
     const chipDefs = ai
       ? [['Feature', 'n'], ['Prototype', 'c'], ['Experiment', 'b'], ['Enabler', 'o'], ['Feature', 'n'], ['Experiment', 'b'], ['Prototype', 'c'], ['Enabler', 'o']]
       : [['Feature', 'n'], ['Story', 'b'], ['Enabler', 'o'], ['Story', 'b'], ['Feature', 'n'], ['Spike', 'c'], ['Story', 'b'], ['Enabler', 'o']];
-    const chipCol = { n: [navy, '#FFFFFF'], b: [blue, '#FFFFFF'], c: [cyan, ai ? '#1B1030' : '#04232E'], o: [orange, '#2B1A00'] };
+    const chipCol = { n: [navy, '#FFFFFF'], b: [blue, '#FFFFFF'], c: [cyan, ai ? '#1B1030' : '#04232E'], o: [orange, onOrange] };
     const chips = chipDefs.map(([label, k], i) => ({ label,
       style: 'left:492px;top:750px;padding:5px 10px;border-radius:3px;font-size:12px;font-weight:700;background:' + chipCol[k][0] + ';color:' + chipCol[k][1] + ';box-shadow:0 4px 0 rgba(0,0,0,.22);animation-delay:' + (-i * 2.25) + 's;animation-play-state:' + bpPlay }));
 
@@ -344,7 +351,13 @@ export function buildView(self) {
     });
 
     // ---- Tactisch vierkant (T4K): bron 'Rollen binnen het T4K', 1 nov 2026 ----
-    const RC = { pm: ['#0E5F96', '#E6EFF6', 'Waarde'], sa: ['#00807E', '#E0F2F1', 'Techniek'], rte: ['#3B7898', '#E6EFF4', 'Flow'], peopledev: ['#5E6E0C', '#F1F4DC', 'Mensen'] };
+    const RC = ai
+      ? { pm: ['#6E44B8', '#F1EBFB', 'Waarde'], sa: ['#00807E', '#E0F2F1', 'Techniek'], rte: ['#3A1D6E', '#ECE6F5', 'Flow'], peopledev: ['#1F9E95', '#E3F4F2', 'Mensen'] }
+      : { pm: ['#0E5F96', '#E6EFF6', 'Waarde'], sa: ['#00807E', '#E0F2F1', 'Techniek'], rte: ['#3B7898', '#E6EFF4', 'Flow'], peopledev: ['#5E6E0C', '#F1F4DC', 'Mensen'] };
+    // Tegels van het T4K in de Big Picture en op de T4K-pagina: [achtergrond, tekst]
+    const t4kCol = ai
+      ? { pm: ['#6E44B8', '#FFFFFF'], sa: ['#00807E', '#FFFFFF'], rte: ['#3A1D6E', '#FFFFFF'], peopledev: ['#1F9E95', '#FFFFFF'] }
+      : { pm: ['#0E5F96', '#FFFFFF'], sa: ['#00807E', '#FFFFFF'], rte: ['#3B7898', '#FFFFFF'], peopledev: ['#A9BC2B', '#1F2604'] };
     const R = {
       pm: { abbr: 'PM', full: 'Product Manager', kern: 'De PM bepaalt productrichting en prioriteiten op basis van klantwaarde.',
         intro: 'Verbindt klantbehoeften aan bedrijfsdoelen en draagt met het T4K het resultaat van idee tot operatie.',
@@ -448,14 +461,14 @@ export function buildView(self) {
       k: ['Gemeenschappelijke referentiestory', 'Gezamenlijke kalibratie tussen teams in de ART', 'Periodieke Inspect & Adapt om bij te sturen', 'Coaching op toepassing en mindset', 'Focus op voorspelbaarheid, niet op productiviteit'],
       e: '', r: ['teams', 'pi', 'f5', 'workitems'] };
     if (!ai) C.teams.r = ['sp'].concat(C.teams.r);
-    const spSteps = [['1', 'Gedeelde referentiestory', 'Eén eenvoudige story: binnen één dag af door één ontwikkelaar = 1 punt.', orange, '#2B1A00'],
+    const spSteps = [['1', 'Gedeelde referentiestory', 'Eén eenvoudige story: binnen één dag af door één ontwikkelaar = 1 punt.', orange, onOrange],
       ['2', 'Teams schatten zelf', 'Autonoom, maar altijd ten opzichte van dezelfde referentie.', blue, '#FFFFFF'],
       ['3', 'Samen kalibreren', 'Regelmatig toetsen in ART-overleggen en tijdens Inspect & Adapt.', cyan, '#04232E'],
       ['4', 'Voorspelbare PI-planning', 'Betrouwbare capaciteit en eerder zichtbare afhankelijkheden.', navy, '#FFFFFF']];
     const sp = {
       steps: spSteps.flatMap((x, i) => { const st = { isStep: true, isArrow: false, n: x[0], title: x[1], text: x[2], color: x[3], fg: x[4] }; return i < spSteps.length - 1 ? [st, { isStep: false, isArrow: true }] : [st]; }),
       scale: [1, 2, 3, 5, 8, 13].map((v, i) => ({ v, cap: i === 0 ? 'referentie' : '',
-        card: 'display:flex;align-items:center;justify-content:center;width:56px;height:' + (44 + i * 14) + 'px;border-radius:8px;font-size:' + (18 + i * 2) + 'px;font-weight:700;' + (i === 0 ? 'background:' + orange + ';color:#2B1A00;' : 'background:#FFFFFF;color:' + navy + ';border:2px solid ' + navy + ';box-sizing:border-box;') + 'box-shadow:0 4px 0 rgba(0,0,0,.12)' })),
+        card: 'display:flex;align-items:center;justify-content:center;width:56px;height:' + (44 + i * 14) + 'px;border-radius:8px;font-size:' + (18 + i * 2) + 'px;font-weight:700;' + (i === 0 ? 'background:' + orange + ';color:' + onOrange + ';' : 'background:#FFFFFF;color:' + navy + ';border:2px solid ' + navy + ';box-sizing:border-box;') + 'box-shadow:0 4px 0 rgba(0,0,0,.12)' })),
       teams: [['Team A', blue, [2, 1, 1, 1, 0, 0]], ['Team B', cyan, [1, 2, 0, 1, 1, 0]], ['Team C', navy, [3, 0, 1, 0, 0, 1]]].map(([name, color, cnt]) => ({ name, color, cells: cnt.map((n) => ({ items: Array.from({ length: n }, (_, j) => ({ j })) })) })),
       principles: [
         ['Gedeelde referentiestory', 'Teams in de ART gebruiken een gezamenlijke referentiestory als baseline voor hun inschattingen.'],
@@ -468,7 +481,7 @@ export function buildView(self) {
         ['Metrics als stuurinformatie', 'Story points ondersteunen besluiten op portfolio- en ART-niveau, altijd samen met andere flow- en kwaliteitsmetrics.'],
         ['Coaching en ondersteuning', 'Het LACE helpt teams actief met toepassing, mindset en consistent gebruik.'],
         ['Geen herinschatting van het verleden', 'Historische story points blijven staan; herijken doen we alleen voor toekomstige inschattingen.']
-      ].map(([title, text], i) => ({ n: i + 1, title, text, color: [blue, cyan, orange, navy, green][i % 5], fg: ['#FFFFFF', '#04232E', '#2B1A00', '#FFFFFF', '#1F2604'][i % 5] })),
+      ].map(([title, text], i) => ({ n: i + 1, title, text, color: [blue, cyan, orange, navy, green][i % 5], fg: ['#FFFFFF', '#04232E', onOrange, '#FFFFFF', onGreen][i % 5] })),
       alts: [
         ['Story points (genormaliseerd)', 'Inschatten en plannen op team-, ART- en portfolioniveau', 'Ja, de basis voor forecasting', 'Ondersteund', 'Onze standaard, met een gedeelde referentiestory', true],
         ['Feature points', 'Features snel onderling vergelijken, bijvoorbeeld in een WSJF-sessie met de Fibonacci-reeks', 'Alleen na omrekenen naar story points (bijv. 8 feature points ≈ 70 story points)', 'Niet ondersteund', 'Optionele tussenstap; de ART kiest zelf of ze die wil zetten', false],
@@ -488,7 +501,7 @@ export function buildView(self) {
       const d = -(k * 2 + i * 0.7);
       sp.cards.push({ pts: ptsByLane[i][k],
         style: 'left:104px;top:' + (28 + i * 90 + 14) + 'px;width:62px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:5px;background:#FFFFFF;border:2px solid ' + col + ';box-sizing:border-box;font-size:12px;font-weight:600;color:#1B2A5C;box-shadow:0 3px 0 rgba(0,0,0,.12);animation-delay:' + d + 's;animation-play-state:' + play,
-        badge: 'position:absolute;right:-11px;top:-12px;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:' + orange + ';color:#2B1A00;font-size:12px;font-weight:700;animation-delay:' + d + 's;animation-play-state:' + play });
+        badge: 'position:absolute;right:-11px;top:-12px;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:' + orange + ';color:' + onOrange + ';font-size:12px;font-weight:700;animation-delay:' + d + 's;animation-play-state:' + play });
     }); });
     sp.animSteps = spSteps.map((x, i) => ({ n: x[0], title: x[1],
       style: 'display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:#FFFFFF;border:1.5px solid #D5DBE5;font-size:14px;font-weight:700;color:#1B2A5C;animation-delay:' + [0, -9, -6, -3][i] + 's;animation-play-state:' + play,
@@ -526,13 +539,13 @@ export function buildView(self) {
     const pmCol = '#0E5F96', poCol = '#3B7898';
     const vpt = {
       glance: [['Product Manager', 'Bepaalt de prioriteit, stuurt met het VPT op waarde, valideert het resultaat en sluit de feature.', pmCol], ['Product Owner + DevOps-team', 'Werken de feature uit met refinement, realiseren en testen haar en begeleiden haar naar validatie en release.', poCol], ['VPT', 'Helpt features selecteren, prioriteren, verkleinen en inhoudelijk gereedmaken voor teamrefinement.', orange]]
-        .map(([who, text, c]) => ({ who, text, chip: 'align-self:flex-start;padding:3px 10px;border-radius:10px;background:' + c + ';color:' + (c === orange ? '#2B1A00' : '#FFFFFF') + ';font-size:12px;font-weight:700' })),
+        .map(([who, text, c]) => ({ who, text, chip: 'align-self:flex-start;padding:3px 10px;border-radius:10px;background:' + c + ';color:' + (c === orange ? onOrange : '#FFFFFF') + ';font-size:12px;font-weight:700' })),
       cols: VS.map((v, i) => {
         const x = i * 140, y = 24, on = i === vs;
         const tagCol = v[2] === 'WIP' ? orange : (v[2] === 'DoR' ? blue : green);
         return { name: (i + 1) + '. ' + v[0], tag: v[2], hasTag: !!v[2], owner: v[3] === 'PM' ? 'Product Manager' : 'Product Owner', on,
           tagClass: v[2] === 'WIP' ? 'vpt-wip' : '',
-          tagStyle: 'flex-shrink:0;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:700;background:' + tagCol + ';color:' + (v[2] === 'DoR' ? '#FFFFFF' : '#2B1A00') + ';animation-play-state:' + play,
+          tagStyle: 'flex-shrink:0;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:700;background:' + tagCol + ';color:' + (v[2] === 'DoR' ? '#FFFFFF' : onOrange) + ';animation-play-state:' + play,
           ownerStyle: 'font-size:11px;font-weight:600;color:' + (v[3] === 'PM' ? pmCol : poCol),
           box: 'position:absolute;left:' + x + 'px;top:' + y + 'px;width:134px;height:190px;border-radius:12px;background:#FFFFFF;border:' + (on ? '2.5px solid ' + navy : '1.5px solid #D5DBE5') + ';box-sizing:border-box',
           head: 'position:absolute;left:' + (x + 2) + 'px;top:' + (y + 2) + 'px;width:130px;height:60px;padding:6px 9px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;border:0;border-bottom:1px solid #E6EAF0;border-radius:10px 10px 0 0;background:' + (on ? tintD : '#FFFFFF') + ';cursor:pointer;font-family:inherit;text-align:left',
@@ -541,13 +554,13 @@ export function buildView(self) {
       }),
       cards: [['Feature A', blue], ['Feature B', orange], ['Feature C', cyan], ['Feature D', navy]].map(([label, color], i) => ({ label, color,
         style: 'left:9px;top:124px;width:116px;height:34px;display:flex;align-items:center;gap:8px;padding:0 10px;box-sizing:border-box;border-radius:6px;background:#FFFFFF;border:1.5px solid #C9D1DD;box-shadow:0 3px 0 rgba(27,42,92,.12);font-size:12px;font-weight:700;color:#1B2A5C;pointer-events:none;animation-delay:' + (-i * 4) + 's;animation-play-state:' + play,
-        done: 'margin-left:auto;display:flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:' + green + ';color:#1F2604;font-size:12px;font-weight:700;animation-delay:' + (-i * 4) + 's;animation-play-state:' + play })),
+        done: 'margin-left:auto;display:flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:' + green + ';color:' + onGreen + ';font-size:12px;font-weight:700;animation-delay:' + (-i * 4) + 's;animation-play-state:' + play })),
       step: { kicker: (VS[vs][1] === 'ready' ? 'Flow to ready' : 'Flow to done') + ' · stap ' + ((vs % 4) + 1) + ' van 4' + (VS[vs][2] ? ' · ' + VS[vs][2] : ''), title: (vs + 1) + '. ' + VS[vs][0], doel: VS[vs][4], acts: VS[vs][5].map((text) => ({ text })), res: VS[vs][6], owner: VS[vs][7],
         panel: 'padding:24px 26px;border-radius:16px;background:' + tintD + ';border:1.5px solid #D5DBE5;display:flex;flex-direction:column;gap:14px' },
       prev: () => setStep(vs - 1), next: () => setStep(vs + 1),
       roles: [
         ['PM', 'Product Manager', pmCol, '#FFFFFF', 'Prioriteert in alle fasen, stuurt met het VPT op waarde, valideert het resultaat en sluit de feature.', [['Vanuit een epic naar features? Nieuw idee?', 'Registreer het in de Funnel en leg de minimale informatie vast.'], ['Voldoende waarde en informatie?', 'Trek de feature naar Pulled by VPT en werk haar in de juiste prioriteit uit met het VPT.'], ['Realisatie afgerond?', 'Valideer de Definition of Done en bepaal of de feature naar Release kan.'], ['Op productie?', 'Zet de feature op Done, evalueer de opbrengst en informeer opdrachtgevers.']]],
-        ['VPT', 'VPT', orange, '#2B1A00', 'Helpt features selecteren, prioriteren, verkleinen en inhoudelijk gereedmaken voor teamrefinement.', [['', 'Beoordeel waarde, urgentie en samenhang.'], ['', 'Help de feature te verkleinen tot een haalbaar MVP.'], ['', 'Breng de hoogst geprioriteerde items wekelijks een stap verder.']]],
+        ['VPT', 'VPT', orange, onOrange, 'Helpt features selecteren, prioriteren, verkleinen en inhoudelijk gereedmaken voor teamrefinement.', [['', 'Beoordeel waarde, urgentie en samenhang.'], ['', 'Help de feature te verkleinen tot een haalbaar MVP.'], ['', 'Breng de hoogst geprioriteerde items wekelijks een stap verder.']]],
         ['PO', 'Product Owner', poCol, '#FFFFFF', 'Organiseert refinement met het team, bewaakt realisatie en voortgang en begeleidt de feature richting validatie en release.', [['Klaar voor teamrefinement?', 'Werk de feature met team en specialisten uit tot ze voldoet aan de Definition of Ready.'], ['Gepland in de PI?', 'Zet de status op Pulled by team en bewaak voortgang en afhankelijkheden.'], ['Stories gereed?', 'Controleer de resultaten en zet de feature op Validating.'], ['Vrijgave mogelijk?', 'Begeleid de feature vanuit Release naar productie.']]],
         ['DT', 'DevOps-team', cyan, '#04232E', 'Splitst de feature in stories, realiseert en test de oplossing en levert bewijs dat aan de afspraken is voldaan.', [['', 'Maak stories en taken concreet.'], ['', 'Realiseer, test en documenteer de oplossing.'], ['', 'Maak aantoonbaar dat stories en feature aan de afgesproken criteria voldoen.']]]
       ].map(([abbr, name, c, fg, who, items]) => ({ abbr, name, who,
@@ -559,7 +572,7 @@ export function buildView(self) {
         ['DoD', 'Definition of Done', 'Een feature is inhoudelijk gereed wanneer:', '#5E8A12', ['Acceptanten de feature hebben geaccepteerd.', 'Aan acceptatiecriteria is voldaan of afwijkingen zijn gemitigeerd.', 'Alle stories en taken Done of buiten scope zijn.', 'Het resultaat beschikbaar en toegankelijk is.', 'Compliance-eisen zijn verwerkt of gemitigeerd.', 'Technische en functionele documentatie actueel en toegankelijk is.', 'CAPEX-percentage en definitieve story points zijn vastgelegd.', 'Er geen open punten meer in de opmerkingen staan.']]
       ].map(([abbr, title, intro, c, items]) => ({ abbr, title, intro, color: c, items: items.map((text) => ({ text })),
         box: 'padding:20px 22px;border-radius:14px;border:1.5px solid #D5DBE5;display:flex;flex-direction:column;gap:9px',
-        badge: 'display:flex;align-items:center;justify-content:center;min-width:44px;height:30px;border-radius:8px;background:' + (abbr === 'DoR' ? blue : green) + ';color:' + (abbr === 'DoR' ? '#FFFFFF' : '#1F2604') + ';font-size:13px;font-weight:700' })),
+        badge: 'display:flex;align-items:center;justify-content:center;min-width:44px;height:30px;border-radius:8px;background:' + (abbr === 'DoR' ? blue : green) + ';color:' + (abbr === 'DoR' ? '#FFFFFF' : onGreen) + ';font-size:13px;font-weight:700' })),
       canvas: [['1. Funnel', ['Indiener, titel en urgentie', 'Deadline of gewenste PI', 'Koppeling met epic en verwachte teams', 'Waarde: klant, business, operationeel en strategisch']],
         ['2. Pulled by VPT', ['Feature statement: wat wordt gevraagd?', 'Hypothese en manier om succes te meten', 'Acceptatiecriteria, scope en requirements', 'Impact op markt, privacy, security, communicatie, datastandaarden en control framework', 'Hoofdlijnen architectuur, estimate en stakeholders']],
         ['3. Feature refinement', ['Afhankelijkheden en risico’s', 'Solution design en testaanpak', 'Bekende stories']]]
@@ -616,7 +629,7 @@ export function buildView(self) {
       ['Observe', 'M3 12h4l2-5 4 10 2-5h6', 'Logging, dashboards en alerts standaard aan']];
     const hiCols = [navy, blue, cyan, orange, green, navy];
     const ee = {
-      tok: 'top:14px;width:104px;justify-content:center;box-sizing:border-box;display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:15px;background:' + orange + ';color:#2B1A00;font-size:12px;font-weight:700;box-shadow:0 3px 0 rgba(0,0,0,.2);animation-play-state:' + play,
+      tok: 'top:14px;width:104px;justify-content:center;box-sizing:border-box;display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:15px;background:' + orange + ';color:' + onOrange + ';font-size:12px;font-weight:700;box-shadow:0 3px 0 rgba(0,0,0,.2);animation-play-state:' + play,
       path: eePathDefs.map(([name, icon, txt], i) => ({ name, icon, ee: txt,
         box: '--hi:' + hiCols[i] + ';padding:14px 12px;border-radius:12px;background:#FFFFFF;border:2px solid #D5DBE5;display:flex;flex-direction:column;gap:6px;animation-delay:' + (i ? -(12 - 2 * i) : 0) + 's;animation-play-state:' + play,
         iconBox: 'display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:' + hiCols[i] })),
@@ -645,7 +658,7 @@ export function buildView(self) {
         ['DevEx', 'Tijd tot eerste wijziging', 'Hoe snel een nieuwe engineer iets naar productie brengt.', 'Korter is beter ↓', false]]
         .map(([group, name, text, dir, dora]) => ({ group, name, text, dir, dirColor: '#2F6B12',
           box: 'padding:16px;border-radius:12px;border:1.5px solid #D5DBE5;border-top:5px solid ' + (dora ? blue : orange) + ';display:flex;flex-direction:column;gap:6px;min-height:150px;box-sizing:border-box',
-          tag: 'align-self:flex-start;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:700;background:' + (dora ? blue : orange) + ';color:' + (dora ? '#FFFFFF' : '#2B1A00') })),
+          tag: 'align-self:flex-start;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:700;background:' + (dora ? blue : orange) + ';color:' + (dora ? '#FFFFFF' : onOrange) })),
       principles: [['You build it, you run it', 'Teams zijn eigenaar van hun oplossing in productie'], ['Automate everything', 'Wat vaker dan twee keer gebeurt, automatiseren we'], ['Shift left', 'Kwaliteit en security vroeg in het proces'], ['Inner source first', 'Eerst hergebruiken en delen, dan zelf bouwen'], ['Paved roads, geen hekken', 'Standaarden maken het makkelijk, niet verplicht moeilijk'], [L('Continu leren', 'Mens + AI'), L('Tijd en ruimte voor vakmanschap', 'AI versterkt de engineer, de mens beslist')]]
         .map(([title, text], i) => ({ n: i + 1, title, text,
           pill: 'flex:1 1 300px;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:#F4F6FA',
@@ -657,7 +670,7 @@ export function buildView(self) {
       authorities: [['Procesautoriteit', 'RTE', 'Release Train Engineer', 'Faciliteert, kijkt vooruit en ruimt belemmeringen op.', '#3B7898', '#FFFFFF', false],
         ['Inhoudsautoriteit', 'PM', 'Product Manager', 'Klant, visie, backlog en roadmap: de juiste dingen bouwen.', '#0E5F96', '#FFFFFF', false],
         ['Ontwerpautoriteit', 'SA', 'System Architect', 'Techniek en systeem: de dingen goed bouwen.', '#00807E', '#FFFFFF', false],
-        ['Mensenautoriteit', 'PD', 'People Developer', 'Mensen voorop: talent, leren, teamdynamiek en de people runway.', '#A9BC2B', '#1F2604', true]]
+        ['Mensenautoriteit', 'PD', 'People Developer', 'Mensen voorop: talent, leren, teamdynamiek en de people runway.', '#A9BC2B', onGreen, true]]
         .map(([kind, abbr, role, focus, bg, fg, isNew]) => ({ kind, abbr, role, focus, isNew, box: 'padding:18px;border-radius:14px;background:' + bg + ';color:' + fg + ';display:flex;flex-direction:column;gap:6px' + (isNew ? ';box-shadow:0 0 0 4px #FFFFFF,0 0 0 7px #A9BC2B' : '') })),
       spiral: ['Lagere motivatie en betrokkenheid', 'Minder waarde en klanttevredenheid', 'Afnemend innovatievermogen', 'Minder veerkracht en aanpassingsvermogen', 'Een vastlopende transformatie']
         .map((text, i) => ({ text, bar: 'display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:#FFFFFF;font-size:13px;font-weight:600;margin-left:' + (i * 12) + 'px;background:' + ['#7A8BB0', '#5E6F98', '#46557F', '#2F3D66', '#C8102E'][i] })),
@@ -727,7 +740,7 @@ export function buildView(self) {
       without: ['Teams richten zich op dagelijkse taken', 'Processen en technologie worden doel op zich', 'Losse KPI’s per afdeling of team', 'Waarde is “iets van het management”'].map((text) => ({ text })),
       with: ['Iedereen begrijpt wat waardevol is in zijn context', 'Keuzes en trade-offs worden op waarde gemaakt', 'Sturen en meten op uitkomsten', 'Waarde in elk gesprek en elke beslissing'].map((text) => ({ text })),
       artifacts: [['Portfolio', 'Epic', 'Succescriteria en een hypothese over de verwachte waarde, getoetst met een MVP.', navy], ['ART', 'Feature', 'Business benefits: welke waarde de feature oplevert voor klant of organisatie.', blue], ['PI', 'PI-doelen', 'Business Owners kennen elk doel een businesswaarde toe en beoordelen na afloop wat er is gerealiseerd.', orange]]
-        .map(([level, title, text, c]) => ({ level, title, text, chip: 'padding:3px 10px;border-radius:10px;font-size:11px;font-weight:800;background:' + c + ';color:' + (c === orange ? '#2B1A00' : '#FFFFFF') })),
+        .map(([level, title, text, c]) => ({ level, title, text, chip: 'padding:3px 10px;border-radius:10px;font-size:11px;font-weight:800;background:' + c + ';color:' + (c === orange ? onOrange : '#FFFFFF') })),
       objectives: bvObj.map(([name, p, a]) => ({ name, score: a + ' / ' + p,
         planned: 'position:absolute;left:0;top:0;bottom:0;width:' + (p * 10) + '%;border-radius:4px;background:#C9D1DD',
         actual: 'position:absolute;left:0;top:5px;bottom:5px;width:' + (a * 10) + '%;border-radius:3px;background:' + blue })),
@@ -801,7 +814,7 @@ export function buildView(self) {
       good: ['Het T4K bereidt PI Planning samen voor en komt met één gedeeld beeld van prioriteiten, risico’s en capaciteit', 'Run, change, enablers en people-onderwerpen worden in één afweging gemaakt', 'Afhankelijkheden en risico’s komen vroeg op tafel, niet pas bij de Go-Live', 'Teams ervaren duidelijke en consistente richting', 'Lastige keuzes worden expliciet gemaakt en vastgelegd, inclusief het waarom', 'Business Owners hebben vertrouwen in de voorspelbaarheid van de ART'].map((text) => ({ text })),
       warn: ['Eén rol neemt de meeste besluiten, of het T4K is eigenlijk een triade zonder de People Developer', 'People- of technische onderwerpen verliezen het steeds van features', 'Teams krijgen van verschillende T4K-leden tegenstrijdige signalen', 'Het gesprek gaat vooral over output en planning, nauwelijks over outcomes', 'Besluiten worden onnodig opgeschaald of blijven liggen', 'Het T4K overlegt alleen als er een probleem is'].map((text) => ({ text })),
       rhythm: [['Wekelijks', 'T4K-sync', 'Voortgang op outcomes, risico’s, afhankelijkheden, capaciteit en mensen. Besluiten vastleggen.', blue], ['Per iteratie', 'Sense and Respond', 'Bewijs uit demo’s en metrics vertalen naar bijsturing over de hele ART.', cyan], ['Vóór elke PI', 'PI-voorbereiding', 'Samen visie, prioriteiten, capaciteitsverdeling en readiness voorbereiden.', orange], ['Na elke PI', 'T4K-retrospective', 'Na Inspect & Adapt: hoe hebben we als T4K samengewerkt en wat verbeteren we?', green]]
-        .map(([when, title, text, c]) => ({ when, title, text, tag: 'align-self:flex-start;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:800;background:' + c + ';color:' + (c === orange || c === green ? '#1F1A00' : '#FFFFFF') })),
+        .map(([when, title, text, c]) => ({ when, title, text, tag: 'align-self:flex-start;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:800;background:' + c + ';color:' + (c === orange || c === green ? onOrange : '#FFFFFF') })),
       scan: scanQ.map(([dim, text], i) => ({ dim, text,
         tag: 'justify-self:start;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:800;color:#FFFFFF;background:' + DIMC[dim],
         opts: [1, 2, 3, 4, 5].map((v) => { const on = sc[i] === v; return { v, on, pick: () => self.setState({ scan: Object.assign({}, self.state.scan, { [i]: v }) }),
@@ -835,10 +848,10 @@ export function buildView(self) {
     const wow = {
       open: propDefs.filter((x) => x.status < 2).length,
       process: [['1', 'Concept', 'Een wijziging wordt uitgewerkt als voorstel. De vastgestelde WoW blijft ongewijzigd zichtbaar.', blue], ['2', 'In review', 'Reviewers lezen het concept en de delta en geven feedback.', orange], ['3', 'Vastgesteld', 'Na akkoord wordt het voorstel verwerkt in de WoW en vastgelegd in het wijzigingslog.', green]]
-        .flatMap(([n, title, text, c], i, arr) => { const st = { isStep: true, isArrow: false, n, title, text, dot: 'display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-weight:800;font-size:14px;background:' + c + ';color:' + (c === blue ? '#FFFFFF' : '#1F1A00') }; return i < arr.length - 1 ? [st, { isStep: false, isArrow: true }] : [st]; }),
+        .flatMap(([n, title, text, c], i, arr) => { const st = { isStep: true, isArrow: false, n, title, text, dot: 'display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-weight:800;font-size:14px;background:' + c + ';color:' + (c === blue ? '#FFFFFF' : onOrange) }; return i < arr.length - 1 ? [st, { isStep: false, isArrow: true }] : [st]; }),
       proposals: propDefs.map((x) => ({ id: x.id, title: x.title, pageTitle: x.pageTitle, summary: x.summary, statusText: STEPS[x.status],
-        statusPill: 'padding:6px 14px;border-radius:14px;font-size:13px;font-weight:800;background:' + [blue, orange, green][x.status] + ';color:' + (x.status === 0 ? '#FFFFFF' : '#1F1A00'),
-        steps: STEPS.map((label, i) => ({ label, style: 'flex:1;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:700;' + (i < x.status ? 'background:#DCEFC8;color:#2F4A0B' : i === x.status ? 'background:' + orange + ';color:#2B1A00' : 'background:#EEF2F7;color:#5A6478') })),
+        statusPill: 'padding:6px 14px;border-radius:14px;font-size:13px;font-weight:800;background:' + [blue, orange, green][x.status] + ';color:' + (x.status === 0 ? '#FFFFFF' : onOrange),
+        steps: STEPS.map((label, i) => ({ label, style: 'flex:1;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:700;' + (i < x.status ? 'background:#DCEFC8;color:#2F4A0B' : i === x.status ? 'background:' + orange + ';color:' + onOrange + '' : 'background:#EEF2F7;color:#5A6478') })),
         meta: [['Indiener', x.author], ['Reviewers', x.reviewers], ['Ingediend', x.date], ['Reviewen vóór', x.deadline]].map(([k, v]) => ({ k, v })),
         actions: x.actions.map(([label, run], i) => ({ label, run, style: 'min-height:44px;padding:0 18px;border-radius:22px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;' + (i === 0 ? 'border:0;background:' + navy + ';color:#FFFFFF' : 'border:1.5px solid #D5DBE5;background:#FFFFFF;color:#1B2A5C') })),
         mail: 'mailto:?subject=' + encodeURIComponent('Feedback ' + x.id + ': ' + x.title) + '&body=' + encodeURIComponent('Mijn feedback op ' + x.id + ' (' + x.title + '):\n\n') })),
@@ -1002,7 +1015,7 @@ export function buildView(self) {
       const k = TOUR[tStep][0]; const e = ell(SPOT[k]); const a = tokAt(k); const pk = TOUR[Math.max(0, Math.min(TOUR.length - 1, self.state.tourPrev ?? tStep))][0]; const b0 = tokAt(pk);
       tourOv.mask = maskOf([k]);
       tourOv.ring = 'position:absolute;z-index:46;pointer-events:none;box-sizing:border-box;left:' + Math.round(e.cx - e.rx * 0.9) + 'px;top:' + Math.round(e.cy - e.ry * 0.9) + 'px;width:' + Math.round(e.rx * 1.8) + 'px;height:' + Math.round(e.ry * 1.8) + 'px;border-radius:50%;border:3px dashed ' + orange;
-      tourOv.tok = 'position:absolute;z-index:47;pointer-events:none;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;background:' + orange + ';color:#2B1A00;font-size:13px;font-weight:800;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.3);left:' + a.x + 'px;top:' + a.y + 'px;--x0:' + b0.x + 'px;--y0:' + b0.y + 'px';
+      tourOv.tok = 'position:absolute;z-index:47;pointer-events:none;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;background:' + orange + ';color:' + onOrange + ';font-size:13px;font-weight:800;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.3);left:' + a.x + 'px;top:' + a.y + 'px;--x0:' + b0.x + 'px;--y0:' + b0.y + 'px';
     }
     const tcur = tourOn ? TOUR[tStep] : TOUR[0];
     const tour = { on: tourOn, n: (tStep ?? 0) + 1, total: TOUR.length, hasPrev: (tStep ?? 0) > 0,
@@ -1034,7 +1047,7 @@ export function buildView(self) {
       cur: { label: rDef[1], heading: rDef[0] === 'lace' ? 'Het LACE in de plaat' : 'Jij als ' + rDef[1], intro: rDef[3], events: rDef[4], arts: rDef[5], contact: rDef[6], open: () => self.setState({ sel: rDef[7] }),
         spots: rDef[2].filter((k) => SPOT[k]).map((k, i) => { const [x, y, w] = SPOT[k]; const bx = Math.round(x + w / 2 + Math.min(w / 2, 90) - 6), by = Math.max(4, y - 16);
           return { n: i + 1, name: I[k] ? I[k][0] : k, open: () => self.setState({ sel: k }),
-            badge: 'position:absolute;z-index:47;pointer-events:none;left:' + bx + 'px;top:' + by + 'px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:' + orange + ';color:#2B1A00;font-size:15px;font-weight:800;box-shadow:0 0 0 3px #FFFFFF,0 4px 10px rgba(0,0,0,.3)' }; }) } };
+            badge: 'position:absolute;z-index:47;pointer-events:none;left:' + bx + 'px;top:' + by + 'px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:' + orange + ';color:' + onOrange + ';font-size:15px;font-weight:800;box-shadow:0 0 0 3px #FFFFFF,0 4px 10px rgba(0,0,0,.3)' }; }) } };
     // ---- Continuous Flow (AI-Native, vervangt het VPT) ----
     const CF_AI = {
       discover: ['Agents doorzoeken klantfeedback, markt- en gebruiksdata en helpen hypotheses en aannames scherp te formuleren.', 'Product Manager en AI-Native team'],
@@ -1052,9 +1065,9 @@ export function buildView(self) {
       purple: cfPurple,
       stations: CF.map((c2, i) => ({ n: String(i + 1).padStart(2, '0'), title: c2[0], sub: c2[1], on: i === cfStep, pick: () => self.setState({ cfStep: i }),
         style: 'position:absolute;left:' + cfPos[i][0] + 'px;top:' + cfPos[i][1] + 'px;transform:translate(-50%,-50%)' + (i === cfStep ? ' scale(1.08)' : '') + ';width:112px;height:112px;border-radius:50%;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;padding:8px;box-sizing:border-box;'
-          + (i === cfStep ? 'border:0;background:' + cfCol[i] + ';color:' + (i === 2 || i === 4 ? '#1F1A00' : '#FFFFFF') + ';box-shadow:0 10px 24px rgba(42,22,80,.3)' : 'border:3px solid ' + cfCol[i] + ';background:#FFFFFF;color:#1B2A5C') })),
+          + (i === cfStep ? 'border:0;background:' + cfCol[i] + ';color:' + (i === 2 || i === 4 ? onOrange : '#FFFFFF') + ';box-shadow:0 10px 24px rgba(42,22,80,.3)' : 'border:3px solid ' + cfCol[i] + ';background:#FFFFFF;color:#1B2A5C') })),
       tokens: [[45, 'F'], [135, 'F'], [210, ''], [260, 'F'], [320, '']].map(([deg, label]) => { const r = deg * Math.PI / 180; const x = 230 + 170 * Math.cos(r), y = 230 + 170 * Math.sin(r);
-        return { label, style: 'position:absolute;left:' + Math.round(x) + 'px;top:' + Math.round(y) + 'px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;' + (label ? 'width:26px;height:26px;border-radius:6px;background:' + orange + ';color:#2B1A00;font-size:12px;font-weight:800;box-shadow:0 3px 8px rgba(0,0,0,.25)' : 'width:14px;height:14px;border-radius:50%;background:' + cfPurple) + ';animation-play-state:' + play }; }),
+        return { label, style: 'position:absolute;left:' + Math.round(x) + 'px;top:' + Math.round(y) + 'px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;' + (label ? 'width:26px;height:26px;border-radius:6px;background:' + orange + ';color:' + onOrange + ';font-size:12px;font-weight:800;box-shadow:0 3px 8px rgba(0,0,0,.25)' : 'width:14px;height:14px;border-radius:50%;background:' + cfPurple) + ';animation-play-state:' + play }; }),
       cur: { kicker: 'Stap ' + (cfStep + 1) + ' van ' + CF.length + ' · ' + CF[cfStep][0], title: CF[cfStep][1], goal: CF[cfStep][2], acts: CF[cfStep][3], ai: CF[cfStep][4], owner: CF[cfStep][5] },
       next: () => self.setState({ cfStep: (cfStep + 1) % CF.length }),
       prev: () => self.setState({ cfStep: (cfStep + CF.length - 1) % CF.length }),
@@ -1073,7 +1086,7 @@ export function buildView(self) {
     // ---- Concept WP-004: de LACE-pagina ----
     const ICON = { lead: 'M4 20h16M6 20V10l6-5 6 5v10M10 20v-5h4v5', art: 'M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4', team: 'M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 11a3 3 0 1 0 0-6M2 20c0-3 3-5 6-5s6 2 6 5M14 15c3 0 6 2 6 5', hr: 'M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10z', strat: 'M12 3v4M12 17v4M3 12h4M17 12h4M12 12m-5 0a5 5 0 1 0 10 0 5 5 0 1 0-10 0', learn: 'M3 8l9-4 9 4-9 4zM7 10v5c0 1.5 2.5 3 5 3s5-1.5 5-3v-5' };
     const tagOf = (type) => 'justify-self:start;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;' + (type === 'Nieuw' ? 'background:#2F7A12;color:#FFFFFF' : type === 'Vervalt' ? 'background:#C8102E;color:#FFFFFF' : type === 'Gewijzigd' ? 'background:' + blue + ';color:#FFFFFF' : 'background:#E1E6EE;color:#3E4A63');
-    const kTag = { Product: [orange, '#2B1A00'], WoW: [blue, '#FFFFFF'], Leren: [green, '#1F2604'], Portfolio: [navy, '#FFFFFF'], Mensen: ['#A0337A', '#FFFFFF'], LACE: ['#5A6478', '#FFFFFF'] };
+    const kTag = { Product: [orange, onOrange], WoW: [blue, '#FFFFFF'], Leren: [green, onGreen], Portfolio: [navy, '#FFFFFF'], Mensen: ['#A0337A', '#FFFFFF'], LACE: ['#5A6478', '#FFFFFF'] };
     const dot = (x, y, r, c) => 'position:absolute;left:' + x + '%;top:' + y + '%;width:' + r + 'px;height:' + r + 'px;border-radius:50%;background:' + c + ';transform:translate(-50%,-50%)';
     const people = [[15, 30], [30, 72], [50, 22], [70, 74], [85, 32], [38, 48], [62, 50]];
     const lace = {
@@ -1091,15 +1104,15 @@ export function buildView(self) {
         ['Lean Portfolio Management ondersteunen', 'Portfolio-events faciliteren, zoals Portfolio Sync en Portfolio Review, en inzicht leveren over waardestromen heen.', 'in nauwe samenwerking met het CIO Office.']]
         .map(([title, text, edsn], i) => ({ n: i + 1, title, text, edsn })),
       prods: [
-        { kind: 'Product', title: 'ARTie', text: 'Onze WoW-agent in Copilot Studio. ARTie beantwoordt vragen over rollen, events en werkwijze, op basis van de kennisbank van het Delivery Model.', cta: 'Vraag het ARTie', hasRun: true, run: () => self.setState({ artie: true, artieQ: '' }), bg: navy, fg: '#FFFFFF', tagBg: orange, tagFg: '#2B1A00', btnBg: orange, btnFg: '#2B1A00' },
-        { kind: 'Product', title: 'EDSN Delivery Model', text: 'De Big Picture met verdiepende pagina’s, wijzigingsvoorstellen en een wijzigingslog: één plek voor onze vastgestelde werkwijze.', cta: 'Naar de Big Picture', hasRun: true, run: () => self.setState({ sel: null }), bg: orange, fg: '#2B1A00', tagBg: navy, tagFg: '#FFFFFF', btnBg: navy, btnFg: '#FFFFFF' },
+        { kind: 'Product', title: 'ARTie', text: 'Onze WoW-agent in Copilot Studio. ARTie beantwoordt vragen over rollen, events en werkwijze, op basis van de kennisbank van het Delivery Model.', cta: 'Vraag het ARTie', hasRun: true, run: () => self.setState({ artie: true, artieQ: '' }), bg: navy, fg: '#FFFFFF', tagBg: orange, tagFg: onOrange, btnBg: orange, btnFg: onOrange },
+        { kind: 'Product', title: 'EDSN Delivery Model', text: 'De Big Picture met verdiepende pagina’s, wijzigingsvoorstellen en een wijzigingslog: één plek voor onze vastgestelde werkwijze.', cta: 'Naar de Big Picture', hasRun: true, run: () => self.setState({ sel: null }), bg: orange, fg: onOrange, tagBg: navy, tagFg: '#FFFFFF', btnBg: navy, btnFg: '#FFFFFF' },
         { kind: 'Dienst', title: 'Trainingen en communities', text: 'Leiderschapsworkshops, rolgerichte trainingen en communities of practice voor onder meer RTE’s, Scrum Masters / Team Coaches en Product Owners.', cta: '', hasRun: false, run: null, bg: '#F4F6FA', fg: '#1B2A5C', tagBg: '#E1E6EE', tagFg: '#1B2A5C', btnBg: navy, btnFg: '#FFFFFF' }]
         .map((p2) => Object.assign(p2, { box: 'padding:20px;border-radius:16px;background:' + p2.bg + ';color:' + p2.fg + ';display:flex;flex-direction:column;gap:10px',
           tag: 'align-self:flex-start;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;background:' + p2.tagBg + ';color:' + p2.tagFg,
           btn: 'align-self:flex-start;margin-top:auto;min-height:40px;padding:0 16px;border:0;border-radius:20px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;background:' + p2.btnBg + ';color:' + p2.btnFg })),
       roles: [['Product Owner', 'Prioriteert de transformatiebacklog samen met de stakeholders en houdt hem zichtbaar.'], ['Team Coach', 'Faciliteert het LACE-team en ruimt belemmeringen op.'], ['Verandercoaches', 'Collega’s met verschillende achtergronden, zoals agile coaches en procesconsultants, met gezag in de organisatie.'], ['Business Owner', 'Een sponsor uit het management, die vroege drempels wegneemt en de koppeling met de strategie bewaakt.']].map(([title, text]) => ({ title, text })),
       crew: ['Jeffrey', 'Pieter', 'Luc', 'Vian', 'Paul', 'Monique'],
-      ritme: [['Align', 'PI Planning', 'Faciliteert de PI Planning van de ART’s en plant de eigen LACE-PI.', navy, '#FFFFFF'], ['Sense', 'Iteraties', 'Coaching op de werkvloer en de transformatiebacklog oppakken.', blue, '#FFFFFF'], ['Sense', 'Signalen ophalen', 'Zelfscans, metingen en gesprekken laten zien waar het knelt.', blue, '#FFFFFF'], ['Respond', 'System Demo', 'Toont eigen resultaten, zoals nieuwe versies van het Delivery Model en ARTie.', orange, '#2B1A00'], ['Respond', 'Inspect and Adapt', 'Faciliteert de verbeterworkshop en neemt de uitkomsten mee naar de backlog.', orange, '#2B1A00']]
+      ritme: [['Align', 'PI Planning', 'Faciliteert de PI Planning van de ART’s en plant de eigen LACE-PI.', navy, '#FFFFFF'], ['Sense', 'Iteraties', 'Coaching op de werkvloer en de transformatiebacklog oppakken.', blue, '#FFFFFF'], ['Sense', 'Signalen ophalen', 'Zelfscans, metingen en gesprekken laten zien waar het knelt.', blue, '#FFFFFF'], ['Respond', 'System Demo', 'Toont eigen resultaten, zoals nieuwe versies van het Delivery Model en ARTie.', orange, onOrange], ['Respond', 'Inspect and Adapt', 'Faciliteert de verbeterworkshop en neemt de uitkomsten mee naar de backlog.', orange, onOrange]]
         .map(([phase, title, text, bg, fg]) => ({ phase, title, text, box: 'padding:14px 12px;border-radius:12px;background:' + bg + ';color:' + fg + ';display:flex;flex-direction:column;gap:6px' })),
       kanban: [['Funnel', [['Portfolio', 'Lean budgetten met Finance'], ['Mensen', 'Rolprofielen AI-native met HR']]], ['Analyse', [['LACE', 'Organisatiemodel LACE kiezen'], ['Product', 'ARTie koppelen aan de kennisbank']]], ['Klaar voor start', [['Leren', 'Training AI-geletterdheid']]], ['In uitvoering', [['WoW', 'WP-001 T4K-zelfscan'], ['Product', 'Volg een Feature-tour']]], ['Gereed', [['Product', 'EDSN Delivery Model live']]]]
         .map(([title, items]) => ({ title, items: items.map(([type, label]) => ({ type, label, tag: 'align-self:flex-start;padding:1px 7px;border-radius:6px;font-size:10px;font-weight:800;background:' + kTag[type][0] + ';color:' + kTag[type][1] })) })),
@@ -1138,7 +1151,7 @@ export function buildView(self) {
         minutes: Math.max(2, Math.round(words / 180)),
         prev: nav(order[(idx - 1 + order.length) % order.length]),
         next: nav(order[(idx + 1) % order.length]),
-        badgeBg: ai ? orange : '#EEF2F7', badgeFg: ai ? '#2B1A00' : '#1B2A5C',
+        badgeBg: ai ? orange : '#EEF2F7', badgeFg: ai ? onOrange : '#1B2A5C',
         isRole: false, isT4K: cur === 't4k', role: emptyRole, t4k: [], updated: '4 november 2026',
         cmp: (c.cmp || []).map((r) => ({ a: r[0], b: r[1], c: r[2] })), hasCmp: !!c.cmp
       };
@@ -1186,8 +1199,8 @@ export function buildView(self) {
         page.t4k = t4kOrder.map((k, i) => {
           const [color, tint, theme] = RC[k];
           const radius = ['16px 4px 4px 4px', '4px 16px 4px 4px', '4px 4px 4px 16px', '4px 4px 16px 4px'][i];
-          const bg = k === 'peopledev' ? '#A9BC2B' : color;
-          const fg = k === 'peopledev' ? '#1F2604' : '#FFFFFF';
+          const bg = t4kCol[k][0];
+          const fg = t4kCol[k][1];
           return { abbr: R[k].abbr, full: R[k].full, theme, color, bijdrage: R[k].bijdrage, afst: R[k].t4kAfst, pick: () => self.setState({ sel: k }),
             tile: 'min-height:150px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:8px;border:0;cursor:pointer;font-family:inherit;text-align:left;border-radius:' + radius + ';background:' + bg + ';color:' + fg };
         });
@@ -1200,7 +1213,7 @@ export function buildView(self) {
         aipol: [['soorten', 'Drie soorten kaders'], ['ingebouwd', 'In elke stap'], ['mens-in-de-lus', 'Mens in of op de lus'], ['agents', 'Bevoegdheid van agents']],
         aiev: [['bewijs', 'Bewijs'], ['voorbeeld', 'Voorbeeld'], ['inzicht', 'Van bewijs naar inzicht']],
         aiplat: [['control-plane', 'Het control plane'], ['functies', 'Vijf functies'], ['niveaus', 'Meerdere niveaus'], ['afspraken', 'Brengen en krijgen']] };
-      if (AITOC[cur]) { page['isAI' + { aiwf: 'WF', aipol: 'POL', aiev: 'EV', aiplat: 'PLAT' }[cur]] = true; page.minutes = 5; page.updated = '13 november 2026'; page.badgeBg = orange; page.badgeFg = '#2B1A00'; page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }].concat(AITOC[cur].map(([id, h]) => ({ id, h }))); }
+      if (AITOC[cur]) { page['isAI' + { aiwf: 'WF', aipol: 'POL', aiev: 'EV', aiplat: 'PLAT' }[cur]] = true; page.minutes = 5; page.updated = '13 november 2026'; page.badgeBg = orange; page.badgeFg = onOrange; page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }].concat(AITOC[cur].map(([id, h]) => ({ id, h }))); }
       if (cur === 'cflow') { page.isCFLOW = true; page.toc = [{ id: 'samenvatting', h: 'Samenvatting' }, { id: 'flow-loop', h: 'De flow draait altijd' }, { id: 'flow-vs-vpt', h: 'Van poortjes naar flow' }, { id: 'flow-ritme', h: 'Het ritme' }, { id: 'flow-rollen', h: 'Wie doet wat?' }, { id: 'flow-vangrails', h: 'Vangrails' }]; page.minutes = 5; page.updated = '12 november 2026'; }
       if (cur === 'f5') {
         page.isLACE = true;
@@ -1221,11 +1234,11 @@ export function buildView(self) {
       if (page.hasEdsn) page.toc.push({ id: 'bij-edsn', h: 'Bij EDSN' });
     }
 
-    const on = 'display:flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:30px;border:0;cursor:pointer;font-family:inherit;font-size:18px;font-weight:600;background:' + navy + ';color:#FFFFFF';
+    const on = 'display:flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:30px;border:0;cursor:pointer;font-family:inherit;font-size:18px;font-weight:600;background:' + bar(navy) + ';color:#FFFFFF';
     const off = 'display:flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:30px;border:0;cursor:pointer;font-family:inherit;font-size:18px;font-weight:500;background:transparent;color:#1B2A5C';
 
     return {
-      navy, blue, cyan, orange, green, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie, tour, tourOv, rv, lace, cflow,
+      navy, blue, cyan, orange, green, brand, onOrange, onGreen, accSoft, accTint, barNavy: bar(navy), barBlue: bar(blue), t4kCol, play, bpPlay, chips, sp, vpt, itf, eeChips, ee, pr, bv, aiart, t4kh, wow, cv, lock, ask, artie, tour, tourOv, rv, lace, cflow,
       openArtie: () => self.setState({ artie: true, artieQ: '' }),
       openConcepts: () => self.setState({ sel: 'concepts' }),
       // Portfolio-niveau: in Basis EDSN uitklapbaar, in AI-Native EDSN niet aanwezig
@@ -1241,7 +1254,7 @@ export function buildView(self) {
       laceOn: !!self.state.lace,
       openLace: () => self.setState({ lace: true }),
       closeLace: () => self.setState({ lace: false }),
-      laceCrew: ['Jeffrey', 'Pieter', 'Luc', 'Vian', 'Paul', 'Monique'].map((name, i) => { const c = ['#0072BC', '#00A6D6', '#F39200', '#95C11F', '#1B2A5C', '#00807E'][i]; const fg = (i === 2 || i === 3) ? '#1F2604' : '#FFFFFF'; return { name, initial: name[0], adopted: name === 'Paul' || name === 'Monique',
+      laceCrew: ['Jeffrey', 'Pieter', 'Luc', 'Vian', 'Paul', 'Monique'].map((name, i) => { const c = ['#0072BC', '#00A6D6', '#F39200', '#95C11F', '#1B2A5C', '#00807E'][i]; const fg = (i === 2 || i === 3) ? onGreen : '#FFFFFF'; return { name, initial: name[0], adopted: name === 'Paul' || name === 'Monique',
         wagon: 'position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:118px;height:86px;border-radius:12px;background:#FFFFFF;border:4px solid ' + c + ';box-sizing:border-box',
         avatar: 'display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:' + c + ';color:' + fg + ';font-size:16px;font-weight:800',
         chip: 'display:inline-flex;align-items:center;padding:5px 14px;border-radius:16px;font-size:14px;font-weight:700;background:' + c + ';color:' + fg }; }),

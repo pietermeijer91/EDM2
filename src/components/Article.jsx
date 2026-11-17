@@ -70,7 +70,7 @@ export default function Article({ view }) {
                   <h1 style={{ margin: "0", fontSize: "52px", lineHeight: "1.1", fontWeight: "700", letterSpacing: "-1px", color: "#1B2A5C" }}>
                     {view.page.title}
                   </h1>
-                  <div style={{ height: "6px", width: "120px", borderRadius: "3px", background: view.orange }} />
+                  <div style={{ height: "6px", width: "120px", borderRadius: "3px", background: view.brand }} />
                 </div>
                 <ContinuousFlowTop view={view} />
                 <AiPipelineTop view={view} />
@@ -149,7 +149,7 @@ export default function Article({ view }) {
                         </Fragment>
                       ))}
                     </nav>
-                    <div style={{ padding: "22px 24px", background: "#FFF4E3", borderRadius: "14px", display: "flex", flexDirection: "column", gap: "12px" }}>
+                    <div style={{ padding: "22px 24px", background: view.accTint, borderRadius: "14px", display: "flex", flexDirection: "column", gap: "12px" }}>
                       <span style={{ fontSize: "15px", fontWeight: "700" }}>Kernpunten</span>
                       {(view.page.keys || []).map((k, i) => (
                         <Fragment key={i}>

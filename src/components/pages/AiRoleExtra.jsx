@@ -83,7 +83,7 @@ export default function AiRoleExtra({ view }) {
 
       <Section id="ai-edsn" title="Bij EDSN">
         <div style={{ padding: '14px 16px', borderRadius: 12, border: `1.5px dashed ${AI.orange}`, display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <strong style={{ fontSize: 13, color: '#7A4A00' }}>Nog in te vullen</strong>
+          <strong style={{ fontSize: 13, color: '#0B5553' }}>Nog in te vullen</strong>
           <span style={{ fontSize: 14, color: AI.ink }}>• {d.vraag}</span>
         </div>
       </Section>

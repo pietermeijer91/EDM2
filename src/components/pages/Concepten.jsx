@@ -43,7 +43,7 @@ export default function Concepten({ view }) {
                 <div style={{ padding: "22px 24px", borderRadius: "16px", border: `2px solid ${view.orange ?? ''}`, display: "flex", flexDirection: "column", gap: "14px" }}>
                   <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "space-between", gap: "12px" }}>
                     <span style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                      <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", color: "#7A4A00" }}>
+                      <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", color: view.ai ? "#0B5553" : "#7A4A00" }}>
                         {pp.id}{" · "}{pp.pageTitle}
                       </span>
                       {" "}

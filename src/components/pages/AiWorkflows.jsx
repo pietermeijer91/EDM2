@@ -91,13 +91,13 @@ export default function AiWorkflows({ view }) {
       <Section id="per-stap" title="Welke workflows per stap?">
         <div style={{ borderRadius: 14, border: '1.5px solid #D5DBE5', overflow: 'hidden' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '120px minmax(0, 1.4fr) minmax(0, 1fr)', background: AI.deep, color: '#FFFFFF', fontSize: 13, fontWeight: 700 }}>
-            <span style={{ padding: '12px 14px' }}>Stap</span><span style={{ padding: '12px 14px' }}>Vaste workflows</span><span style={{ padding: '12px 14px', background: AI.orange, color: '#2B1A00' }}>Vaak overgeslagen</span>
+            <span style={{ padding: '12px 14px' }}>Stap</span><span style={{ padding: '12px 14px' }}>Vaste workflows</span><span style={{ padding: '12px 14px', background: AI.orange, color: '#FFFFFF' }}>Vaak overgeslagen</span>
           </div>
           {W.table.map(([st, a, b]) => (
             <div key={st} style={{ display: 'grid', gridTemplateColumns: '120px minmax(0, 1.4fr) minmax(0, 1fr)', borderTop: '1px solid #E1E6EE', fontSize: 14, lineHeight: 1.5 }}>
               <span style={{ padding: '12px 14px', fontWeight: 700, color: AI.ink, background: AI.lilac }}>{st}</span>
               <span style={{ padding: '12px 14px', color: AI.text }}>{a}</span>
-              <span style={{ padding: '12px 14px', color: '#5A3A00', background: '#FFF8EC' }}>{b}</span>
+              <span style={{ padding: '12px 14px', color: '#0B5553', background: '#E9F6F5' }}>{b}</span>
             </div>
           ))}
         </div>

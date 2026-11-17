@@ -9,7 +9,7 @@ export const AI = {
   teal: '#1F9E95',
   ink: '#1B2A5C',
   text: '#3E4A63',
-  orange: '#F39200',
+  orange: '#00807E', // accent in AI-Native (was oranje; oranje is nu alleen EDSN-huisstijl)
 };
 
 /** Mens en agent naast elkaar: het beeld van samenwerken in elke stap. */

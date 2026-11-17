@@ -10,7 +10,7 @@ export default function FeatureTour({ view }) {
           <div aria-hidden="true" style={{ height: "380px" }} />
           <aside role="dialog" aria-label="Volg een Feature" style={{ position: "fixed", left: "50%", bottom: "18px", transform: "translateX(-50%)", zIndex: "800", width: "min(700px, calc(100vw - 32px))", boxSizing: "border-box", padding: "18px 22px 18px", borderRadius: "18px", border: `2px solid ${view.orange ?? ''}`, background: "#FFFFFF", boxShadow: "0 18px 50px rgba(14, 26, 63, 0.35)", display: "flex", flexDirection: "column", gap: "10px", fontFamily: "Poppins, 'Segoe UI', sans-serif" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <span style={{ padding: "3px 9px", borderRadius: "8px", background: view.orange, color: "#2B1A00", fontSize: "11px", fontWeight: "800", letterSpacing: "1px" }}>
+              <span style={{ padding: "3px 9px", borderRadius: "8px", background: view.orange, color: view.onOrange, fontSize: "11px", fontWeight: "800", letterSpacing: "1px" }}>
                 CONCEPT WP-002
               </span>
               {" "}

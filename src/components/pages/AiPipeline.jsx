@@ -25,7 +25,7 @@ function Board({ play }) {
           </div>
         ))}
         <span className="aip-move" style={{ position: 'absolute', top: 150, width: 'calc(100% / 7 - 18px)', marginLeft: 9, animationPlayState: play }}>
-          <span style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '6px 7px', borderRadius: 7, background: '#FFF4E0', border: `2px solid ${AI.orange}`, boxShadow: '0 6px 14px rgba(0,0,0,.15)' }}>
+          <span style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '6px 7px', borderRadius: 7, background: '#E9F6F5', border: `2px solid ${AI.orange}`, boxShadow: '0 6px 14px rgba(0,0,0,.15)' }}>
             <Tag type="Feature" small />
             <span style={{ fontSize: 11, fontWeight: 700, color: AI.ink }}>F-101 stroomt door</span>
           </span>
@@ -77,9 +77,9 @@ export default function AiPipeline({ view }) {
               ['Uitkomst', <svg key="t" width="34" height="34" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="none" stroke={AI.teal} strokeWidth="3" /><circle cx="22" cy="22" r="9" fill="none" stroke={AI.teal} strokeWidth="3" /><circle cx="22" cy="22" r="3" fill={AI.teal} /></svg>],
               ['Opties', <span key="o" style={{ display: 'flex', gap: 3 }}>{[0, 1, 2].map((k) => <span key={k} style={{ width: 14, height: 14, borderRadius: 3, background: '#C9BDE6' }} />)}</span>],
               ['Leergolf 1', <span key="g1" style={{ display: 'flex', flexDirection: 'column', gap: 3 }}><Tag type="Experiment" small /><Tag type="Prototype" small /></span>],
-              ['Genoeg vertrouwen?', <span key="q1" style={{ width: 34, height: 34, transform: 'rotate(45deg)', background: '#FFF4E0', border: `2px solid ${AI.orange}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ transform: 'rotate(-45deg)', fontWeight: 800, color: '#7A4A00' }}>?</span></span>],
+              ['Genoeg vertrouwen?', <span key="q1" style={{ width: 34, height: 34, transform: 'rotate(45deg)', background: '#E9F6F5', border: `2px solid ${AI.orange}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ transform: 'rotate(-45deg)', fontWeight: 800, color: '#0B5553' }}>?</span></span>],
               ['Leergolf 2', <span key="g2" style={{ display: 'flex', flexDirection: 'column', gap: 3 }}><Tag type="Experiment" small /></span>],
-              ['Vertrouwen', <span key="q2" style={{ width: 34, height: 34, transform: 'rotate(45deg)', background: '#EAF5D6', border: '2px solid #95C11F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ transform: 'rotate(-45deg)', fontWeight: 800, color: '#2F4A0B' }}>✓</span></span>],
+              ['Vertrouwen', <span key="q2" style={{ width: 34, height: 34, transform: 'rotate(45deg)', background: '#E3F4F2', border: '2px solid #1F9E95', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ transform: 'rotate(-45deg)', fontWeight: 800, color: '#2F4A0B' }}>✓</span></span>],
               ['Bouwen en releasen', <span key="v" style={{ display: 'flex', flexDirection: 'column', gap: 3 }}><Tag type="Feature" small /><Tag type="Enabler" small /></span>],
             ].flatMap(([label, el], i, arr) => [
               <span key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, textAlign: 'center' }}>{el}<span style={{ fontSize: 11, fontWeight: 700, color: AI.ink }}>{label}</span></span>,
@@ -87,7 +87,7 @@ export default function AiPipeline({ view }) {
             ])}
           </div>
           <div style={{ minWidth: 820, marginTop: 10, display: 'flex', justifyContent: 'center' }}>
-            <span style={{ padding: '4px 12px', borderRadius: 12, background: '#FFF4E0', fontSize: 12, fontWeight: 700, color: '#7A4A00' }}>Nog gaten in het vertrouwen? Dan volgt een gerichte nieuwe leergolf.</span>
+            <span style={{ padding: '4px 12px', borderRadius: 12, background: '#E9F6F5', fontSize: 12, fontWeight: 700, color: '#0B5553' }}>Nog gaten in het vertrouwen? Dan volgt een gerichte nieuwe leergolf.</span>
           </div>
         </div>
         <ol style={{ margin: 0, paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6, fontSize: 15, lineHeight: 1.6, color: '#2E3A55' }}>
@@ -147,7 +147,7 @@ export default function AiPipeline({ view }) {
             </div>
           ))}
         </div>
-        <span style={{ padding: '12px 16px', borderRadius: 12, background: '#FFF8EC', fontSize: 14, lineHeight: 1.6, color: '#5A3A00' }}><strong>Value stream management als vermenigvuldiger.</strong> {DORA.vsm}</span>
+        <span style={{ padding: '12px 16px', borderRadius: 12, background: '#E9F6F5', fontSize: 14, lineHeight: 1.6, color: '#0B5553' }}><strong>Value stream management als vermenigvuldiger.</strong> {DORA.vsm}</span>
         <span style={{ fontSize: 12, color: '#5A6478' }}>Bron: <a href={DORA.url} target="_blank" rel="noopener">{DORA.source}</a></span>
       </Section>
     </>

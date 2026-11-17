@@ -49,7 +49,7 @@ export default function AiPipelineTop({ view }) {
               ))}
             </div>
             <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, textAlign: 'center' }}>
-              <svg width="48" height="36" viewBox="0 0 48 36" aria-hidden="true"><path d="M3 32l12-12 9 7 20-22M34 5h10v10" fill="none" stroke="#95C11F" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              <svg width="48" height="36" viewBox="0 0 48 36" aria-hidden="true"><path d="M3 32l12-12 9 7 20-22M34 5h10v10" fill="none" stroke="#1F9E95" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               <span style={{ fontSize: 12, fontWeight: 700, color: AI.ink, lineHeight: 1.3 }}>Klant- en businesswaarde</span>
             </span>
           </div>

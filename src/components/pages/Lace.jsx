@@ -7,9 +7,9 @@ export default function Lace({ view }) {
     <>
       {view.page.isLACE ? (
         <>
-          <div style={{ padding: "16px 18px", borderRadius: "14px", border: `2px solid ${view.orange ?? ''}`, background: "#FFF8EC", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
+          <div style={{ padding: "16px 18px", borderRadius: "14px", border: `2px solid ${view.orange ?? ''}`, background: view.ai ? "#EAF6F5" : "#FFF8EC", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
             <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-              <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: "#7A4A00" }}>
+              <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: view.ai ? "#0B5553" : "#7A4A00" }}>
                 Wijzigingsvoorstel WP-004 · Concept
               </span>
               {" "}
@@ -152,7 +152,7 @@ export default function Lace({ view }) {
                           {" "}
                           <span style={{ fontSize: "14px", lineHeight: "1.6", color: "#3E4A63" }}>{tk.text}</span>
                           {" "}
-                          <span style={{ marginTop: "auto", padding: "8px 10px", borderRadius: "8px", background: "#FFF8EC", fontSize: "13px", lineHeight: "1.5", color: "#5A3A00" }}>
+                          <span style={{ marginTop: "auto", padding: "8px 10px", borderRadius: "8px", background: view.ai ? "#EAF6F5" : "#FFF8EC", fontSize: "13px", lineHeight: "1.5", color: "#5A3A00" }}>
                             <strong>Bij EDSN:</strong>
                             {" "}{tk.edsn}
                           </span>
@@ -280,7 +280,7 @@ export default function Lace({ view }) {
                                   </Fragment>
                                 ))}
                               </div>
-                              <span style={{ fontSize: "11px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: "#7A4A00" }}>{md.phase}</span>
+                              <span style={{ fontSize: "11px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: view.ai ? "#0B5553" : "#7A4A00" }}>{md.phase}</span>
                               {" "}
                               <span style={{ fontSize: "17px", fontWeight: "700", color: "#1B2A5C" }}>{md.title}</span>
                               {" "}
@@ -300,7 +300,7 @@ export default function Lace({ view }) {
                       </Fragment>
                     ))}
                   </div>
-                  <span style={{ padding: "10px 14px", borderRadius: "10px", background: "#FFF8EC", fontSize: "14px", lineHeight: "1.5", color: "#5A3A00" }}>
+                  <span style={{ padding: "10px 14px", borderRadius: "10px", background: view.ai ? "#EAF6F5" : "#FFF8EC", fontSize: "14px", lineHeight: "1.5", color: "#5A3A00" }}>
                     <strong>Vraag voor de review:</strong>
                     {" "}welk model past nu bij EDSN, en waar willen we over een jaar staan?
                   </span>

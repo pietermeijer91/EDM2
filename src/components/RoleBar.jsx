@@ -9,7 +9,7 @@ export default function RoleBar({ view }) {
         <>
           <section aria-label="Ik ben…" style={{ padding: "0 40px 20px", display: "flex", flexDirection: "column", gap: "12px", fontFamily: "Poppins, 'Segoe UI', sans-serif", zoom: view.uiZoom }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-              <span style={{ padding: "4px 10px", borderRadius: "8px", background: view.orange, color: "#2B1A00", fontSize: "12px", fontWeight: "800", letterSpacing: "1px" }}>
+              <span style={{ padding: "4px 10px", borderRadius: "8px", background: view.orange, color: view.onOrange, fontSize: "12px", fontWeight: "800", letterSpacing: "1px" }}>
                 CONCEPT WP-003
               </span>
               {" "}
@@ -23,7 +23,7 @@ export default function RoleBar({ view }) {
                 Sluit concept
               </button>
             </div>
-            <div style={{ padding: "20px 22px", borderRadius: "16px", border: `2px solid ${view.orange ?? ''}`, background: "#FFF8EC", display: "grid", gridTemplateColumns: "minmax(0, 1.25fr) repeat(3, minmax(0, 1fr))", gap: "22px" }}>
+            <div style={{ padding: "20px 22px", borderRadius: "16px", border: `2px solid ${view.orange ?? ''}`, background: view.ai ? "#EAF6F5" : "#FFF8EC", display: "grid", gridTemplateColumns: "minmax(0, 1.25fr) repeat(3, minmax(0, 1fr))", gap: "22px" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 <span style={{ fontSize: "22px", fontWeight: "700", color: "#1B2A5C" }}>{view.rv.cur.heading}</span>
                 {" "}
@@ -34,13 +34,13 @@ export default function RoleBar({ view }) {
                 </button>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: "#7A4A00" }}>
+                <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: view.ai ? "#0B5553" : "#7A4A00" }}>
                   Jouw plekken in de plaat
                 </span>
                 {(view.rv.cur.spots || []).map((sp2, i) => (
                   <Fragment key={i}>
                     <button style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px 0", border: "0", background: "none", cursor: "pointer", fontFamily: "inherit", fontSize: "14px", fontWeight: "600", color: "#1B2A5C", textAlign: "left" }} onClick={sp2.open}>
-                      <span style={{ flexShrink: "0", display: "flex", alignItems: "center", justifyContent: "center", width: "22px", height: "22px", borderRadius: "50%", background: view.orange, color: "#2B1A00", fontSize: "12px", fontWeight: "800" }}>
+                      <span style={{ flexShrink: "0", display: "flex", alignItems: "center", justifyContent: "center", width: "22px", height: "22px", borderRadius: "50%", background: view.orange, color: view.onOrange, fontSize: "12px", fontWeight: "800" }}>
                         {sp2.n}
                       </span>
                       {sp2.name}
@@ -49,7 +49,7 @@ export default function RoleBar({ view }) {
                 ))}
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: "#7A4A00" }}>Jouw events</span>
+                <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: view.ai ? "#0B5553" : "#7A4A00" }}>Jouw events</span>
                 {(view.rv.cur.events || []).map((ev, i) => (
                   <Fragment key={i}>
                     <span style={{ fontSize: "14px", lineHeight: "1.5", color: "#1B2A5C" }}>
@@ -59,7 +59,7 @@ export default function RoleBar({ view }) {
                 ))}
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: "#7A4A00" }}>Jouw artefacten</span>
+                <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: view.ai ? "#0B5553" : "#7A4A00" }}>Jouw artefacten</span>
                 {(view.rv.cur.arts || []).map((ar, i) => (
                   <Fragment key={i}>
                     <span style={{ fontSize: "14px", lineHeight: "1.5", color: "#1B2A5C" }}>
@@ -67,7 +67,7 @@ export default function RoleBar({ view }) {
                     </span>
                   </Fragment>
                 ))}
-                <span style={{ marginTop: "8px", fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: "#7A4A00" }}>
+                <span style={{ marginTop: "8px", fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: view.ai ? "#0B5553" : "#7A4A00" }}>
                   Jouw aanspreekpunt
                 </span>
                 {" "}

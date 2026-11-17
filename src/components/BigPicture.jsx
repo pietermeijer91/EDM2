@@ -16,8 +16,8 @@ export default function BigPicture({ view }) {
                   <div id="tour-spot" className="tour-ring" style={css(view.tourOv.ring)} />
                   <span className="tour-tok" style={css(view.tourOv.tok)}>
                     <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                      <rect x="1" y="3" width="14" height="10" rx="2" fill="#2B1A00" />
-                      <path d="M4 6h8M4 9h5" stroke="#F39200" strokeWidth="1.6" />
+                      <rect x="1" y="3" width="14" height="10" rx="2" fill={view.onOrange} />
+                      <path d="M4 6h8M4 9h5" stroke={view.orange} strokeWidth="1.6" />
                     </svg>
                     Feature F-101
                   </span>
@@ -57,7 +57,7 @@ export default function BigPicture({ view }) {
                 </button>
               </div>
               {/* Title */}
-              <div style={{ position: "absolute", left: "560px", right: "40px", top: "54px", height: "6px", background: view.navy, borderRadius: "3px" }} />
+              <div style={{ position: "absolute", left: "560px", right: "40px", top: "54px", height: "6px", background: view.barNavy, borderRadius: "3px" }} />
               <div style={{ position: "absolute", right: "120px", top: "30px", padding: "0 20px", background: "#FFFFFF", display: "flex", alignItems: "center", gap: "12px" }}>
                 {view.ai ? (
                   <>
@@ -307,7 +307,7 @@ export default function BigPicture({ view }) {
                   </span>
                 </button>
                 {/* ART bar */}
-                <button className="hit" style={{ left: "580px", top: "470px", width: "760px", height: "34px", padding: "0 20px", borderRadius: "17px", background: view.blue, boxShadow: `0 3px 0 color-mix(in srgb, ${view.blue ?? ''} 65%, #000000)`, color: "#FFFFFF", flexDirection: "row", justifyContent: "flex-end", fontSize: "15px", fontWeight: "600" }} onClick={view.open.art}>
+                <button className="hit" style={{ left: "580px", top: "470px", width: "760px", height: "34px", padding: "0 20px", borderRadius: "17px", background: view.barBlue, boxShadow: `0 3px 0 color-mix(in srgb, ${view.blue ?? ''} 65%, #000000)`, color: "#FFFFFF", flexDirection: "row", justifyContent: "flex-end", fontSize: "15px", fontWeight: "600" }} onClick={view.open.art}>
                   {view.ai ? (
                     <>
                       <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true">
@@ -364,19 +364,19 @@ export default function BigPicture({ view }) {
                 {/* Tactisch vierkant (T4K): PM · SA · RTE · PD samengevoegd */}
                 <button className="hit" style={{ left: "680px", top: "424px", width: "240px" }} onClick={view.open.t4k} aria-label="Tactisch vierkant (T4K): Product Manager, System Architect, Release Train Engineer en People Developer">
                   <span style={{ position: "relative", display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "3px", width: "84px", height: "84px", padding: "3px", boxSizing: "border-box", borderRadius: "14px", background: "#FFFFFF", border: "2px solid #D5DBE5" }}>
-                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px 3px 3px 3px", background: "#0E5F96", color: "#FFFFFF", fontSize: "14px", fontWeight: "700" }}>
+                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px 3px 3px 3px", background: view.t4kCol.pm[0], color: view.t4kCol.pm[1], fontSize: "14px", fontWeight: "700" }}>
                       PM
                     </span>
                     {" "}
-                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "3px 10px 3px 3px", background: "#00807E", color: "#FFFFFF", fontSize: "14px", fontWeight: "700" }}>
+                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "3px 10px 3px 3px", background: view.t4kCol.sa[0], color: view.t4kCol.sa[1], fontSize: "14px", fontWeight: "700" }}>
                       SA
                     </span>
                     {" "}
-                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "3px 3px 3px 10px", background: "#3B7898", color: "#FFFFFF", fontSize: "13px", fontWeight: "700" }}>
+                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "3px 3px 3px 10px", background: view.t4kCol.rte[0], color: view.t4kCol.rte[1], fontSize: "13px", fontWeight: "700" }}>
                       RTE
                     </span>
                     {" "}
-                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "3px 3px 10px 3px", background: "#A9BC2B", color: "#1F2604", fontSize: "14px", fontWeight: "700" }}>
+                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "3px 3px 10px 3px", background: view.t4kCol.peopledev[0], color: view.t4kCol.peopledev[1], fontSize: "14px", fontWeight: "700" }}>
                       PD
                     </span>
                     {view.ai ? (
@@ -585,7 +585,7 @@ export default function BigPicture({ view }) {
                         <rect x="4" y="8" width="20" height="28" rx="3" transform="rotate(-14 14 22)" fill="#FFFFFF" stroke={view.blue} strokeWidth="2" />
                         <rect x="14" y="5" width="20" height="28" rx="3" fill="#FFFFFF" stroke={view.navy} strokeWidth="2" />
                         <rect x="24" y="8" width="20" height="28" rx="3" transform="rotate(14 34 22)" fill={view.orange} />
-                        <text x="34" y="27" textAnchor="middle" transform="rotate(14 34 22)" fontFamily="Poppins, sans-serif" fontSize="13" fontWeight="700" fill="#2B1A00">
+                        <text x="34" y="27" textAnchor="middle" transform="rotate(14 34 22)" fontFamily="Poppins, sans-serif" fontSize="13" fontWeight="700" fill={view.onOrange}>
                           5
                         </text>
                         <text x="24" y="23" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="12" fontWeight="700" fill={view.navy}>3</text>
@@ -692,7 +692,7 @@ export default function BigPicture({ view }) {
                     </button>
                   </Fragment>
                 ))}
-                <button className="hit" style={{ left: "790px", top: "792px", width: "380px", height: "30px", padding: "0", borderRadius: "15px", background: view.navy, color: "#FFFFFF", fontSize: "15px", fontWeight: "600", justifyContent: "center" }} onClick={view.open.pipeline}>
+                <button className="hit" style={{ left: "790px", top: "792px", width: "380px", height: "30px", padding: "0", borderRadius: "15px", background: view.barNavy, color: "#FFFFFF", fontSize: "15px", fontWeight: "600", justifyContent: "center" }} onClick={view.open.pipeline}>
                   {view.t.pipeline}
                 </button>
                 {/* AI-Native EDSN: de vier lagen onder de AI Innovation Pipeline */}
@@ -711,7 +711,7 @@ export default function BigPicture({ view }) {
                       <span style={{ flexShrink: "0", display: "flex", alignItems: "center", justifyContent: "center", width: "52px", height: "52px", borderRadius: "14px", background: view.blue }}>
                         <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
                           <path d="M19 6.5a5.5 5.5 0 0 0-6.9 6.9L5 20.5l4.5 4.5 7.1-7.1a5.5 5.5 0 0 0 6.9-6.9l-3.4 3.4-4-1-1-4z" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinejoin="round" />
-                          <path d="M22 21l-3 3 3 3M27 21l3 3-3 3" fill="none" stroke="#F39200" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M22 21l-3 3 3 3M27 21l3 3-3 3" fill="none" stroke={view.orange} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </span>
                       <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
@@ -787,7 +787,7 @@ export default function BigPicture({ view }) {
                 {/* PI-cadans op de voorkant */}
                 <button className="low hit" style={{ left: "600px", top: "958px", width: "170px", padding: "0 6px 4px" }} onClick={view.open.pi}>
                   <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
-                    <circle cx="15" cy="15" r="13" fill="#FFF1DA" stroke={view.orange} strokeWidth="2.5" />
+                    <circle cx="15" cy="15" r="13" fill={view.accSoft} stroke={view.orange} strokeWidth="2.5" />
                     <path d="M12 9.5v11l8.5-5.5z" fill={view.navy} />
                   </svg>
                   {" "}
@@ -797,17 +797,17 @@ export default function BigPicture({ view }) {
                 <button className="low hit" style={{ left: "860px", top: "958px", width: "250px", padding: "0 6px 4px" }} onClick={view.open.sense}>
                   <span style={{ display: "flex", gap: "40px" }}>
                     <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
-                      <circle cx="15" cy="15" r="13" fill="#FFF1DA" stroke={view.orange} strokeWidth="2.5" />
+                      <circle cx="15" cy="15" r="13" fill={view.accSoft} stroke={view.orange} strokeWidth="2.5" />
                       <path d="M6 15h5l2-5 4 10 2-5h5" fill="none" stroke={view.navy} strokeWidth="2" />
                     </svg>
                     {" "}
                     <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
-                      <circle cx="15" cy="15" r="13" fill="#FFF1DA" stroke={view.orange} strokeWidth="2.5" />
+                      <circle cx="15" cy="15" r="13" fill={view.accSoft} stroke={view.orange} strokeWidth="2.5" />
                       <path d="M6 15h5l2-5 4 10 2-5h5" fill="none" stroke={view.navy} strokeWidth="2" />
                     </svg>
                     {" "}
                     <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
-                      <circle cx="15" cy="15" r="13" fill="#FFF1DA" stroke={view.orange} strokeWidth="2.5" />
+                      <circle cx="15" cy="15" r="13" fill={view.accSoft} stroke={view.orange} strokeWidth="2.5" />
                       <path d="M6 15h5l2-5 4 10 2-5h5" fill="none" stroke={view.navy} strokeWidth="2" />
                     </svg>
                   </span>
@@ -817,7 +817,7 @@ export default function BigPicture({ view }) {
                 {" "}
                 <button className="low hit" style={{ left: "1150px", top: "958px", width: "170px", padding: "0 6px 4px" }} onClick={view.open.pi}>
                   <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
-                    <circle cx="15" cy="15" r="13" fill="#FFF1DA" stroke={view.orange} strokeWidth="2.5" />
+                    <circle cx="15" cy="15" r="13" fill={view.accSoft} stroke={view.orange} strokeWidth="2.5" />
                     <path d="M12 9.5v11l8.5-5.5z" fill={view.navy} />
                   </svg>
                   {" "}
@@ -832,12 +832,12 @@ export default function BigPicture({ view }) {
                   {" "}
                   <span style={{ fontSize: "13px", fontWeight: "600" }}>{view.t.piOutcomes}</span>
                   {" "}
-                  <span style={{ padding: "1px 10px", borderRadius: "10px", background: "#FFF1DA", border: `1.5px solid ${view.orange ?? ''}`, fontSize: "12px", fontWeight: "700" }}>
+                  <span style={{ padding: "1px 10px", borderRadius: "10px", background: view.accSoft, border: `1.5px solid ${view.orange ?? ''}`, fontSize: "12px", fontWeight: "700" }}>
                     PI
                   </span>
                 </button>
                 {/* Footer */}
-                <div className="low" style={{ position: "absolute", left: "60px", top: "1160px", width: "1480px", height: "76px", background: view.navy, borderRadius: "0 0 10px 10px", display: "grid", gridTemplateColumns: "repeat(6, minmax(0, 1fr))", gap: "8px", padding: "0 16px", boxSizing: "border-box" }}>
+                <div className="low" style={{ position: "absolute", left: "60px", top: "1160px", width: "1480px", height: "76px", background: view.barNavy, borderRadius: "0 0 10px 10px", display: "grid", gridTemplateColumns: "repeat(6, minmax(0, 1fr))", gap: "8px", padding: "0 16px", boxSizing: "border-box" }}>
                   {(view.footer || []).map((f, i) => (
                     <Fragment key={i}>
                       <button style={{ background: "none", border: "0", cursor: "pointer", color: "#FFFFFF", fontFamily: "inherit", fontSize: "15px", fontWeight: "600", lineHeight: "1.25", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", textAlign: "left", borderRadius: "8px" }} onClick={f.pick}>

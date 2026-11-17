@@ -184,7 +184,7 @@ export default function AiNativeArt({ view }) {
                 {(view.aiart.culture || []).map((c, i) => (
                   <Fragment key={i}>
                     <div style={{ padding: "16px 18px", borderRadius: "14px", border: "1.5px solid #D5DBE5", display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                      <span style={{ flexShrink: "0", display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "50%", background: view.orange, color: "#2B1A00", fontWeight: "800" }}>
+                      <span style={{ flexShrink: "0", display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "50%", background: view.orange, color: "#FFFFFF", fontWeight: "800" }}>
                         {c.n}
                       </span>
                       {" "}
@@ -229,7 +229,7 @@ export default function AiNativeArt({ view }) {
                   <Fragment key={i}>
                     <div style={{ padding: "18px", borderRadius: "14px", background: "#F4F6FA", display: "flex", flexDirection: "column", gap: "8px" }}>
                       <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                        <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "38px", height: "38px", borderRadius: "50%", background: "#FFF1DA", border: `2.5px solid ${view.orange ?? ''}` }}>
+                        <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "38px", height: "38px", borderRadius: "50%", background: view.accSoft, border: `2.5px solid ${view.orange ?? ''}` }}>
                           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                             <path d={e.icon} fill="none" stroke="#1B2A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>

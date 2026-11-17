@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { VA_INTRO, BLIND_SPOTS, BLIND_SPOT_NOTE, WHEEL, LIFECYCLE, DOC_CHAIN, LEVELS, TRIAD, PARTNERS, TOOLKIT, RISK_COUNCIL, STORY, AT_EDSN } from '../../content/valueArchitect.js';
 import { AI, Section, Lead, HumanAgent } from '../ai/parts.jsx';
 
-const COL = ['#6E44B8', '#1F9E95', '#0072BC', '#8C6BD1', '#F39200'];
+const COL = ['#6E44B8', '#1F9E95', '#3A1D6E', '#8C6BD1', '#00807E'];
 
 /** Donut-segment als SVG-pad, met een even brede opening (gap, in px) aan binnen- en buitenkant. */
 function arc(cx, cy, r1, r2, a0, a1, gap = 0) {
@@ -117,7 +117,7 @@ export default function ValueArchitect({ view }) {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
           {DOC_CHAIN.map((d, i) => [
-            <span key={d} style={{ padding: '6px 12px', borderRadius: 14, background: i === 2 ? AI.orange : AI.deep, color: i === 2 ? '#2B1A00' : '#FFFFFF', fontSize: 12, fontWeight: 700 }}>{d}</span>,
+            <span key={d} style={{ padding: '6px 12px', borderRadius: 14, background: i === 2 ? AI.orange : AI.deep, color: '#FFFFFF', fontSize: 12, fontWeight: 700 }}>{d}</span>,
             i < DOC_CHAIN.length - 1 ? <span key={d + 'a'} aria-hidden="true" style={{ color: '#A99AD0', fontWeight: 800 }}>→</span> : null,
           ])}
         </div>
@@ -188,7 +188,7 @@ export default function ValueArchitect({ view }) {
         <Lead>Successen blijven vaak in één team hangen. Niemand neemt een getal over: mensen nemen een verhaal over waar een getal in zit. Zes ingrediënten laten een succes reizen.</Lead>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(0, 1fr))', gap: 6 }}>
           {STORY.map(([t, d], i) => (
-            <div key={t} style={{ padding: 10, borderRadius: 10, background: i === 4 ? '#FFF4E0' : '#F4F6FA', display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <div key={t} style={{ padding: 10, borderRadius: 10, background: i === 4 ? '#E9F6F5' : '#F4F6FA', display: 'flex', flexDirection: 'column', gap: 4 }}>
               <span style={{ fontSize: 11, fontWeight: 800, color: AI.purple }}>{i + 1}</span>
               <strong style={{ fontSize: 13, color: AI.ink }}>{t}</strong>
               <span style={{ fontSize: 11, lineHeight: 1.4, color: AI.text }}>{d}</span>
@@ -199,7 +199,7 @@ export default function ValueArchitect({ view }) {
 
       <Section id="bij-edsn" title="Bij EDSN">
         <div style={{ padding: 16, borderRadius: 14, border: `2px dashed ${AI.orange}`, display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <span style={{ fontSize: 13, fontWeight: 700, color: '#7A4A00' }}>Nog in te vullen</span>
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#0B5553' }}>Nog in te vullen</span>
           {AT_EDSN.map((q) => <span key={q} style={{ fontSize: 14, lineHeight: 1.5, color: AI.ink }}>• {q}</span>)}
         </div>
         <span style={{ fontSize: 12, color: '#5A6478' }}>Gebaseerd op de training AI-Native Value Architect van Scaled Agile, in eigen woorden toegepast op EDSN.</span>

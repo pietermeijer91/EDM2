@@ -7,9 +7,9 @@ export default function TactischVierkant({ view }) {
     <>
       {view.page.isT4K ? (
         <>
-          <div style={{ padding: "16px 18px", borderRadius: "14px", border: `2px solid ${view.orange ?? ''}`, background: "#FFF8EC", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
+          <div style={{ padding: "16px 18px", borderRadius: "14px", border: `2px solid ${view.orange ?? ''}`, background: view.ai ? "#EAF6F5" : "#FFF8EC", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
             <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-              <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: "#7A4A00" }}>
+              <span style={{ fontSize: "12px", fontWeight: "800", letterSpacing: "1px", textTransform: "uppercase", color: view.ai ? "#0B5553" : "#7A4A00" }}>
                 Wijzigingsvoorstel WP-001 · In review bij het LACE
               </span>
               {" "}

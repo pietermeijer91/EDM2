@@ -25,7 +25,7 @@ export default function AiEvidence({ view }) {
           <div style={{ position: 'absolute', left: '6%', right: '6%', top: 17, height: 3, background: AI.lilacLine }} />
           {E.story.steps.map(([t, d], i) => (
             <div key={t} style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, textAlign: 'center' }}>
-              <span style={{ width: 36, height: 36, borderRadius: '50%', background: i === 3 ? AI.orange : i === 4 ? '#95C11F' : AI.purple, color: i >= 3 ? '#1F1A00' : '#FFFFFF', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 0 4px #FFFFFF' }}>{i + 1}</span>
+              <span style={{ width: 36, height: 36, borderRadius: '50%', background: i === 3 ? AI.orange : i === 4 ? AI.teal : AI.purple, color: '#FFFFFF', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 0 4px #FFFFFF' }}>{i + 1}</span>
               <strong style={{ fontSize: 14, color: AI.ink }}>{t}</strong>
               <span style={{ fontSize: 12, lineHeight: 1.5, color: AI.text }}>{d}</span>
             </div>
