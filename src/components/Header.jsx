@@ -19,11 +19,11 @@ export default function Header({ view }) {
           <span style={{ fontSize: "17px", fontWeight: "500", color: "#3E4A63" }}>Delivery Model</span>
         </button>
         <nav style={{ display: "flex", alignItems: "center", gap: "4px" }} aria-label="Acties">
-          <button onClick={view.openArtie} style={{ border: "0", cursor: "pointer", fontFamily: "inherit", minHeight: "44px", padding: "0 20px", display: "flex", alignItems: "center", gap: "10px", borderRadius: "22px", background: "#F39200", color: "#2B1A00", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
+          <button onClick={view.openArtie} style={{ border: "0", cursor: "pointer", fontFamily: "inherit", minHeight: "44px", padding: "0 20px", display: "flex", alignItems: "center", gap: "10px", borderRadius: "22px", background: "#6E44B8", color: "#FFFFFF", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 5h16v11H9l-5 4z" fill="none" stroke="#2B1A00" strokeWidth="2" strokeLinejoin="round" />
-              <circle cx="9" cy="10.5" r="1.3" fill="#2B1A00" />
-              <circle cx="15" cy="10.5" r="1.3" fill="#2B1A00" />
+              <path d="M4 5h16v11H9l-5 4z" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinejoin="round" />
+              <circle cx="9" cy="10.5" r="1.3" fill="#FFFFFF" />
+              <circle cx="15" cy="10.5" r="1.3" fill="#FFFFFF" />
             </svg>
             {" "}Vraag het ARTie
           </button>
