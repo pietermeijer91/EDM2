@@ -100,7 +100,7 @@ export default function Article({ view }) {
                     <AiPlatforms view={view} />
                     <Lace view={view} />
                     <RolePage view={view} />
-                    <AiRoleExtra view={view} />
+                    {view.page.aiRole !== 'peopledev' ? <AiRoleExtra view={view} /> : null}
                     <ConceptenWachtwoord view={view} />
                     <Concepten view={view} />
                     <TactischVierkant view={view} />
@@ -187,6 +187,7 @@ export default function Article({ view }) {
                 <BusinessValue view={view} />
                 {/* ===== People Developer: people authority & people debt ===== */}
                 <PeopleDeveloper view={view} />
+                {view.page.aiRole === 'peopledev' ? <div style={{ display: "flex", flexDirection: "column", gap: "30px" }}><AiRoleExtra view={view} /></div> : null}
                 {/* ===== ART Development & Enablement: de people runway ===== */}
                 <ArtDevelopment view={view} />
                 <EngineeringEnablement view={view} />
