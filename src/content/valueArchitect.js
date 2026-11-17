@@ -55,15 +55,6 @@ export const WHEEL = [
   },
 ];
 
-/** De levenscyclus van een AI-initiatief en de documenten die erbij horen. */
-export const LIFECYCLE = [
-  { key: 'sense', title: 'Sense', nl: 'Signalen opvangen', doc: 'Alignment Brief', pipe: ['Discover', 'pipeline'] },
-  { key: 'discover', title: 'Discover', nl: 'Verkennen en startpunt kiezen', doc: 'Alignment Brief', pipe: ['Discover', 'pipeline'] },
-  { key: 'design', title: 'Design', nl: 'Het Value Blueprint', doc: 'Blueprint en besluit', pipe: ['Specify en Embedded Policies', 'aipol'] },
-  { key: 'deliver', title: 'Deliver', nl: 'Leveren en volgen', doc: '90-dagen tracker en verslag', pipe: ['Build, Validate, Release en Insights and Evidence', 'aiev'] },
-];
-export const DOC_CHAIN = ['Alignment Brief', 'Value Blueprint', 'Besluit', '90-dagen tracker', 'Verslag'];
-
 export const LEVELS = [
   ['Organisatie', 'Portfolio, kaders en adoptie op schaal'],
   ['ART', 'Afstemming op de strategie, gerichte training'],
@@ -83,13 +74,6 @@ export const PARTNERS = [
   ['LACE', 'Voor leren en coaching op schaal, en communities van Value Architects.', 'f5'],
 ];
 
-export const TOOLKIT = [
-  ['Alignment Brief', 'Eén pagina: uitkomst, kern-driehoek, grenzen (wel, niet, nog niet besloten), wie aan tafel en het startpunt.'],
-  ['Value Blueprint', 'Eén document met zes onderdelen, van waardevoorstel tot levensvatbaarheid, met een besluit aan het eind.'],
-  ['90-dagen tracker', 'Fasen, meetmomenten, besluitenlog en de vier poorten naar productie.'],
-  ['Value Maximization Worksheet', 'Eén workflow door inventariseren, aanzetten, optimaliseren en centraliseren.'],
-  ['Eigen roadmap', 'Per verantwoordelijkheid één volgende stap, en één eerste stap die deze week in de agenda staat.'],
-];
 export const RISK_COUNCIL = {
   title: 'Voorbeeld van een AI-oplossing: de AI Risk Council',
   text: 'Een multi-agent oplossing: drie kritische agents bekijken hetzelfde voorstel tegelijk vanuit hun eigen invalshoek, en een supervisor brengt hun oordelen samen. Onenigheid is bewust: daar zit de waarde. Een werkende AI is nog geen geslaagde AI.',
@@ -98,4 +82,4 @@ export const RISK_COUNCIL = {
 
 export const STORY = [['Uitdaging', 'Het kapotte ‘ervoor’, in hun woorden'], ['Aanleiding', 'Waarom nu?'], ['Ontdekking', 'Het inzicht dat het plan veranderde'], ['Aanpak', 'Wat we bouwden en bewust weglieten'], ['Bewijs', 'Eén getal, één periode'], ['Vooruitzicht', 'Wat dit mogelijk maakt']];
 
-export const AT_EDSN = ['Wie vult de rol in: vanuit Scrum Masters en Team Coaches, het LACE of het CIO Office?', 'Per ART een Value Architect, of een gedeeld team dat over meerdere ART’s werkt?', 'Waar staan de werkformulieren, en welk initiatief pakken we als eerste op?'];
+export const AT_EDSN = ['Wie vult de rol in: vanuit Scrum Masters en Team Coaches, het LACE of het CIO Office?', 'Per ART een Value Architect, of een gedeeld team dat over meerdere ART’s werkt?', 'Welk initiatief pakken we als eerste op, en waar bewaren we de ingevulde formulieren?'];

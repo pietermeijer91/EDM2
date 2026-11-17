@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { VA_INTRO, BLIND_SPOTS, BLIND_SPOT_NOTE, WHEEL, LIFECYCLE, DOC_CHAIN, LEVELS, TRIAD, PARTNERS, TOOLKIT, RISK_COUNCIL, STORY, AT_EDSN } from '../../content/valueArchitect.js';
+import { VA_INTRO, BLIND_SPOTS, BLIND_SPOT_NOTE, WHEEL, LEVELS, TRIAD, PARTNERS, RISK_COUNCIL, STORY, AT_EDSN } from '../../content/valueArchitect.js';
+import VaLifecycle from './VaLifecycle.jsx';
+import VaForms from './VaForms.jsx';
 import { AI, Section, Lead, HumanAgent } from '../ai/parts.jsx';
 
 const COL = ['#6E44B8', '#1F9E95', '#3A1D6E', '#8C6BD1', '#00807E'];
@@ -44,6 +46,8 @@ function Wheel({ sel, setSel }) {
 /** Rolpagina AI Value Architect (AI-Native EDSN). */
 export default function ValueArchitect({ view }) {
   const [sel, setSel] = useState(0);
+  const [form, setForm] = useState(null);
+  const openForm = (id) => { setForm(id); setTimeout(() => { const el = document.getElementById('formulier-' + id) || document.getElementById('werkformulieren'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); };
   if (!view.page.isVA) return null;
   const w = WHEEL[sel];
   const idx = (k) => WHEEL.findIndex((x) => x.key === k);
@@ -95,33 +99,11 @@ export default function ValueArchitect({ view }) {
         </div>
       </Section>
 
-      <Section id="levenscyclus" title="De levenscyclus van een AI-initiatief">
-        <Lead>De Value Architect begeleidt een initiatief van eerste signaal tot gerealiseerde waarde. Bij elke fase hoort een document dat meegroeit, en elke fase sluit aan op de AI Innovation Pipeline.</Lead>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 6 }}>
-          {LIFECYCLE.map((l, i) => (
-            <div key={l.key} style={{ position: 'relative', padding: '14px 26px 14px 16px', background: ['#5B3F9E', AI.purple, AI.soft, AI.teal][i], color: '#FFFFFF', clipPath: 'polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%' + (i ? ', 16px 50%' : '') + ')', paddingLeft: i ? 26 : 16, display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <strong style={{ fontSize: 17 }}>{l.title}</strong>
-              <span style={{ fontSize: 12, opacity: 0.9 }}>{l.nl}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 6 }}>
-          {LIFECYCLE.map((l) => (
-            <div key={l.key} style={{ padding: 12, borderRadius: 12, background: '#FFFFFF', border: '1.5px solid #E1E6EE', display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: AI.purple }}>DOCUMENT</span>
-              <span style={{ fontSize: 13, fontWeight: 700, color: AI.ink }}>{l.doc}</span>
-              <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: AI.teal, marginTop: 4 }}>IN DE PIPELINE</span>
-              <button onClick={view.open[l.pipe[1]]} style={{ textAlign: 'left', padding: 0, border: 0, background: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 600, color: '#0062A3', textDecoration: 'underline' }}>{l.pipe[0]}</button>
-            </div>
-          ))}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-          {DOC_CHAIN.map((d, i) => [
-            <span key={d} style={{ padding: '6px 12px', borderRadius: 14, background: i === 2 ? AI.orange : AI.deep, color: '#FFFFFF', fontSize: 12, fontWeight: 700 }}>{d}</span>,
-            i < DOC_CHAIN.length - 1 ? <span key={d + 'a'} aria-hidden="true" style={{ color: '#A99AD0', fontWeight: 800 }}>→</span> : null,
-          ])}
-        </div>
-        <span style={{ fontSize: 13, color: AI.text }}>Het besluit heeft vijf uitkomsten: <strong>doorgaan · doorgaan met voorwaarden · bijsturen · pauzeren · stoppen</strong>. Stoppen is een respectabel besluit; het goed onderbouwen is het vak.</span>
+      <VaLifecycle view={view} openForm={openForm} />
+
+      <Section id="werkformulieren" title="Werkformulieren">
+        <Lead>Vier levende documenten voor de hele cyclus. Je antwoorden worden automatisch bewaard in je browser; download een kopie om te bewaren of te delen, of print hem als PDF.</Lead>
+        <VaForms open={form} setOpen={setForm} />
       </Section>
 
       <Section id="niveaus" title="Op elk niveau">
@@ -158,18 +140,10 @@ export default function ValueArchitect({ view }) {
         <Lead>De rol kan bij één team zitten, bij een groep teams of de hele ART. Eén persoon kan hem invullen, of een team van Value Architects deelt hem over alle initiatieven, zoals bij SPC’s en RTE’s.</Lead>
       </Section>
 
-      <Section id="gereedschap" title="De gereedschapskist">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 8 }}>
-          {TOOLKIT.map(([t, d], i) => (
-            <div key={t} style={{ padding: 12, borderRadius: 12, background: '#FFFFFF', border: '1.5px solid #E1E6EE', borderTop: `4px solid ${COL[i]}`, display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <strong style={{ fontSize: 13, color: AI.ink }}>{t}</strong>
-              <span style={{ fontSize: 12, lineHeight: 1.45, color: AI.text }}>{d}</span>
-            </div>
-          ))}
-        </div>
+      <Section id="gereedschap" title="Voorbeeld van een AI-oplossing">
         <div style={{ padding: 18, borderRadius: 16, background: AI.lilac, display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 300px', gap: 18, alignItems: 'center' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <strong style={{ fontSize: 16, color: AI.ink }}>{RISK_COUNCIL.title}</strong>
+            <strong style={{ fontSize: 16, color: AI.ink }}>De AI Risk Council</strong>
             <span style={{ fontSize: 14, lineHeight: 1.6, color: AI.text }}>{RISK_COUNCIL.text}</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
