@@ -4,29 +4,33 @@ import { AI, Section, Lead, HumanAgent } from '../ai/parts.jsx';
 
 const COL = ['#6E44B8', '#1F9E95', '#0072BC', '#8C6BD1', '#F39200'];
 
-/** Donut-segment als SVG-pad. */
-function arc(cx, cy, r1, r2, a0, a1) {
+/** Donut-segment als SVG-pad, met een even brede opening (gap, in px) aan binnen- en buitenkant. */
+function arc(cx, cy, r1, r2, a0, a1, gap = 0) {
   const p = (r, a) => [cx + r * Math.cos(a), cy + r * Math.sin(a)];
-  const [x0, y0] = p(r2, a0), [x1, y1] = p(r2, a1), [x2, y2] = p(r1, a1), [x3, y3] = p(r1, a0);
+  const d2 = gap / 2 / r2, d1 = gap / 2 / r1;
+  const [x0, y0] = p(r2, a0 + d2), [x1, y1] = p(r2, a1 - d2), [x2, y2] = p(r1, a1 - d1), [x3, y3] = p(r1, a0 + d1);
   const large = a1 - a0 > Math.PI ? 1 : 0;
   return `M${x0} ${y0} A${r2} ${r2} 0 ${large} 1 ${x1} ${y1} L${x2} ${y2} A${r1} ${r1} 0 ${large} 0 ${x3} ${y3} Z`;
 }
 
 function Wheel({ sel, setSel }) {
-  const n = WHEEL.length, gap = 0.035, cx = 200, cy = 200;
+  const n = WHEEL.length, cx = 200, cy = 200, seg = (2 * Math.PI) / n;
   return (
     <svg width="400" height="400" viewBox="0 0 400 400" role="group" aria-label="Verantwoordelijkhedenwiel" style={{ flexShrink: 0, maxWidth: '100%', height: 'auto' }}>
       {WHEEL.map((w, i) => {
-        const a0 = -Math.PI / 2 - Math.PI / n + (i * 2 * Math.PI) / n + gap, a1 = a0 + (2 * Math.PI) / n - 2 * gap;
-        const am = (a0 + a1) / 2, on = sel === i;
-        const lx = cx + 132 * Math.cos(am), ly = cy + 132 * Math.sin(am);
+        // Vaste hoeken per segment; de opening tussen segmenten volgt uit de lijndikte, zodat alles even breed blijft.
+        const am = -Math.PI / 2 + i * seg, a0 = am - seg / 2, a1 = am + seg / 2, on = sel === i;
+        const lx = cx + 131 * Math.cos(am), ly = cy + 131 * Math.sin(am);
+        const words = w.short.split(' '), lines = w.short.length > 12 && words.length > 1 ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [w.short];
         return (
           <g key={w.key} onClick={() => setSel(i)} className="va-seg" style={{ cursor: 'pointer' }} role="button" aria-pressed={on} aria-label={w.title} tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSel(i); }}>
-            <path d={arc(cx, cy, 78, on ? 192 : 184, a0, a1)} fill={on ? COL[i] : '#FFFFFF'} stroke={COL[i]} strokeWidth="3" />
-            <g transform={`translate(${lx - 13} ${ly - 30})`}>
+            <path d={arc(cx, cy, 80, 186, a0, a1, 9)} fill={on ? COL[i] : '#FFFFFF'} stroke={COL[i]} strokeWidth="3" strokeLinejoin="round" />
+            <g transform={`translate(${lx - 13} ${ly - (lines.length > 1 ? 36 : 30)})`}>
               <svg width="26" height="26" viewBox="0 0 24 24"><path d={w.icon} fill="none" stroke={on ? '#FFFFFF' : COL[i]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </g>
-            <text x={lx} y={ly + 14} textAnchor="middle" fontSize="13" fontWeight="700" fill={on ? '#FFFFFF' : AI.ink} fontFamily="Poppins, 'Segoe UI', sans-serif">{w.short}</text>
+            <text x={lx} y={ly + (lines.length > 1 ? 8 : 14)} textAnchor="middle" fontSize="13" fontWeight="700" fill={on ? '#FFFFFF' : AI.ink} fontFamily="Poppins, 'Segoe UI', sans-serif">
+              {lines.map((l, k) => <tspan key={l} x={lx} dy={k ? 16 : 0}>{l}</tspan>)}
+            </text>
           </g>
         );
       })}
@@ -78,9 +82,9 @@ export default function ValueArchitect({ view }) {
 
       <Section id="wiel" title="Het verantwoordelijkhedenwiel">
         <Lead>Vijf verantwoordelijkheden die samen de rol vormen. Klik op een deel van het wiel.</Lead>
-        <div style={{ padding: 20, borderRadius: 18, background: AI.lilac, display: 'flex', flexWrap: 'wrap', gap: 24, alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ padding: 20, borderRadius: 18, background: AI.lilac, display: 'flex', flexWrap: 'wrap', gap: 24, alignItems: 'flex-start', justifyContent: 'center' }}>
           <Wheel sel={sel} setSel={setSel} />
-          <div style={{ flex: '1 1 320px', maxWidth: 520, padding: 20, borderRadius: 16, background: '#FFFFFF', border: `2px solid ${COL[sel]}`, display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div aria-live="polite" style={{ flex: '1 1 320px', maxWidth: 520, minHeight: 380, padding: 20, borderRadius: 16, background: '#FFFFFF', border: `2px solid ${COL[sel]}`, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.5, textTransform: 'uppercase', color: COL[sel] }}>Verantwoordelijkheid {sel + 1} van 5</span>
             <span style={{ fontSize: 22, fontWeight: 700, color: AI.ink }}>{w.title}</span>
             <span style={{ fontSize: 14, lineHeight: 1.6, color: '#2E3A55' }}>{w.what}</span>
