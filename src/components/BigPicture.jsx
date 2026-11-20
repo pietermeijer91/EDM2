@@ -706,6 +706,19 @@ export default function BigPicture({ view }) {
                         </button>
                       </Fragment>
                     ))}
+                    {/* AI Governance en Ethiek als knop onderin */}
+                    <button className="hit low" onClick={view.open.governance} style={{ left: "60px", top: "918px", width: "222px", height: "104px", padding: "12px 14px", boxSizing: "border-box", flexDirection: "row", alignItems: "center", justifyContent: "flex-start", gap: "12px", textAlign: "left", background: "#FFFFFF", border: "2px solid #00807E", borderRadius: "14px" }}>
+                      <span style={{ flexShrink: "0", display: "flex", alignItems: "center", justifyContent: "center", width: "52px", height: "52px", borderRadius: "14px", background: "#00807E" }}>
+                        <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinejoin="round" />
+                          <path d="M8 11h8M12 8v8M9.5 14.5l-1.5 2M14.5 14.5l1.5 2" fill="none" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" />
+                        </svg>
+                      </span>
+                      <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                        <span style={{ fontSize: "15px", fontWeight: "700", lineHeight: "1.2" }}>AI Governance en Ethiek</span>
+                        <span style={{ fontSize: "11px", fontWeight: "500", color: "#5A6478", lineHeight: "1.3" }}>kosten · verantwoord · agents · risico</span>
+                      </span>
+                    </button>
                     {/* Engineering Enablement als knop onderin */}
                     <button className="hit low" onClick={view.open.ee} style={{ left: "60px", top: "1036px", width: "222px", height: "104px", padding: "12px 14px", boxSizing: "border-box", flexDirection: "row", alignItems: "center", justifyContent: "flex-start", gap: "12px", textAlign: "left", background: "#FFFFFF", border: `2px solid ${view.blue ?? ''}`, borderRadius: "14px" }}>
                       <span style={{ flexShrink: "0", display: "flex", alignItems: "center", justifyContent: "center", width: "52px", height: "52px", borderRadius: "14px", background: view.blue }}>
