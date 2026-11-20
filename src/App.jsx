@@ -78,7 +78,16 @@ export default class App extends Component {
     this._startTour = () => { this.setState({ sel: null, tour: 0, tourPrev: 0, roleView: false, pfOpen: true, bpStopped: false }); this._bpStart(); };
     this._startRoles = () => { this.setState({ sel: null, roleView: true, tour: null, pfOpen: true }); };
     // Deeplinks: #rte, #t4k ... en terug-knop van de browser
-    this._fromHash = () => { let h = ''; try { h = decodeURIComponent((window.location.hash || '').slice(1)); } catch (e) {} const k = h && h !== 'start' ? h : null; if (k && this._keys && !this._keys.includes(k)) return; if (k !== this.state.sel) this.setState({ sel: k }); };
+    // Deeplinks: #rte (Basis EDSN), #ai/architects (AI-Native EDSN), #ai (Big Picture in AI-Native) en de terug-knop van de browser
+    this._hashFor = (st) => { const ai = (st.mode || this.props.startMode || 'core') === 'ai' && !!this.props.aiOpen; return ai ? '#ai' + (st.sel ? '/' + st.sel : '') : (st.sel ? '#' + st.sel : ''); };
+    this._fromHash = () => {
+      let h = ''; try { h = decodeURIComponent((window.location.hash || '').slice(1)); } catch (e) {}
+      let mode = 'core';
+      if (h === 'ai' || h.indexOf('ai/') === 0) { mode = 'ai'; h = h.slice(3); }
+      const k = h && h !== 'start' ? h : null;
+      if (k && this._keys && !this._keys.includes(k)) return;
+      if (k !== this.state.sel || mode !== (this.state.mode || this.props.startMode || 'core')) this.setState({ sel: k, mode });
+    };
     try { this._fromHash(); window.addEventListener('popstate', this._fromHash); } catch (e) {}
     this._docClick = (e) => { try { const r = document.getElementById('edm-ask-res'); const inp = document.getElementById('edm-ask'); if (r && !r.contains(e.target) && e.target !== inp) r.style.display = 'none'; } catch (er) {} };
     try { document.addEventListener('click', this._docClick); } catch (e) {}
@@ -107,7 +116,9 @@ export default class App extends Component {
       try { window.scrollTo(0, 0); } catch (e) {}
       if (prevState.cview === this.state.cview && this.state.cview !== 'current') this.setState({ cview: 'current' });
       if (!this.state.sel) { this.setState({ bpStopped: false }); this._bpStart(); }
-      try { const want = this.state.sel ? '#' + this.state.sel : ''; if ((window.location.hash || '') !== want) window.history.pushState(null, '', want || (window.location.pathname + window.location.search)); } catch (e) {}
+    }
+    if (prevState && (prevState.sel !== this.state.sel || prevState.mode !== this.state.mode)) {
+      try { const want = this._hashFor(this.state); if ((window.location.hash || '') !== want) window.history.pushState(null, '', want || (window.location.pathname + window.location.search)); } catch (e) {}
     }
     this._theme();
   }

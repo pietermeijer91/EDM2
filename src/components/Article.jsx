@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import AiPipelineTop from './pages/AiPipelineTop.jsx';
 import AiPipeline from './pages/AiPipeline.jsx';
 import ValueArchitect from './pages/ValueArchitect.jsx';
@@ -21,6 +21,25 @@ import BusinessValue from './pages/BusinessValue.jsx';
 import PeopleDeveloper from './pages/PeopleDeveloper.jsx';
 import ArtDevelopment from './pages/ArtDevelopment.jsx';
 import EngineeringEnablement from './pages/EngineeringEnablement.jsx';
+
+/** Kopieert de link naar deze pagina (inclusief Basis of AI-Native EDSN). */
+function ShareLink() {
+  const [done, setDone] = useState(false);
+  const copy = () => {
+    const url = window.location.href;
+    const ok = () => { setDone(true); setTimeout(() => setDone(false), 2000); };
+    try {
+      if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(url).then(ok, () => window.prompt('Kopieer de link:', url)); return; }
+    } catch (e) {}
+    window.prompt('Kopieer de link:', url);
+  };
+  return (
+    <button onClick={copy} aria-live="polite" style={{ marginLeft: "auto", minHeight: "36px", padding: "0 14px", display: "inline-flex", alignItems: "center", gap: "8px", border: "1.5px solid #D5DBE5", borderRadius: "18px", background: "#FFFFFF", cursor: "pointer", fontFamily: "inherit", fontSize: "13px", fontWeight: "700", color: "#1B2A5C" }}>
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" fill="none" stroke="#1B2A5C" strokeWidth="2" strokeLinecap="round" /></svg>
+      {done ? "Link gekopieerd ✓" : "Kopieer link"}
+    </button>
+  );
+}
 
 /** Artikelpagina achter elk icoon: kop, samenvatting, secties, zijbalk en vorige/volgende. */
 export default function Article({ view }) {
@@ -65,6 +84,7 @@ export default function Article({ view }) {
                     <span style={{ fontSize: "13px", color: "#5A6478" }}>
                       {"Leestijd ± "}{view.page.minutes}{" min"}
                     </span>
+                    <ShareLink />
                   </div>
                   <h1 style={{ margin: "0", fontSize: "52px", lineHeight: "1.1", fontWeight: "700", letterSpacing: "-1px", color: "#1B2A5C" }}>
                     {view.page.title}
